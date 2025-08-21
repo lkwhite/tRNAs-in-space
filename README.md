@@ -87,13 +87,15 @@ rnacentral/r2dt \
 r2dt.py gtrnadb draw /data/yourtRNAreference.fa /data/output
 ```
 
-This runs R2DT in `gtrnadb draw` mode, using covariance models and tRNAscan-SE outputs to annotate tRNAs with structural information, generating `.json` files and secondary structure images for each tRNA in the reference.
+This runs R2DT in `gtrnadb draw` mode, using covariance models and tRNAscan-SE outputs to annotate tRNAs with structural information, generating `.json` files and secondary structure images for each tRNA in the reference. Particularly useful to us are these fields in the `*.enriched.json` files:
+
+-   `templateResidueIndex` = plain numeric Sprinzl positions
+
+-   `templateNumberingLabel` = full Sprinzl label as a string (numbers + any special suffixes)
 
 ### Step 2: Build global coordinates
 
-We then extract information from all `*.enriched.json` files in `/output` using the script below and write them to a shared `tsv` for coordinate generation.
-
-Run the single script on your R2DT output directory:
+You can then extract information from the above by running the following script on your R2DT output directory:
 
 ```         
 python trnas_in_space.py ./output ecoliK12_global_coords.tsv
