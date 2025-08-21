@@ -50,7 +50,7 @@ Files from this repository:
 ### Step 2: Extract per-base indices from R2DT JSON → combined TSV
 ### Step 3: Build shared coordinates and equal-spaced global index
 
-Example usage:
+Example workflow:
 ```
 # 1) Run R2DT on adapter‑trimmed tRNAs
 mkdir -p output
