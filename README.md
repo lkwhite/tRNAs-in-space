@@ -48,11 +48,11 @@ By introducing a global index, we eliminate spacing irregularities and enable cr
 
 **Outputs**:
 
-Per‑tRNA JSON drawings from R2DT (e.g., *.enriched.json).*
+-   Per‑tRNA JSON drawings from R2DT (e.g., `.enriched.json`).
 
-*A combined TSV with per‑base fields: `trna_id`, `seq_index`, `sprinzl_index`, `sprinzl_label`, `residue`.*
+-   A combined TSV with per‑base fields: `trna_id`, `seq_index`, `sprinzl_index`, `sprinzl_label`, `residue`.
 
-*A second TSV that adds: `sprinzl_ordinal`, `sprinzl_continuous`, `global_index`.*
+-   A second TSV that adds: `sprinzl_ordinal`, `sprinzl_continuous`, `global_index`.
 
 ## Prerequisites
 
