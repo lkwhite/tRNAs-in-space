@@ -116,9 +116,6 @@ python r2dt_collect_sprinzl.py ./output ecoli_tRNAs_sprinzl.tsv
 
 # 3) Build continuous positions and shared global index
 python make_sprinzl_continuous.py ecoli_tRNAs_sprinzl.tsv ecoli_tRNAs_continuous.tsv
-
-# 4) Inspect unresolved indices (-1)
-awk -F'\t' 'NR==1 || $4==-1' ecoli_tRNAs_sprinzl.tsv | column -t | head
 ```
 
 ## Footnotes
