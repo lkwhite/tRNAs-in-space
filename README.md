@@ -42,7 +42,9 @@ Per‑tRNA JSON drawings from R2DT (e.g., *.enriched.json).*
 
 -   Docker (For R2DT)
 
--   Python 3.9+ with pandas.
+-   Python 3.9+ with `pandas`.
+
+-   Your tRNA reference fasta
 
 -   Files from this repository:
 
@@ -65,7 +67,7 @@ This runs R2DT in `gtrnadb draw` mode, using covariance models and tRNAscan-SE o
 
 ### Step 2: Extract per-base indices from R2DT JSON → combined TSV
 
-We pull information from this `.json` file in order to generate cross-isodecoder coordinates.
+We pull information from all `*.enriched.json` files in `/output` using the script below and writes them to a shared `tsv` file. Example:
 
 `python r2dt_collect_sprinzl.py ./output ecoli_tRNAs_sprinzl.tsv`
 
