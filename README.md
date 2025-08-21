@@ -4,7 +4,9 @@
 
 This README documents how to go from tRNA reference sequences → a single shared, equal‑spaced coordinate axis for plotting and cross‑isodecoder comparisons.
 
-In this repository, you can also find pre-computed tables containing these indexed coordinates (`outputs/$SPECIES_global_coords.tsv`) for tRNAs from common model organisms as we build them. The documentation and code in this repository can be further used to build such tables from scratch.
+In this repository, you can also find pre-computed tables containing these indexed coordinates (`outputs/$SPECIES_global_coords.tsv`) for tRNAs from common model organisms as we build them. Currently you can find *E. coli*, *S. cerevisiae*, and *H. sapiens* tRNAs here; however, *S. cerevisiae* mitochondrial tRNAs may need to be additionally hand-curated for accurate alignment due to [the unavailability of models specific to fungal mitochondria](https://github.com/r2dt-bio/R2DT/issues/197#issuecomment-3201887161). If this is relevant to your work we recommend the alignments in Reinsch and Garcia 2025 (see References).
+
+The documentation and code in this repository can be further used to build such tables from scratch.
 
 ## The Problem
 
@@ -78,16 +80,18 @@ By introducing a global index, we eliminate spacing irregularities and enable cr
 
 ### Step 1: Run R2DT
 
-From the directory containing your FASTA reference:
+> *Note:* Make sure Docker Desktop (or another Docker engine) is running before you start. On Mac/Windows you should see the 🐳 whale icon in your menu bar/system tray. You can test with `docker ps` — if it prints a table (even empty), you’re good.
+
+From the project root (with your FASTA files in fastas/), run:
 
 ```         
 docker run --rm \
--v "$(pwd):/data" \
-rnacentral/r2dt \
-r2dt.py gtrnadb draw /data/yourtRNAreference.fa /data/output
+  -v "$(pwd):/data" \
+  rnacentral/r2dt \
+  r2dt.py gtrnadb draw /data/fastas/yourtRNAreference.fa /data/outputs/yourprefix_jsons
 ```
 
-This runs R2DT in `gtrnadb draw` mode, using covariance models and tRNAscan-SE outputs to annotate tRNAs with structural information, generating `.json` files and secondary structure images for each tRNA in the reference. Particularly useful to us are these fields in the `*.enriched.json` files:
+This runs R2DT in `gtrnadb draw` mode, using covariance models and tRNAscan-SE outputs to annotate tRNAs with structural information. It creates a folder like `outputs/yourprefix_jsons/` containing R2DT `.enriched.json` files that include these fields:
 
 -   `templateResidueIndex` = plain numeric Sprinzl positions
 
@@ -118,6 +122,8 @@ Chan P.P., Lowe T.M. (2016). GtRNAdb 2.0: an expanded database of transfer RNA g
 Chan P.P., Lin B.Y., Mak A.J., Lowe T.M. (2021). tRNAscan-SE 2.0: improved detection and functional classification of transfer RNA genes. Nucleic Acids Research 49(16):9077–9096. <https://doi.org/10.1093/nar/gkab688>
 
 McCann H., Meade C.D., Williams L.D., Petrov A.S., Johnson P.Z., Simon A.E., Hoksza D., Nawrocki E.P., Chan P.P., Lowe T.M., Ribas C.E., Sweeney B.A., Madeira F., Anyango S., Appasamy S.D., Deshpande M., Varadi M., Velankar S., Zirbel C.L., Naiden A., Jossinet F., Petrov A.I. (2025). R2DT: a comprehensive platform for visualizing RNA secondary structure. Nucleic Acids Research 53(4):gkaf032. <https://doi.org/10.1093/nar/gkaf032> **Resource**: <https://r2dt.bio>
+
+Reinsch J.L., Garcia D.M. (2025). Concurrent detection of chemically modified bases in yeast mitochondrial tRNAs by nanopore direct RNA sequencing. bioRxiv \[Preprint\]. 2025 May 9:2025.05.09.653160. <https://doi.org/10.1101/2025.05.09.653160>
 
 Sprinzl M., Horn C., Brown M., Ioudovitch A., Steinberg S. (1998). Compilation of tRNA sequences and sequences of tRNA genes. Nucleic Acids Research 26(1):148–153. [https://doi.org/10.1093/nar/26.1.148](url)
 

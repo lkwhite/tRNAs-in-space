@@ -1,0 +1,10 @@
+# Ignore raw R2DT outputs
+outputs/*_jsons/
+
+# Ignore any other scratch/work dirs
+work/
+
+# Ignore editor/OS cruft
+.DS_Store
+*.swp
+
