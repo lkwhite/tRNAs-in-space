@@ -8,9 +8,13 @@ This README documents how to go from adapter‑trimmed tRNA reference sequences 
 
 tRNA biologists have classically used **Sprinzl positions** (named after M. Sprinzl, see *References*) instead of consecutive numbering within each isodecoder\[1\]. This system ensures that homologous structural features line up across different tRNA, for instance, always assigning the anticodon to positions 34-36 regardless of whether a particular tRNA sequence is longer or shorter.
 
-This convention is biologically meaningful, but introduces problems for data integration: \* **Non-contiguous across isodecoders:** not every tRNA contains every Sprinzl position, so some positions are absent depending on sequence length or loop structure \* **Unequal spacing:** gaps in Sprinzl numbering create irregular axes, making it difficult to generate heatmaps or plots that assume equally spaced positions
+This convention is biologically meaningful, but introduces problems for data integration:
 
-R2DT 2.0 partly addresses this by embedding Sprinzl numbering in its structural templates, allowing researchers to annotate secondary structure images using positional annotations relavant to tRNA biology. But for downstream analysis, a more unified coordinate system is needed.
+1.  **Non-contiguous across isodecoders:** not every tRNA contains every Sprinzl position, so some positions are absent depending on sequence length or loop structure
+
+2.  **Unequal spacing:** gaps in Sprinzl numbering create irregular axes, making it difficult to generate heatmaps or plots that assume equally spaced positions
+
+[R2DT 2.0](https://github.com/r2dt-bio/r2dt) partly addresses this by embedding Sprinzl numbering in its structural templates, allowing researchers to annotate secondary structure images using positional annotations relavant to tRNA biology. But for downstream analysis, a more unified coordinate system is needed.
 
 ## A Global Index
 
@@ -46,7 +50,7 @@ Per‑tRNA JSON drawings from R2DT (e.g., *.enriched.json).*
 
 ## Prerequisites
 
--   Docker (For R2DT)
+-   [Docker](https://www.docker.com) (For [R2DT](https://github.com/r2dt-bio/r2dt))
 
 -   Python 3.9+ with `pandas`.
 
