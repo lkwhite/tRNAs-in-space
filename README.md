@@ -18,7 +18,13 @@ This convention is biologically meaningful, but introduces problems for data int
 
 ## A Global Index
 
-For tRNA sequencing (or other positionally anchored assays), it is often more useful to work in a **global coordinate system**: \* Each nucleotide position is assigned a consecutive integer index (1,2,3...). \* The index is consistent across all tRNAs, ensuring every position in a heatmap corresponds to an equal-spaced axis. \* Missing Sprinzl positions can be interpolated or left blank without breaking the regular grid.
+For tRNA sequencing (or other positionally anchored assays), it is often more useful to work in a **global coordinate system**:
+
+-   Each nucleotide position is assigned a consecutive integer index (1,2,3...).
+
+-   The index is consistent across all tRNAs, ensuring every position in a heatmap corresponds to an equal-spaced axis.
+
+-   Missing Sprinzl positions can be interpolated or left blank without breaking the regular grid.
 
 Here's an example from [our own work](https://pubmed.ncbi.nlm.nih.gov/39091754/) where we attempted to align nuclear and mitochondrial tRNAs from budding yeast using Sprinzl coordinates. You'll note some positions appear as "missing" (gray), with the large grey box between Sprinzl positions 48 and 49 reflecting variable loop length, where none of the tRNAs displayed contains sequence covering the full set of variable loop positions. <img src="https://github.com/user-attachments/assets/ed9f8001-b2d8-44e2-a044-9c8017b0a89f" alt="Screenshot 2025-08-20 at 5 13 38 PM" width="585" height="220"/>
 
