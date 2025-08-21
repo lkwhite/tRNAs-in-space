@@ -10,7 +10,7 @@ In this repository, you can also find pre-computed tables containing these index
 
 <img width="443" height="375" alt="image" src="https://github.com/user-attachments/assets/f62efd38-594d-437f-9dac-2ef8c92167e1" />
 
-tRNA biologists have classically used **Sprinzl positions** (named after M. Sprinzl, see *References*) instead of consecutive numbering within each isodecoder\[1\]. This system ensures that homologous structural features line up across different tRNAs. For instance, the anticodon is always assigned to positions 34-36 regardless of whether a particular tRNA sequence is longer or shorter.
+tRNA biologists have classically used the **Sprinzl positions** pictured above (named after M. Sprinzl, see *References*) instead of consecutive numbering within each isodecoder\[1\]. This system ensures that homologous structural features line up across different tRNAs. For instance, the anticodon is always assigned to positions 34-36 regardless of whether a particular tRNA sequence is longer or shorter.
 
 This convention is biologically meaningful, but introduces problems for data integration:
 
