@@ -26,7 +26,33 @@ By introducing a global index, we eliminate spacing irregularities and enable cr
 
 ### Overview
 
-**Goal:** To convert heterogeneous Sprinzl-style labels from [R2DT](https://docs.r2dt.bio/en/latest/index.html) output into a unified coordinate system we need to: - Keep per‑nucleotide sequence order (5′→3′). - Preserve canonical Sprinzl labels (e.g., 20, 20A). - Fill unlabeled residues deterministically with fractional positions. - Generate a **global_index** (1..K) so all tRNAs plot on the same x‑axis; missing positions show as NA. **Inputs** A FASTA file of mature tRNA sequences used for alignment/reference. For consistency, trim adapters out of these sequences if present. **Outputs**: - Per‑tRNA JSON drawings from R2DT (e.g., *.enriched.json). - A combined TSV with per‑base fields: `trna_id`, `seq_index`, `sprinzl_index`, `sprinzl_label`, `residue`. - A second TSV that adds: `sprinzl_ordinal`, `sprinzl_continuous`, `global_index`. \### Prerequisites* Docker (For R2DT) \* Python 3.9+ with `pandas`. Files from this repository: \* `r2dt_collect_sprinzl.py` – collects per‑nucleotide indices/labels from R2DT-produced *.enriched.json files into one TSV.* `make_sprinzl_continuous.py` – builds global label order for tRNAs in the tRNA input, fills fractional positions, and emits global_index. \### Step 1: Run R2DT to generate drawings From the directory containing your FASTA reference, run:
+**Goal:** To convert heterogeneous Sprinzl-style labels from [R2DT](https://docs.r2dt.bio/en/latest/index.html) output into a unified coordinate system we need to: - Keep per‑nucleotide sequence order (5′→3′). - Preserve canonical Sprinzl labels (e.g., 20, 20A). - Fill unlabeled residues deterministically with fractional positions. - Generate a **global_index** (1..K) so all tRNAs plot on the same x‑axis; missing positions show as NA.
+
+**Inputs** A FASTA file of mature tRNA sequences used for alignment/reference. For consistency, trim adapters out of these sequences if present.
+
+**Outputs**:
+
+Per‑tRNA JSON drawings from R2DT (e.g., *.enriched.json).*
+
+*A combined TSV with per‑base fields: `trna_id`, `seq_index`, `sprinzl_index`, `sprinzl_label`, `residue`.*
+
+*A second TSV that adds: `sprinzl_ordinal`, `sprinzl_continuous`, `global_index`.*
+
+## Prerequisites
+
+-   Docker (For R2DT)
+
+-   Python 3.9+ with pandas.
+
+-   Files from this repository:
+
+    -    `r2dt_collect_sprinzl.py` – collects per‑nucleotide indices/labels from R2DT-produced `.enriched.json` files into one TSV.
+
+    -   `make_sprinzl_continuous.py` – builds global label order for tRNAs in the tRNA input, fills fractional positions, and emits global_index.
+
+### Step 1: Run R2DT to generate drawings
+
+From the directory containing your FASTA reference, run:
 
 ```         
 docker run --rm \
@@ -83,11 +109,11 @@ awk -F'\t' 'NR==1 || $4==-1' ecoli_tRNAs_sprinzl.tsv | column -t | head
 
 ## References
 
-Chan P.P., Lowe T.M. (2016). GtRNAdb 2.0: an expanded database of transfer RNA genes identified in complete and draft genomes. Nucleic Acids Research 44(Database issue):D184–D189. <https://doi.org/10.1093/nar/gkv1309>
+Chan P.P., Lowe T.M. (2016). GtRNAdb 2.0: an expanded database of transfer RNA genes identified in complete and draft genomes. Nucleic Acids Research 44(Database issue):D184–D189. <https://doi.org/10.1093/nar/gkv1309> <https://gtrnadb.org>
 
 Chan P.P., Lin B.Y., Mak A.J., Lowe T.M. (2021). tRNAscan-SE 2.0: improved detection and functional classification of transfer RNA genes. Nucleic Acids Research 49(16):9077–9096. <https://doi.org/10.1093/nar/gkab688>
 
-McCann H., Meade C.D., Williams L.D., Petrov A.S., Johnson P.Z., Simon A.E., Hoksza D., Nawrocki E.P., Chan P.P., Lowe T.M., Ribas C.E., Sweeney B.A., Madeira F., Anyango S., Appasamy S.D., Deshpande M., Varadi M., Velankar S., Zirbel C.L., Naiden A., Jossinet F., Petrov A.I. (2025). R2DT: a comprehensive platform for visualizing RNA secondary structure. Nucleic Acids Research 53(4):gkaf032. <https://doi.org/10.1093/nar/gkaf032>
+McCann H., Meade C.D., Williams L.D., Petrov A.S., Johnson P.Z., Simon A.E., Hoksza D., Nawrocki E.P., Chan P.P., Lowe T.M., Ribas C.E., Sweeney B.A., Madeira F., Anyango S., Appasamy S.D., Deshpande M., Varadi M., Velankar S., Zirbel C.L., Naiden A., Jossinet F., Petrov A.I. (2025). R2DT: a comprehensive platform for visualizing RNA secondary structure. Nucleic Acids Research 53(4):gkaf032. <https://doi.org/10.1093/nar/gkaf032> <https://r2dt.bio>
 
 Sprinzl M., Horn C., Brown M., Ioudovitch A., Steinberg S. (1998). Compilation of tRNA sequences and sequences of tRNA genes. Nucleic Acids Research 26(1):148–153. [https://doi.org/10.1093/nar/26.1.148](url)
 
