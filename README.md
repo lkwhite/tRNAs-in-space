@@ -28,7 +28,44 @@ However, there are still a few issues with the heatmap above.
 
 By introducing a global index, we eliminate spacing irregularities and enable cross-isodecoder comparison in a clean, standardized coordinate space.
 
+## Implementation
+### Overview
+**Goal:** To convert heterogeneous Sprinzl-style labels from R2DT output into a unified coordinate system we need to:
+- Keep per‑nucleotide sequence order (5′→3′).
+- Preserve canonical Sprinzl labels (e.g., 20, 20A).
+- Fill unlabeled residues deterministically with fractional positions.
+- Generate a **global_index** (1..K) so all tRNAs plot on the same x‑axis; missing positions show as NA.
+**Inputs** A FASTA file of mature tRNA sequences used for alignment/reference. For consistency, trim adapters out of these sequences if present.
+**Outputs**:
+- Per‑tRNA JSON drawings from R2DT (e.g., *.enriched.json).
+- A combined TSV with per‑base fields: trna_id, seq_index, sprinzl_index, sprinzl_label, residue.
+- A second TSV that adds: sprinzl_ordinal, sprinzl_continuous, global_index.
+### Prerequisites
+* Docker (For R2DT)
+* Python 3.9+ with `pandas`.
+Files from this repository:
+* `r2dt_collect_sprinzl.py` – collects per‑nucleotide indices/labels from R2DT-produced *.enriched.json files into one TSV.
+* `make_sprinzl_continuous.py` – builds global label order for tRNAs in the tRNA input, fills fractional positions, and emits global_index.
+### Step 1: Run R2DT to generate drawings
+### Step 2: Extract per-base indices from R2DT JSON → combined TSV
+### Step 3: Build shared coordinates and equal-spaced global index
 
+Example usage:
+```
+# 1) Run R2DT on adapter‑trimmed tRNAs
+mkdir -p output
+docker run --rm -v "$(pwd):/data" rnacentral/r2dt \
+r2dt.py gtrnadb draw /data/ecoliK12MG1655-mature-tRNAs.fa /data/output
+
+# 2) Extract per‑base labels into one TSV
+python r2dt_collect_sprinzl.py ./output ecoli_tRNAs_sprinzl.tsv
+
+# 3) Build continuous positions and shared global index
+python make_sprinzl_continuous.py ecoli_tRNAs_sprinzl.tsv ecoli_tRNAs_continuous.tsv
+
+# 4) Inspect unresolved indices (-1)
+awk -F'\t' 'NR==1 || $4==-1' ecoli_tRNAs_sprinzl.tsv | column -t | head
+```
 
 ## Footnotes
 [1] Isodecoders: tRNAs that share the same anticodon; isoacceptors: tRNAs charged by the same amino acid.
