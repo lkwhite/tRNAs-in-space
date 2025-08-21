@@ -42,7 +42,15 @@ By introducing a global index, we eliminate spacing irregularities and enable cr
 
 ## Implementation
 
-**Goal:** To convert heterogeneous Sprinzl-style labels from [R2DT](https://docs.r2dt.bio/en/latest/index.html) output into a unified coordinate system we need to: - Keep per‑nucleotide sequence order (5′→3′). - Preserve canonical Sprinzl labels (e.g., 20, 20A). - Fill unlabeled residues deterministically with fractional positions. - Generate a **global_index** (1..K) so all tRNAs plot on the same x‑axis; missing positions show as NA.
+**Goal:** To convert heterogeneous Sprinzl-style labels from [R2DT](https://docs.r2dt.bio/en/latest/index.html) output into a unified coordinate system we need to:
+
+-   Keep per‑nucleotide sequence order (5′→3′).
+
+-   Preserve canonical Sprinzl labels (e.g., 20, 20A).
+
+-   Fill unlabeled residues deterministically with fractional positions.
+
+-   Generate a **global_index** (1..K) so all tRNAs plot on the same x‑axis; missing positions show as NA.
 
 **Inputs** A FASTA file of mature tRNA sequences used for alignment/reference. For consistency, trim adapters out of these sequences if present.
 
