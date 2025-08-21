@@ -3,6 +3,8 @@ _A standardized approach to generate shared tRNA coordinate space for plotting._
 
 This README documents how to go from adapter‑trimmed tRNA reference sequences → R2DT drawings → a single shared, equal‑spaced coordinate axis for plotting and cross‑isodecoder comparisons.
 
+[point reader to link to prebuilt coordinate tables here; reiterate below is approach to generate new ones]
+
 ## The Problem
 tRNA biologists have classifically used **Sprinzl positions** (named after M. Sprinzl, see _References_) instead of consecutive numbering within each  isodecoder[1]. This system ensures that homologous structural features line up across different tRNA, for instance, always assigning the anticodon to positions 34-36 regardless of whether a particular tRNA sequence is longer or shorter.
 
