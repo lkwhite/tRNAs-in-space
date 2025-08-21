@@ -18,6 +18,8 @@ This convention is biologically meaningful, but introduces problems for data int
 
 2.  **Unequal spacing:** gaps in Sprinzl numbering create irregular axes, making it difficult to generate heatmaps or plots that assume equally spaced positions
 
+3.  **Non-integer labels** like 17a, 20a, 20b and the e-notations in the variable loop further complicate use of Sprinzl as a common coordinate system
+
 [R2DT 2.0](https://github.com/r2dt-bio/r2dt) partly addresses this by embedding Sprinzl numbering in its structural templates, allowing researchers to annotate secondary structure images using positional annotations relavant to tRNA biology. But for downstream analysis, a more unified coordinate system is needed.
 
 ## A Global Index
