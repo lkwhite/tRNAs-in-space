@@ -4,11 +4,11 @@
 
 This README documents how to go from adapter‑trimmed tRNA reference sequences → R2DT drawings → a single shared, equal‑spaced coordinate axis for plotting and cross‑isodecoder comparisons.
 
-In this repository, you can also find pre-computed tables containing these indexed coordinates (`outputs/*continuous.tsv`) for tRNAs from common model organisms as we build them. The documentation below and scripts in this repository can be further used to build such tables from scratch.
+In this repository, you can also find pre-computed tables containing these indexed coordinates (`outputs/$SPECIES_global_coords.tsv`) for tRNAs from common model organisms as we build them. The documentation below and scripts in this repository can be further used to build such tables from scratch.
 
 ## The Problem
 
-<img width="443" height="375" alt="image" src="https://github.com/user-attachments/assets/f62efd38-594d-437f-9dac-2ef8c92167e1" />
+<img src="https://github.com/user-attachments/assets/f62efd38-594d-437f-9dac-2ef8c92167e1" alt="image" width="443" height="375"/>
 
 tRNA biologists have classically used the **Sprinzl positions** pictured above (named after M. Sprinzl, see *References*) instead of consecutive numbering within each isodecoder\[1\]. This system ensures that homologous structural features line up across different tRNAs. For instance, the anticodon is always assigned to positions 34-36 regardless of whether a particular tRNA sequence is longer or shorter.
 
@@ -20,7 +20,7 @@ This convention is biologically meaningful, but introduces problems for data int
 
 3.  **Non-integer labels** like 17a, 20a, 20b and the e-notations in the variable loop further complicate use of Sprinzl as a common coordinate system
 
-[R2DT 2.0](https://github.com/r2dt-bio/r2dt) partly addresses this by embedding Sprinzl numbering in its structural templates, allowing researchers to annotate secondary structure images using positional annotations relavant to tRNA biology. But for downstream analysis, a more unified coordinate system is needed.
+[R2DT 2.0](https://github.com/r2dt-bio/r2dt) partly addresses this by embedding Sprinzl numbering in its structural templates, allowing researchers to annotate secondary structure images using positional annotations relevant to tRNA biology. But for downstream analysis, a more unified coordinate system is needed.
 
 ## A Global Index
 
@@ -60,11 +60,11 @@ By introducing a global index, we eliminate spacing irregularities and enable cr
 
 **Outputs**:
 
--   Per‑tRNA JSON drawings from R2DT (e.g., `.enriched.json`).
+-   A single TSV with per-base fields:
 
--   A combined TSV with per‑base fields: `trna_id`, `seq_index`, `sprinzl_index`, `sprinzl_label`, `residue`.
+    -   `trna_id`, `seq_index`, `sprinzl_index`, `sprinzl_label`, `residue`
 
--   A second TSV that adds: `sprinzl_ordinal`, `sprinzl_continuous`, `global_index`.
+    -   `sprinzl_ordinal`, `sprinzl_continuous`, `global_index`, `region`
 
 ## Prerequisites
 
@@ -74,15 +74,11 @@ By introducing a global index, we eliminate spacing irregularities and enable cr
 
 -   Your tRNA reference fasta
 
--   Files from this repository:
+-   `trnas_in_space.py` (from this repository): extracts per-nucleotide indices/labels from R2DT-produced `.enriched.json` files, fills Sprinzl gaps, builds global label order, assigns fractional/global indices, and annotates structural regions.
 
-    -   `r2dt_collect_sprinzl.py` – collects per‑nucleotide indices/labels from R2DT-produced `.enriched.json` files into one TSV.
+### Step 1: Run R2DT
 
-    -   `make_sprinzl_continuous.py` – builds global label order for tRNAs in the tRNA input, fills fractional positions, and emits global_index.
-
-### Step 1: Run R2DT to generate drawings
-
-From the directory containing your FASTA reference, run:
+From the directory containing your FASTA reference:
 
 ```         
 docker run --rm \
@@ -93,46 +89,23 @@ r2dt.py gtrnadb draw /data/yourtRNAreference.fa /data/output
 
 This runs R2DT in `gtrnadb draw` mode, using covariance models and tRNAscan-SE outputs to annotate tRNAs with structural information, generating `.json` files and secondary structure images for each tRNA in the reference.
 
-### Step 2: Extract per-base indices from R2DT JSON → combined TSV
+### Step 2: Build global coordinates
 
-We pull information from all `*.enriched.json` files in `/output` using the script below and writes them to a shared `tsv` file. Example:
+We then extract information from all `*.enriched.json` files in `/output` using the script below and write them to a shared `tsv` for coordinate generation.
 
-`python r2dt_collect_sprinzl.py ./output ecoli_tRNAs_sprinzl.tsv`
-
-Note that this script overwrites the values of `sprinzl_index` with a best-effort fill fill based on neighboring positions. Unresolvable cases remain `-1`.
-
-### Step 3: Build shared coordinates and equal-spaced global index
-
-This step derives a cohort-wide order of labels for all tRNAs in the file (e.g., `… 20 < 20A < 20B < 21 …` and assigns fractional positions between neighboring labels within each tRNA. It then converts all unique fractional coordinates in the file to a `global_index` for plotting.
-
-`python make_sprinzl_continuous.py ecoli_tRNAs_sprinzl.tsv ecoli_tRNAs_continuous.tsv`
-
-Adds columns:
-
--   `sprinzl_ordinal` – integer bin from label order (for tick annotations).
-
--   `sprinzl_continuous` – per‑tRNA fractional coordinate (integers at labeled bins; fractions fill gaps).
-
--   `global_index` – equal‑spaced 1..K from sorted unique `sprinzl_continuous` across all tRNAs (ideal x‑axis for heatmaps/line plots).
-
-*Example workflow in full:*
+Run the single script on your R2DT output directory:
 
 ```         
-# 1) Run R2DT on adapter‑trimmed tRNAs
-mkdir -p output
-docker run --rm -v "$(pwd):/data" rnacentral/r2dt \
-r2dt.py gtrnadb draw /data/ecoliK12MG1655-mature-tRNAs.fa /data/output
-
-# 2) Extract per‑base labels into one TSV
-python r2dt_collect_sprinzl.py ./output ecoli_tRNAs_sprinzl.tsv
-
-# 3) Build continuous positions and shared global index
-python make_sprinzl_continuous.py ecoli_tRNAs_sprinzl.tsv ecoli_tRNAs_continuous.tsv
+python trnas_in_space.py ./output ecoliK12_global_coords.tsv
 ```
+
+Note that this script overwrites the values of `sprinzl_index` with a best-effort fill based on neighboring positions, and assigns regions such as `anticodon-loop`, `acceptor-stem`, etc. Unresolvable cases retain `sprinzl_index` of `-1` and a `region` value of `unknown`.
 
 ## Footnotes
 
-\[1\] Isodecoders: tRNAs that share the same anticodon; isoacceptors: tRNAs charged by the same amino acid.
+-   Isodecoders: tRNAs that share the same anticodon
+
+-   Isoacceptors: tRNAs charged by the same amino acid
 
 ## References
 
