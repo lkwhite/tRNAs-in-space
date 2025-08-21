@@ -2,7 +2,9 @@
 
 *A standardized approach to generate shared tRNA coordinate space for plotting.*
 
-This README documents how to go from adapter‑trimmed tRNA reference sequences → R2DT drawings → a single shared, equal‑spaced coordinate axis for plotting and cross‑isodecoder comparisons. In this repository, you can also find pre-computed tables containing these indexed coordinates (`outputs/*continuous.tsv`) for tRNAs from common model organisms as we build them. The documentation below and scripts in this repository can be used to build such tables from scratch.
+This README documents how to go from adapter‑trimmed tRNA reference sequences → R2DT drawings → a single shared, equal‑spaced coordinate axis for plotting and cross‑isodecoder comparisons.
+
+In this repository, you can also find pre-computed tables containing these indexed coordinates (`outputs/*continuous.tsv`) for tRNAs from common model organisms as we build them. The documentation below and scripts in this repository can be further used to build such tables from scratch.
 
 ## The Problem
 
@@ -39,8 +41,6 @@ However, there are still a few issues with the heatmap above.
 By introducing a global index, we eliminate spacing irregularities and enable cross-isodecoder comparison in a clean, standardized coordinate space.
 
 ## Implementation
-
-### Overview
 
 **Goal:** To convert heterogeneous Sprinzl-style labels from [R2DT](https://docs.r2dt.bio/en/latest/index.html) output into a unified coordinate system we need to: - Keep per‑nucleotide sequence order (5′→3′). - Preserve canonical Sprinzl labels (e.g., 20, 20A). - Fill unlabeled residues deterministically with fractional positions. - Generate a **global_index** (1..K) so all tRNAs plot on the same x‑axis; missing positions show as NA.
 
