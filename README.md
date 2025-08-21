@@ -1,6 +1,6 @@
 # 🚀🍀 tRNAs in space 🍀🚀
 
-*A standardized approach to generate shared tRNA coordinate space for plotting.*
+*A standardized approach to generate shared tRNA coordinates for plotting.*
 
 This README documents how to go from tRNA reference sequences → a single shared, equal‑spaced coordinate axis for plotting and cross‑isodecoder comparisons.
 
