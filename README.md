@@ -79,7 +79,7 @@ rnacentral/r2dt \
 r2dt.py gtrnadb draw /data/yourtRNAreference.fa /data/output
 ```
 
-This runs R2DT in `gtrnadb draw` mode, using covariance models and tRNAscan-SE outputs to annotate tRNAs with structural information, generating a `.json` file as well as secondary structure images.
+This runs R2DT in `gtrnadb draw` mode, using covariance models and tRNAscan-SE outputs to annotate tRNAs with structural information, generating `.json` files and secondary structure images for each tRNA in the reference.
 
 ### Step 2: Extract per-base indices from R2DT JSON → combined TSV
 
