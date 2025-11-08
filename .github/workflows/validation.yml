@@ -1,0 +1,75 @@
+name: Validation
+
+on:
+  push:
+    branches: [ main, claude/** ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  file-validation:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Check required files exist
+      run: |
+        echo "Checking for required files..."
+        test -f LICENSE && echo "✓ LICENSE exists" || exit 1
+        test -f README.md && echo "✓ README.md exists" || exit 1
+        test -f pyproject.toml && echo "✓ pyproject.toml exists" || exit 1
+        test -f CITATION.cff && echo "✓ CITATION.cff exists" || exit 1
+        test -f OUTPUT_FORMAT.md && echo "✓ OUTPUT_FORMAT.md exists" || exit 1
+
+    - name: Validate CITATION.cff
+      uses: citation-file-format/cffconvert-github-action@2.0.0
+      with:
+        args: "--validate"
+
+    - name: Check output files exist
+      run: |
+        echo "Checking pre-computed output files..."
+        test -f outputs/ecoliK12_global_coords.tsv && echo "✓ E. coli outputs exist" || exit 1
+        test -f outputs/sacCer_global_coords.tsv && echo "✓ Yeast outputs exist" || exit 1
+        test -f outputs/hg38_global_coords.tsv && echo "✓ Human outputs exist" || exit 1
+
+    - name: Validate TSV structure
+      run: |
+        echo "Validating TSV file structure..."
+        # Check header exists and has correct columns
+        header=$(head -1 outputs/ecoliK12_global_coords.tsv)
+        echo "Header: $header"
+        echo "$header" | grep -q "trna_id" && echo "✓ trna_id column exists" || exit 1
+        echo "$header" | grep -q "global_index" && echo "✓ global_index column exists" || exit 1
+        echo "$header" | grep -q "region" && echo "✓ region column exists" || exit 1
+
+  markdown-links:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Check markdown links
+      uses: gaurav-nelson/github-action-markdown-link-check@v1
+      with:
+        use-quiet-mode: 'yes'
+        config-file: '.github/markdown-link-check-config.json'
+      continue-on-error: true
+
+  syntax-validation:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+
+    - name: Check Python syntax
+      run: |
+        python -m py_compile scripts/trnas_in_space.py
+        python -m py_compile test_trnas_in_space.py
+        echo "✓ Python syntax validation passed"

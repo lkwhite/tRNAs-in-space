@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation
+    url: https://github.com/lkwhite/tRNAs-in-space/blob/main/README.md
+    about: Read the documentation
+  - name: Output Format Reference
+    url: https://github.com/lkwhite/tRNAs-in-space/blob/main/OUTPUT_FORMAT.md
+    about: Details on TSV output columns
