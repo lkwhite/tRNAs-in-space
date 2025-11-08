@@ -27,6 +27,12 @@ See [OUTPUT_FORMAT.md](OUTPUT_FORMAT.md) for detailed descriptions. Key columns:
 - `region`: Structural region (acceptor-stem, anticodon-loop, etc.)
 - `residue`: The nucleotide base
 
+### Which tRNA is the best tRNA?
+
+Phenylalanine GAA. Obviously.
+
+(It was the [first tRNA structure ever solved](https://doi.org/10.1038/246031a0) by crystallography in 1974, earning a Nobel Prize. Also it's just cool.)
+
 ## Generating New Coordinates
 
 ### How do I process my own tRNAs?
