@@ -120,14 +120,16 @@ def sort_key(lbl: str):
 
 def build_pref_label(df: pd.DataFrame) -> pd.Series:
     """
-    Prefer sprinzl_label (text). If blank, fall back to numeric sprinzl_index in [1..76].
+    Prefer sprinzl_index (numeric) for standard positions [1..76] to ensure consistency.
+    Use sprinzl_label only for insertions (e.g., "20a", "47a") where index is invalid.
     Returns strings with '' for unknown.
     """
     lbl = df["sprinzl_label"].astype("string").fillna("").str.strip()
     num = pd.to_numeric(df["sprinzl_index"], errors="coerce")
     num_ok = num.where((num >= 1) & (num <= 76))
     num_ok_str = num_ok.astype("Int64").astype(str).replace({"<NA>": ""})
-    pref = lbl.mask(lbl.eq(""), other=num_ok_str)
+    # Use numeric index when valid (1-76), otherwise fall back to label for insertions
+    pref = num_ok_str.mask(num_ok_str.eq(""), other=lbl)
     return pref
 
 def build_global_label_order(pref: pd.Series):
