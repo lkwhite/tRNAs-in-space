@@ -7,9 +7,43 @@ work/
 # Ignore editor/OS cruft
 .DS_Store
 *.swp
+*.swo
+*~
+.vscode/
+.idea/
 
 # Ignore Python cache
 __pycache__/
 *.pyc
 *.pyo
+*.pyd
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+.nox/
+
+# Type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Pre-commit
+.pre-commit-config.yaml.bak
 
