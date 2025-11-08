@@ -95,9 +95,9 @@ Check the `trna_id` - mitochondrial tRNAs typically have "mito" or "MT-" in thei
 
 This is normal for the variable loop region (around positions 44-48). Different tRNAs have different variable loop lengths.
 
-### The anticodon isn't at the same `global_index` for all tRNAs
+### How do I extract the anticodon positions?
 
-Correct! The anticodon is always at **Sprinzl positions 34-36**, but may map to different `global_index` values depending on insertions/deletions earlier in the sequence.
+The anticodon is always at **Sprinzl positions 34-36** and should map to the same `global_index` for all tRNAs (this ensures proper alignment across tRNAs).
 
 To extract anticodons:
 ```python

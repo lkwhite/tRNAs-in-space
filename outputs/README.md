@@ -53,20 +53,36 @@ anticodons <- df %>%
 
 ## File Format
 
-Each TSV file contains the following columns:
+Each TSV file contains 10 columns per nucleotide position. These columns come from three sources:
 
-- `trna_id`: Unique tRNA identifier
-- `source_file`: Original R2DT JSON filename
-- `seq_index`: Sequential position (1-based)
-- `sprinzl_index`: Sprinzl position (1-76)
-- `sprinzl_label`: Sprinzl label with suffixes
-- `residue`: Nucleotide base
-- `sprinzl_ordinal`: Ordinal in global label order
-- `sprinzl_continuous`: Continuous coordinate
-- `global_index`: Equal-spaced global position (1..K)
-- `region`: Structural region annotation
+### Direct R2DT Outputs
 
-See [OUTPUT_FORMAT.md](../OUTPUT_FORMAT.md) for detailed documentation.
+- **`sprinzl_index`**: Canonical Sprinzl position (1-76), functionally consistent across tRNAs
+- **`sprinzl_label`**: Template alignment position, adjusts for insertions (e.g., "20a")
+- **`residue`**: Nucleotide base
+
+R2DT provides two position systems because:
+- `sprinzl_index` represents the **functional position** (position 34 = first anticodon base, always)
+- `sprinzl_label` represents the **alignment position** in R2DT's template (may vary with insertions)
+
+### Gap-Filled Columns
+
+- **`sprinzl_index`**: Enhanced with inference for positions R2DT couldn't annotate
+
+### Derived Coordinate Transformations
+
+- **`sprinzl_ordinal`**: Global ordering of positions (1, 2, ..., 20, 20a, 21, ...)
+- **`sprinzl_continuous`**: Per-tRNA fractional coordinates with interpolation
+- **`global_index`**: Equal-spaced integer coordinates for cross-tRNA alignment (**use this for plotting**)
+- **`region`**: Structural region annotation (acceptor-stem, D-loop, anticodon-loop, etc.)
+
+### Metadata Columns
+
+- **`trna_id`**: Unique tRNA identifier
+- **`source_file`**: Original R2DT JSON filename
+- **`seq_index`**: Sequential position (1-based, 5' to 3')
+
+**For detailed explanations**, see [OUTPUT_FORMAT.md](../OUTPUT_FORMAT.md).
 
 ## Metadata
 
