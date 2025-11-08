@@ -1,0 +1,233 @@
+# Configuration file for organism processing in tRNAs-in-space
+# This file defines all organisms to be processed for pre-calculated global coordinates
+
+version: "1.0.0"
+description: "Tier 1 model organisms for tRNA coordinate pre-calculation"
+
+organisms:
+  # Already processed (reference)
+  - name: "Escherichia coli K12 MG1655"
+    common_name: "E. coli"
+    organism_id: "ecoliK12"
+    gtrnadb_id: "ecoliK12MG1655"
+    assembly: "U00096.3"
+    taxid: 511145
+    kingdom: "Bacteria"
+    priority: 0
+    status: "completed"
+    compartments: ["cytoplasm"]
+    expected_trna_count: 87
+    notes: "Reference bacterial model organism"
+
+  - name: "Saccharomyces cerevisiae S288C"
+    common_name: "Budding yeast"
+    organism_id: "sacCer"
+    gtrnadb_id: "sacCer3"
+    assembly: "R64-1-1"
+    taxid: 559292
+    kingdom: "Eukaryota"
+    priority: 0
+    status: "completed"
+    compartments: ["nucleus", "mitochondria"]
+    expected_trna_count: 292
+    notes: "Reference eukaryotic model organism"
+
+  - name: "Homo sapiens"
+    common_name: "Human"
+    organism_id: "hg38"
+    gtrnadb_id: "hg38"
+    assembly: "GRCh38"
+    taxid: 9606
+    kingdom: "Eukaryota"
+    priority: 0
+    status: "completed"
+    compartments: ["nucleus", "mitochondria"]
+    expected_trna_count: 454
+    notes: "Reference mammalian model organism"
+
+  # Tier 1 - New organisms to process
+  - name: "Mus musculus"
+    common_name: "Mouse"
+    organism_id: "mm39"
+    gtrnadb_id: "mm39"
+    assembly: "GRCm39"
+    taxid: 10090
+    kingdom: "Eukaryota"
+    priority: 1
+    status: "pending"
+    compartments: ["nucleus", "mitochondria"]
+    expected_trna_count: 400-500
+    notes: "Most common mammalian model organism"
+
+  - name: "Drosophila melanogaster"
+    common_name: "Fruit fly"
+    organism_id: "dm6"
+    gtrnadb_id: "dm6"
+    assembly: "BDGP6"
+    taxid: 7227
+    kingdom: "Eukaryota"
+    priority: 1
+    status: "pending"
+    compartments: ["nucleus", "mitochondria"]
+    expected_trna_count: 280-320
+    notes: "Classic genetics and development model"
+
+  - name: "Caenorhabditis elegans"
+    common_name: "Nematode"
+    organism_id: "ce11"
+    gtrnadb_id: "ce11"
+    assembly: "WBcel235"
+    taxid: 6239
+    kingdom: "Eukaryota"
+    priority: 1
+    status: "pending"
+    compartments: ["nucleus", "mitochondria"]
+    expected_trna_count: 590-630
+    notes: "Development and neuroscience model; high tRNA gene count"
+
+  - name: "Danio rerio"
+    common_name: "Zebrafish"
+    organism_id: "danRer11"
+    gtrnadb_id: "danRer11"
+    assembly: "GRCz11"
+    taxid: 7955
+    kingdom: "Eukaryota"
+    priority: 1
+    status: "pending"
+    compartments: ["nucleus", "mitochondria"]
+    expected_trna_count: 500-600
+    notes: "Vertebrate development model"
+
+  - name: "Arabidopsis thaliana"
+    common_name: "Thale cress"
+    organism_id: "araTha1"
+    gtrnadb_id: "araTha1"
+    assembly: "TAIR10"
+    taxid: 3702
+    kingdom: "Plantae"
+    priority: 1
+    status: "pending"
+    compartments: ["nucleus", "mitochondria", "chloroplast"]
+    expected_trna_count: 600-700
+    notes: "Plant model organism; includes chloroplast tRNAs"
+
+  - name: "Schizosaccharomyces pombe"
+    common_name: "Fission yeast"
+    organism_id: "schiPomb972h"
+    gtrnadb_id: "schiPomb972h"
+    assembly: "ASM294v2"
+    taxid: 284812
+    kingdom: "Eukaryota"
+    priority: 1
+    status: "pending"
+    compartments: ["nucleus", "mitochondria"]
+    expected_trna_count: 150-180
+    notes: "Cell cycle model; complement to S. cerevisiae"
+
+  - name: "Bacillus subtilis 168"
+    common_name: "B. subtilis"
+    organism_id: "bacSubt168"
+    gtrnadb_id: "bacSubt168"
+    assembly: "NC_000964.3"
+    taxid: 224308
+    kingdom: "Bacteria"
+    priority: 1
+    status: "pending"
+    compartments: ["cytoplasm"]
+    expected_trna_count: 80-90
+    notes: "Gram-positive bacterial model"
+
+  - name: "Pseudomonas aeruginosa PAO1"
+    common_name: "P. aeruginosa"
+    organism_id: "pseAer"
+    gtrnadb_id: "pseAerPAO1"
+    assembly: "NC_002516.2"
+    taxid: 208964
+    kingdom: "Bacteria"
+    priority: 1
+    status: "pending"
+    compartments: ["cytoplasm"]
+    expected_trna_count: 60-70
+    notes: "Pathogenesis and biofilm model"
+
+  - name: "Candida albicans SC5314"
+    common_name: "C. albicans"
+    organism_id: "canAlb"
+    gtrnadb_id: "canAlbSC5314"
+    assembly: "A22"
+    taxid: 237561
+    kingdom: "Eukaryota"
+    priority: 1
+    status: "pending"
+    compartments: ["nucleus", "mitochondria"]
+    expected_trna_count: 90-110
+    notes: "Fungal pathogen model; non-standard genetic code"
+
+  - name: "Xenopus tropicalis"
+    common_name: "Western clawed frog"
+    organism_id: "xenTro9"
+    gtrnadb_id: "xenTro9"
+    assembly: "UCB_Xtro_10.0"
+    taxid: 8364
+    kingdom: "Eukaryota"
+    priority: 1
+    status: "pending"
+    compartments: ["nucleus", "mitochondria"]
+    expected_trna_count: 400-500
+    notes: "Developmental biology model"
+
+  - name: "Rattus norvegicus"
+    common_name: "Rat"
+    organism_id: "rn7"
+    gtrnadb_id: "rn7"
+    assembly: "mRatBN7.2"
+    taxid: 10116
+    kingdom: "Eukaryota"
+    priority: 1
+    status: "pending"
+    compartments: ["nucleus", "mitochondria"]
+    expected_trna_count: 400-500
+    notes: "Neuroscience and physiology model"
+
+# Processing configuration
+processing:
+  r2dt:
+    version: "2.0"
+    docker_image: "rnacentral/r2dt"
+    model: "gtrnadb"
+    timeout_minutes: 30
+
+  coordinate_generation:
+    script: "scripts/trnas_in_space.py"
+    version: "1.0.0"
+
+  validation:
+    test_script: "tests/test_trnas_in_space.py"
+    required_checks:
+      - "column_count"
+      - "data_types"
+      - "global_index_continuity"
+      - "region_annotations"
+      - "trna_id_uniqueness"
+
+# Output configuration
+outputs:
+  directory: "outputs"
+  naming_convention: "{organism_id}_global_coords.tsv"
+  fastas_directory: "fastas"
+  fasta_naming: "{gtrnadb_id}-tRNAs.fa"
+  jsons_directory: "outputs/jsons/{organism_id}"
+
+# Data sources
+data_sources:
+  primary: "GtRNAdb"
+  url: "http://gtrnadb.ucsc.edu/"
+  download_base_url: "http://gtrnadb.ucsc.edu/genomes/{kingdom}/{organism}/"
+  notes: "FASTA files contain mature tRNA sequences predicted by tRNAscan-SE"
+  quality_filter: "high confidence"
+  filter_criteria:
+    overall_score_min: 50  # bits
+    isotype_model_score_min: 70  # bits (eukaryotes)
+    secondary_structure_score_min: 10  # bits
+    exclude_pseudogenes: true
+  sequence_type: "mature"  # mature tRNA sequences, not genomic sequences
