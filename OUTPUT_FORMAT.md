@@ -21,6 +21,63 @@ The output is a **tab-separated values (TSV)** file with a header row followed b
 | `global_index` | integer | 1..K | Equal-spaced global position shared across all tRNAs (the unified coordinate) | `1`, `45`, `147` |
 | `region` | string | predefined set | Structural region annotation based on Sprinzl position | `acceptor-stem`, `anticodon-loop` |
 
+## Column Derivation
+
+Understanding where each column comes from helps interpret the data correctly:
+
+### Direct R2DT Outputs
+
+**`sprinzl_index`** (from `templateResidueIndex`)
+- Canonical Sprinzl position (1-76 numbering, Sprinzl et al. 1998)
+- Functionally consistent across tRNAs: position 34 is always the first anticodon base
+- R2DT assigns these based on structural covariance models
+
+**`sprinzl_label`** (from `templateNumberingLabel`)
+- Template alignment position from R2DT's covariance model
+- Adjusts for insertions: a tRNA with insertion "20a" will have offset labels downstream
+- Sequential position count in the alignment template, not functional position
+- Example: In a tRNA with one insertion before position 34, that position may be labeled "33"
+
+**`residue`** (from `residueName`)
+- Nucleotide base at each position
+
+### Gap-Filled Columns
+
+**`sprinzl_index`** (enhanced)
+- When R2DT doesn't provide a clear index, the script infers it using forward/backward passes
+- Ensures continuity where structurally reasonable
+- Unresolvable positions remain as `-1`
+
+### Derived Columns
+
+**`sprinzl_ordinal`**
+- Global ordering of unique positions across all tRNAs (1, 2, ..., 20, 20a, 21, ...)
+- Built from canonical `sprinzl_index` values plus insertion `sprinzl_label` values
+- Ensures consistent position ordering across the dataset
+
+**`sprinzl_continuous`**
+- Per-tRNA fractional coordinates for smooth interpolation
+- Labeled positions receive integer values from `sprinzl_ordinal`
+- Unlabeled positions interpolated fractionally between neighbors
+
+**`global_index`**
+- **Primary coordinate for cross-tRNA alignment**
+- Maps unique `sprinzl_continuous` values to integers (1..K)
+- Ensures functionally equivalent positions align across all tRNAs
+
+**`region`**
+- Structural region annotation derived from canonical `sprinzl_index`
+- Based on Type I tRNA structure (acceptor-stem, D-loop, anticodon-loop, etc.)
+
+### Why Two Position Systems?
+
+R2DT provides both `sprinzl_index` (canonical/functional) and `sprinzl_label` (alignment-based) because they serve different purposes:
+
+- **`sprinzl_index`**: Use for functional comparisons (e.g., "find all first anticodon bases")
+- **`sprinzl_label`**: Use to identify insertions and alignment-specific features
+
+The derived `global_index` is built from canonical positions to ensure functional equivalence across tRNAs, enabling proper alignment in heatmaps and cross-tRNA analyses.
+
 ## Detailed Column Explanations
 
 ### `trna_id`
