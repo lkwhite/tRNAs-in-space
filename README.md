@@ -1,6 +1,48 @@
 # 🚀🍀 tRNAs in space 🍀🚀
 
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 *A standardized approach to generate shared tRNA coordinates for plotting.*
+
+## Quick Start
+
+**Using pre-computed coordinates:**
+```python
+import pandas as pd
+
+# Load E. coli tRNA coordinates
+df = pd.read_csv('outputs/ecoliK12_global_coords.tsv', sep='\t')
+
+# Create alignment matrix
+alignment = df.pivot_table(
+    index='trna_id',
+    columns='global_index',
+    values='residue'
+)
+```
+
+**Installation:**
+```bash
+# Clone the repository
+git clone https://github.com/lkwhite/tRNAs-in-space.git
+cd tRNAs-in-space
+
+# Install as a package
+pip install -e .
+
+# Or install with visualization tools
+pip install -e ".[viz]"
+```
+
+**Generate coordinates from your own data:**
+```bash
+# After running R2DT on your FASTA files
+python scripts/trnas_in_space.py ./r2dt_output_dir/ my_output.tsv
+```
+
+See [examples/01_basic_visualization.ipynb](examples/01_basic_visualization.ipynb) for detailed usage examples.
 
 This README documents how to go from tRNA reference sequences → a single shared, equal‑spaced coordinate axis for plotting and cross‑isodecoder comparisons.
 
@@ -106,6 +148,51 @@ python trnas_in_space.py ./output ecoliK12_global_coords.tsv
 ```
 
 Note that this script overwrites the values of `sprinzl_index` with a best-effort fill based on neighboring positions, and assigns regions such as `anticodon-loop`, `acceptor-stem`, etc. Unresolvable cases retain `sprinzl_index` of `-1` and a `region` value of `unknown`.
+
+## Documentation
+
+- **[OUTPUT_FORMAT.md](OUTPUT_FORMAT.md)** - Detailed specification of output TSV columns
+- **[examples/01_basic_visualization.ipynb](examples/01_basic_visualization.ipynb)** - Interactive visualization tutorial
+- **[RECOMMENDATIONS.md](RECOMMENDATIONS.md)** - Repository organization and improvement recommendations
+
+## Citation
+
+If you use tRNAs in space in your research, please cite:
+
+**BibTeX:**
+```bibtex
+@software{trnas_in_space,
+  author = {White, Laura K.},
+  title = {tRNAs in space: Standardized coordinates for tRNA analysis},
+  year = {2025},
+  url = {https://github.com/lkwhite/tRNAs-in-space},
+  license = {MIT}
+}
+```
+
+**Related publication:**
+```bibtex
+@article{white2024comparative,
+  author = {White, Laura K. and Dobson, K. and Del Pozo, S. and others},
+  title = {Comparative analysis of 43 distinct RNA modifications by nanopore tRNA sequencing},
+  journal = {bioRxiv},
+  year = {2024},
+  doi = {10.1101/2024.07.23.604651}
+}
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to:
+- Report issues or bugs
+- Suggest new features or improvements
+- Submit pull requests
+
+See [RECOMMENDATIONS.md](RECOMMENDATIONS.md) for ideas on how to contribute.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Footnotes
 
