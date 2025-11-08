@@ -47,3 +47,9 @@ ENV/
 # Pre-commit
 .pre-commit-config.yaml.bak
 
+# Ignore Python build artifacts
+*.egg-info/
+dist/
+build/
+*.egg
+

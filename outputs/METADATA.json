@@ -1,0 +1,149 @@
+{
+  "version": "1.0.0",
+  "generated_date": "2025-01-15",
+  "script_version": "1.0.0",
+  "r2dt_version": "2.0",
+  "description": "Pre-computed global tRNA coordinates for common model organisms",
+  "citation": "White, Laura K. (2025). tRNAs in space: Standardized coordinates for tRNA analysis. https://github.com/lkwhite/tRNAs-in-space",
+  "datasets": {
+    "ecoliK12_global_coords.tsv": {
+      "organism": "Escherichia coli K12 MG1655",
+      "source_fasta": "ecoliK12MG1655-tRNAs.fa",
+      "source_database": "GtRNAdb",
+      "n_trnas": 87,
+      "n_nucleotides": 6793,
+      "n_global_positions": 130,
+      "file_size_kb": 588,
+      "compartments": ["cytoplasm"],
+      "notes": "Complete set of E. coli K12 MG1655 tRNAs from GtRNAdb",
+      "quality": "high",
+      "generated": "2025-01-15T10:30:00Z"
+    },
+    "sacCer_global_coords.tsv": {
+      "organism": "Saccharomyces cerevisiae (S288C)",
+      "source_fasta": "sacCer-mito-and-nuclear-tRNAs.fa",
+      "source_database": "GtRNAdb",
+      "n_trnas": 292,
+      "n_nucleotides": 21877,
+      "n_global_positions": 150,
+      "file_size_kb": 2059,
+      "compartments": ["nucleus", "mitochondria"],
+      "notes": "Nuclear and mitochondrial tRNAs. Mitochondrial tRNAs may need additional curation due to non-standard structures (see README)",
+      "quality": "medium (mitochondrial tRNAs have limited model support)",
+      "generated": "2025-01-15T11:45:00Z",
+      "warnings": [
+        "Mitochondrial tRNA alignments may be inaccurate due to lack of fungal mitochondrial models in R2DT",
+        "For mitochondrial tRNAs, consider manual curation or refer to Reinsch & Garcia 2025"
+      ]
+    },
+    "hg38_global_coords.tsv": {
+      "organism": "Homo sapiens (GRCh38/hg38)",
+      "source_fasta": "hg38-mito-and-nuclear-tRNAs.fa",
+      "source_database": "GtRNAdb",
+      "n_trnas": 454,
+      "n_nucleotides": 33819,
+      "n_global_positions": 265,
+      "file_size_kb": 3210,
+      "compartments": ["nucleus", "mitochondria"],
+      "notes": "Complete set of human nuclear and mitochondrial tRNAs from GtRNAdb",
+      "quality": "high",
+      "generated": "2025-01-15T12:30:00Z"
+    }
+  },
+  "output_format": {
+    "format": "TSV (tab-separated values)",
+    "header": true,
+    "columns": [
+      "trna_id",
+      "source_file",
+      "seq_index",
+      "sprinzl_index",
+      "sprinzl_label",
+      "residue",
+      "sprinzl_ordinal",
+      "sprinzl_continuous",
+      "global_index",
+      "region"
+    ],
+    "encoding": "UTF-8",
+    "line_ending": "LF",
+    "missing_values": "empty string or NaN"
+  },
+  "processing_pipeline": {
+    "steps": [
+      {
+        "step": 1,
+        "name": "R2DT annotation",
+        "tool": "R2DT",
+        "version": "2.0",
+        "command": "r2dt.py gtrnadb draw <input.fa> <output_dir>",
+        "description": "Annotate tRNA sequences with Sprinzl positions using R2DT"
+      },
+      {
+        "step": 2,
+        "name": "Coordinate transformation",
+        "tool": "trnas_in_space.py",
+        "version": "1.0.0",
+        "command": "python trnas_in_space.py <r2dt_output_dir> <output.tsv>",
+        "description": "Convert Sprinzl annotations to global equal-spaced coordinates"
+      }
+    ]
+  },
+  "validation": {
+    "checks_performed": [
+      "Column count verification",
+      "Data type validation",
+      "Global index continuity",
+      "Region annotation completeness",
+      "tRNA ID uniqueness"
+    ],
+    "test_coverage": "All pre-computed files pass validation tests in test_trnas_in_space.py"
+  },
+  "usage": {
+    "python": "df = pd.read_csv('outputs/ecoliK12_global_coords.tsv', sep='\\t')",
+    "r": "df <- read_tsv('outputs/ecoliK12_global_coords.tsv')",
+    "documentation": "See OUTPUT_FORMAT.md for detailed column descriptions"
+  },
+  "references": [
+    {
+      "title": "R2DT: a comprehensive platform for visualizing RNA secondary structure",
+      "authors": "McCann H., et al.",
+      "journal": "Nucleic Acids Research",
+      "year": 2025,
+      "doi": "10.1093/nar/gkaf032",
+      "url": "https://r2dt.bio"
+    },
+    {
+      "title": "GtRNAdb 2.0: an expanded database of transfer RNA genes",
+      "authors": "Chan P.P., Lowe T.M.",
+      "journal": "Nucleic Acids Research",
+      "year": 2016,
+      "doi": "10.1093/nar/gkv1309",
+      "url": "https://gtrnadb.org"
+    },
+    {
+      "title": "Compilation of tRNA sequences and sequences of tRNA genes",
+      "authors": "Sprinzl M., et al.",
+      "journal": "Nucleic Acids Research",
+      "year": 1998,
+      "doi": "10.1093/nar/26.1.148",
+      "note": "Original Sprinzl numbering system"
+    }
+  ],
+  "license": "MIT",
+  "contact": {
+    "author": "Laura K. White",
+    "email": "laura.k.white@cuanschutz.edu",
+    "github": "https://github.com/lkwhite/tRNAs-in-space"
+  },
+  "changelog": {
+    "1.0.0": {
+      "date": "2025-01-15",
+      "changes": [
+        "Initial release with E. coli, S. cerevisiae, and H. sapiens datasets",
+        "Complete region annotations for all tRNAs",
+        "Validated output format and data quality"
+      ]
+    }
+  }
+}

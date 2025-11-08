@@ -1,35 +1,91 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "trnas-in-space"
 version = "1.0.0"
-description = "tRNA coordinate mapping from R2DT Sprinzl labels to global index"
+description = "Standardized tRNA coordinate system for cross-isodecoder analysis"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Laura K. White", email = "laura.k.white@cuanschutz.edu"}
+]
+keywords = [
+    "tRNA",
+    "bioinformatics",
+    "RNA",
+    "structural-biology",
+    "genomics",
+    "coordinate-systems",
+    "sprinzl-numbering",
+    "R2DT"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
 dependencies = [
-    "pandas>=2.0.0",
-    "numpy>=1.24.0",
+    "pandas>=1.3.0",
+    "numpy>=1.20.0",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=7.4.0",
-    "pytest-cov>=4.1.0",
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
     "pytest-xdist>=3.3.0",
-    "black>=23.0.0",
-    "flake8>=6.0.0",
-    "pylint>=2.17.0",
-    "mypy>=1.4.0",
-    "isort>=5.12.0",
-    "pandas-stubs>=2.0.0",
-    "types-setuptools>=68.0.0",
+    "black>=23.0",
+    "ruff>=0.1.0",
 ]
+viz = [
+    "matplotlib>=3.5",
+    "seaborn>=0.11",
+    "jupyter>=1.0",
+]
+all = [
+    "trnas-in-space[dev,viz]",
+]
+
+[project.urls]
+Homepage = "https://github.com/lkwhite/tRNAs-in-space"
+Documentation = "https://github.com/lkwhite/tRNAs-in-space#readme"
+Repository = "https://github.com/lkwhite/tRNAs-in-space"
+Issues = "https://github.com/lkwhite/tRNAs-in-space/issues"
+Changelog = "https://github.com/lkwhite/tRNAs-in-space/blob/main/CHANGELOG.md"
+
+[project.scripts]
+trnas-in-space = "trnas_in_space:main"
+
+[tool.setuptools]
+packages = ["trnas_in_space"]
+package-dir = {"trnas_in_space" = "scripts"}
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--showlocals",
+    "--tb=short",
+]
+testpaths = [".", "scripts"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
 
 [tool.black]
 line-length = 100
-target-version = ['py38', 'py39', 'py310', 'py311']
+target-version = ['py39']
 include = '\.pyi?$'
 extend-exclude = '''
 /(
@@ -45,25 +101,13 @@ extend-exclude = '''
 )/
 '''
 
-[tool.isort]
-profile = "black"
-line_length = 100
-skip_gitignore = true
-known_first_party = ["trnas_in_space"]
+[tool.ruff]
+line-length = 100
+target-version = "py39"
 
-[tool.pytest.ini_options]
-minversion = "7.0"
-addopts = [
-    "-ra",
-    "--strict-markers",
-    "--strict-config",
-    "--showlocals",
-    "--tb=short",
-]
-testpaths = [".", "scripts"]
-python_files = ["test_*.py", "*_test.py"]
-python_classes = ["Test*"]
-python_functions = ["test_*"]
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+ignore = []
 
 [tool.coverage.run]
 source = ["scripts"]
@@ -87,40 +131,3 @@ exclude_lines = [
     "if TYPE_CHECKING:",
     "@abstractmethod",
 ]
-
-[tool.mypy]
-python_version = "3.8"
-warn_return_any = true
-warn_unused_configs = true
-disallow_untyped_defs = false
-disallow_incomplete_defs = false
-check_untyped_defs = true
-no_implicit_optional = true
-warn_redundant_casts = true
-warn_unused_ignores = true
-warn_no_return = true
-follow_imports = "normal"
-ignore_missing_imports = true
-
-[[tool.mypy.overrides]]
-module = "pandas.*"
-ignore_missing_imports = true
-
-[[tool.mypy.overrides]]
-module = "numpy.*"
-ignore_missing_imports = true
-
-[tool.pylint.messages_control]
-max-line-length = 100
-disable = [
-    "C0103",  # Invalid name
-    "C0114",  # Missing module docstring
-    "C0115",  # Missing class docstring
-    "C0116",  # Missing function docstring
-    "R0913",  # Too many arguments
-    "R0914",  # Too many local variables
-    "W0212",  # Access to protected member
-]
-
-[tool.pylint.format]
-max-line-length = 100

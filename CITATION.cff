@@ -1,0 +1,60 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "tRNAs in space: Standardized coordinates for tRNA analysis"
+version: 1.0.0
+date-released: "2025-01-01"
+url: "https://github.com/lkwhite/tRNAs-in-space"
+repository-code: "https://github.com/lkwhite/tRNAs-in-space"
+license: MIT
+authors:
+  - family-names: White
+    given-names: "Laura K."
+    affiliation: "University of Colorado Anschutz Medical Campus"
+keywords:
+  - tRNA
+  - bioinformatics
+  - RNA structure
+  - genomics
+  - coordinate systems
+  - Sprinzl numbering
+  - structural biology
+abstract: >
+  A standardized approach to generate shared tRNA coordinates for plotting
+  and cross-isodecoder comparisons. Converts heterogeneous Sprinzl-style
+  labels from R2DT output into a unified coordinate system that preserves
+  per-nucleotide sequence order while enabling cross-tRNA visualization
+  on a common equal-spaced axis.
+references:
+  - type: article
+    authors:
+      - family-names: White
+        given-names: "Laura K."
+      - family-names: Dobson
+        given-names: "K."
+      - family-names: "Del Pozo"
+        given-names: "S."
+      - family-names: Bilodeaux
+        given-names: "J.M."
+      - family-names: Andersen
+        given-names: "S.E."
+      - family-names: Baldwin
+        given-names: "A."
+      - family-names: Barrington
+        given-names: "C."
+      - family-names: Körtel
+        given-names: "N."
+      - family-names: Martinez-Seidel
+        given-names: "F."
+      - family-names: Strugar
+        given-names: "S.M."
+      - family-names: Watt
+        given-names: "K.E.N."
+      - family-names: Mukherjee
+        given-names: "N."
+      - family-names: Hesselberth
+        given-names: "J.R."
+    title: "Comparative analysis of 43 distinct RNA modifications by nanopore tRNA sequencing"
+    journal: "bioRxiv"
+    year: 2024
+    doi: "10.1101/2024.07.23.604651"
