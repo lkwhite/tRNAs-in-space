@@ -18,8 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - *Homo sapiens* GRCh38 (454 tRNAs, nuclear + mitochondrial)
 - Comprehensive documentation:
   - README with quick start and usage examples
-  - OUTPUT_FORMAT.md with detailed column descriptions
-  - FAQ.md with practical Q&A
+  - docs/OUTPUT_FORMAT.md with detailed column descriptions
+  - docs/FAQ.md with practical Q&A
   - CONTRIBUTING.md for community guidelines
 - Example Jupyter notebook for visualization and analysis
 - Python package structure (pip installable)
@@ -40,9 +40,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Repository health checks
 
 ### Documentation
-- Complete API documentation in OUTPUT_FORMAT.md
+- Complete API documentation in docs/OUTPUT_FORMAT.md
 - Interactive examples in Jupyter notebook
-- FAQ covering common use cases
+- FAQ covering common use cases in docs/FAQ.md
 - Citation information in standard formats
 
 [Unreleased]: https://github.com/lkwhite/tRNAs-in-space/compare/v1.0.0...HEAD

@@ -153,11 +153,11 @@ Note that this script overwrites the values of `sprinzl_index` with a best-effor
 
 ## Documentation
 
-- **[OUTPUT_FORMAT.md](OUTPUT_FORMAT.md)** - Detailed specification of output TSV columns
-- **[FAQ.md](FAQ.md)** - Frequently asked questions and practical tips
+- **[OUTPUT_FORMAT.md](docs/OUTPUT_FORMAT.md)** - Detailed specification of output TSV columns
+- **[FAQ.md](docs/FAQ.md)** - Frequently asked questions and practical tips
 - **[examples/01_basic_visualization.ipynb](examples/01_basic_visualization.ipynb)** - Interactive visualization tutorial
 - **[CHANGELOG.md](CHANGELOG.md)** - Version history and release notes
-- **[RECOMMENDATIONS.md](RECOMMENDATIONS.md)** - Repository organization and improvement recommendations
+- **[docs/development/](docs/development/)** - Development notes and repository improvement recommendations
 
 ## Citation
 
@@ -192,7 +192,7 @@ Contributions are welcome! Please feel free to:
 - Suggest new features or improvements
 - Submit pull requests
 
-See [RECOMMENDATIONS.md](RECOMMENDATIONS.md) for ideas on how to contribute.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute.
 
 ## License
 

@@ -4,5 +4,5 @@ contact_links:
     url: https://github.com/lkwhite/tRNAs-in-space/blob/main/README.md
     about: Read the documentation
   - name: Output Format Reference
-    url: https://github.com/lkwhite/tRNAs-in-space/blob/main/OUTPUT_FORMAT.md
+    url: https://github.com/lkwhite/tRNAs-in-space/blob/main/docs/OUTPUT_FORMAT.md
     about: Details on TSV output columns

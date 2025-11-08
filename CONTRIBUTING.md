@@ -16,7 +16,7 @@ Found a bug? [Open an issue](https://github.com/lkwhite/tRNAs-in-space/issues) w
 
 ## Questions
 
-Have a question? Check the [FAQ](FAQ.md) or [open an issue](https://github.com/lkwhite/tRNAs-in-space/issues).
+Have a question? Check the [FAQ](docs/FAQ.md) or [open an issue](https://github.com/lkwhite/tRNAs-in-space/issues).
 
 ## Forking
 

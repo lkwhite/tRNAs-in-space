@@ -20,7 +20,8 @@ jobs:
         test -f README.md && echo "✓ README.md exists" || exit 1
         test -f pyproject.toml && echo "✓ pyproject.toml exists" || exit 1
         test -f CITATION.cff && echo "✓ CITATION.cff exists" || exit 1
-        test -f OUTPUT_FORMAT.md && echo "✓ OUTPUT_FORMAT.md exists" || exit 1
+        test -f docs/OUTPUT_FORMAT.md && echo "✓ docs/OUTPUT_FORMAT.md exists" || exit 1
+        test -f docs/FAQ.md && echo "✓ docs/FAQ.md exists" || exit 1
 
     - name: Validate CITATION.cff
       uses: citation-file-format/cffconvert-github-action@2.0.0

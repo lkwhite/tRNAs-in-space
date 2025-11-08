@@ -102,7 +102,7 @@
   "usage": {
     "python": "df = pd.read_csv('outputs/ecoliK12_global_coords.tsv', sep='\\t')",
     "r": "df <- read_tsv('outputs/ecoliK12_global_coords.tsv')",
-    "documentation": "See OUTPUT_FORMAT.md for detailed column descriptions"
+    "documentation": "See docs/OUTPUT_FORMAT.md for detailed column descriptions"
   },
   "references": [
     {

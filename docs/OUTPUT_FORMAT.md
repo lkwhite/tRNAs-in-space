@@ -331,6 +331,6 @@ assert df['region'].isin(valid_regions).all()
 
 ## Related Documentation
 
-- [README.md](README.md) - Overall project documentation
-- [RECOMMENDATIONS.md](RECOMMENDATIONS.md) - Repository organization recommendations
-- [test_trnas_in_space.py](test_trnas_in_space.py) - Validation tests
+- [README.md](../README.md) - Overall project documentation
+- [FAQ.md](FAQ.md) - Frequently asked questions
+- [test_trnas_in_space.py](../test_trnas_in_space.py) - Validation tests

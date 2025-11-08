@@ -82,7 +82,7 @@ R2DT provides two position systems because:
 - **`source_file`**: Original R2DT JSON filename
 - **`seq_index`**: Sequential position (1-based, 5' to 3')
 
-**For detailed explanations**, see [OUTPUT_FORMAT.md](../OUTPUT_FORMAT.md).
+**For detailed explanations**, see [OUTPUT_FORMAT.md](../docs/OUTPUT_FORMAT.md).
 
 ## Metadata
 
