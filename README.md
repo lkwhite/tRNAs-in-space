@@ -1,5 +1,7 @@
 # 🚀🍀 tRNAs in space 🍀🚀
 
+[![Tests](https://github.com/lkwhite/tRNAs-in-space/workflows/Tests/badge.svg)](https://github.com/lkwhite/tRNAs-in-space/actions)
+[![Build](https://github.com/lkwhite/tRNAs-in-space/workflows/Build/badge.svg)](https://github.com/lkwhite/tRNAs-in-space/actions)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
@@ -152,7 +154,9 @@ Note that this script overwrites the values of `sprinzl_index` with a best-effor
 ## Documentation
 
 - **[OUTPUT_FORMAT.md](OUTPUT_FORMAT.md)** - Detailed specification of output TSV columns
+- **[FAQ.md](FAQ.md)** - Frequently asked questions and practical tips
 - **[examples/01_basic_visualization.ipynb](examples/01_basic_visualization.ipynb)** - Interactive visualization tutorial
+- **[CHANGELOG.md](CHANGELOG.md)** - Version history and release notes
 - **[RECOMMENDATIONS.md](RECOMMENDATIONS.md)** - Repository organization and improvement recommendations
 
 ## Citation
