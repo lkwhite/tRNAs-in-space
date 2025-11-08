@@ -1,0 +1,103 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "trnas-in-space"
+version = "1.0.0"
+description = "Standardized tRNA coordinate system for cross-isodecoder analysis"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Laura K. White", email = "laura.k.white@cuanschutz.edu"}
+]
+keywords = [
+    "tRNA",
+    "bioinformatics",
+    "RNA",
+    "structural-biology",
+    "genomics",
+    "coordinate-systems",
+    "sprinzl-numbering",
+    "R2DT"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "pandas>=1.3.0",
+    "numpy>=1.20.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+    "ruff>=0.1.0",
+]
+viz = [
+    "matplotlib>=3.5",
+    "seaborn>=0.11",
+    "jupyter>=1.0",
+]
+all = [
+    "trnas-in-space[dev,viz]",
+]
+
+[project.urls]
+Homepage = "https://github.com/lkwhite/tRNAs-in-space"
+Documentation = "https://github.com/lkwhite/tRNAs-in-space#readme"
+Repository = "https://github.com/lkwhite/tRNAs-in-space"
+Issues = "https://github.com/lkwhite/tRNAs-in-space/issues"
+Changelog = "https://github.com/lkwhite/tRNAs-in-space/blob/main/CHANGELOG.md"
+
+[project.scripts]
+trnas-in-space = "trnas_in_space:main"
+
+[tool.setuptools]
+packages = ["trnas_in_space"]
+package-dir = {"trnas_in_space" = "scripts"}
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers"
+testpaths = [
+    "tests",
+]
+python_files = ["test_*.py"]
+
+[tool.black]
+line-length = 100
+target-version = ['py39']
+include = '\.pyi?$'
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+ignore = []
+
+[tool.coverage.run]
+source = ["scripts"]
+omit = ["*/tests/*", "*/test_*.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]
