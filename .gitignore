@@ -13,3 +13,9 @@ __pycache__/
 *.pyc
 *.pyo
 
+# Ignore Python build artifacts
+*.egg-info/
+dist/
+build/
+*.egg
+
