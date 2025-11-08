@@ -14,9 +14,20 @@ For each organism in Tier 1, follow these steps:
    - Find and click on your organism
 3. **Download FASTA**:
    - Look for "Download" or "Sequences" section
-   - Download the mature tRNA sequences in FASTA format
+   - **IMPORTANT**: Download **high confidence** mature tRNA sequences
+   - Filter criteria (if manual filtering needed):
+     - Overall score ≥ 50 bits
+     - Isotype-specific model score ≥ 70 bits (for eukaryotes)
+     - Secondary structure score ≥ 10 bits
+     - Not flagged as pseudogenes
+   - Download the mature tRNA sequences in FASTA format (not genomic sequences)
    - For eukaryotes, get both nuclear and mitochondrial if available
 4. **Save to fastas/ directory** with the naming convention below
+
+**Note on confidence levels**: GtRNAdb may provide different download options:
+- "High confidence set" - Recommended for most analyses
+- "All predictions" - Includes low-confidence and pseudogene predictions
+- For consistency with existing datasets, use **high confidence mature tRNAs**
 
 ### Method 2: UCSC Table Browser
 

@@ -224,3 +224,10 @@ data_sources:
   url: "http://gtrnadb.ucsc.edu/"
   download_base_url: "http://gtrnadb.ucsc.edu/genomes/{kingdom}/{organism}/"
   notes: "FASTA files contain mature tRNA sequences predicted by tRNAscan-SE"
+  quality_filter: "high confidence"
+  filter_criteria:
+    overall_score_min: 50  # bits
+    isotype_model_score_min: 70  # bits (eukaryotes)
+    secondary_structure_score_min: 10  # bits
+    exclude_pseudogenes: true
+  sequence_type: "mature"  # mature tRNA sequences, not genomic sequences
