@@ -13,7 +13,7 @@ import numpy as np
 from pathlib import Path
 
 # Add scripts directory to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'scripts'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "scripts"))
 
 import trnas_in_space
 
@@ -21,9 +21,9 @@ import trnas_in_space
 def test_imports():
     """Test that all required modules can be imported."""
     assert trnas_in_space is not None
-    assert hasattr(trnas_in_space, 'main')
-    assert hasattr(trnas_in_space, 'sort_key')
-    assert hasattr(trnas_in_space, 'assign_region_from_sprinzl')
+    assert hasattr(trnas_in_space, "main")
+    assert hasattr(trnas_in_space, "sort_key")
+    assert hasattr(trnas_in_space, "assign_region_from_sprinzl")
 
 
 def test_sort_key():
@@ -83,19 +83,19 @@ def test_assign_region_from_sprinzl():
 def test_infer_trna_id_from_filename():
     """Test tRNA ID inference from filenames."""
     # Standard enriched.json format
-    assert trnas_in_space.infer_trna_id_from_filename(
-        "tRNA-Ala-AGC-1-1-B_Ala.enriched.json"
-    ) == "tRNA-Ala-AGC-1-1"
+    assert (
+        trnas_in_space.infer_trna_id_from_filename("tRNA-Ala-AGC-1-1-B_Ala.enriched.json")
+        == "tRNA-Ala-AGC-1-1"
+    )
 
     # Simple format
-    assert trnas_in_space.infer_trna_id_from_filename(
-        "example.enriched.json"
-    ) == "example"
+    assert trnas_in_space.infer_trna_id_from_filename("example.enriched.json") == "example"
 
     # With path
-    assert trnas_in_space.infer_trna_id_from_filename(
-        "/path/to/tRNA-Leu-CAA-1-1-B_Leu.enriched.json"
-    ) == "tRNA-Leu-CAA-1-1"
+    assert (
+        trnas_in_space.infer_trna_id_from_filename("/path/to/tRNA-Leu-CAA-1-1-B_Leu.enriched.json")
+        == "tRNA-Leu-CAA-1-1"
+    )
 
 
 def test_output_files_exist():
@@ -106,7 +106,7 @@ def test_output_files_exist():
     expected_files = [
         "ecoliK12_global_coords.tsv",
         "sacCer_global_coords.tsv",
-        "hg38_global_coords.tsv"
+        "hg38_global_coords.tsv",
     ]
 
     for filename in expected_files:
@@ -127,9 +127,16 @@ def test_output_file_structure():
 
     # Check required columns
     expected_columns = [
-        "trna_id", "source_file", "seq_index", "sprinzl_index",
-        "sprinzl_label", "residue", "sprinzl_ordinal",
-        "sprinzl_continuous", "global_index", "region"
+        "trna_id",
+        "source_file",
+        "seq_index",
+        "sprinzl_index",
+        "sprinzl_label",
+        "residue",
+        "sprinzl_ordinal",
+        "sprinzl_continuous",
+        "global_index",
+        "region",
     ]
 
     for col in expected_columns:
@@ -143,9 +150,17 @@ def test_output_file_structure():
 
     # Check region values are valid
     valid_regions = [
-        "acceptor-stem", "acceptor-tail", "D-stem", "D-loop",
-        "anticodon-stem", "anticodon-loop", "variable-region",
-        "variable-arm", "T-stem", "T-loop", "unknown"
+        "acceptor-stem",
+        "acceptor-tail",
+        "D-stem",
+        "D-loop",
+        "anticodon-stem",
+        "anticodon-loop",
+        "variable-region",
+        "variable-arm",
+        "T-stem",
+        "T-loop",
+        "unknown",
     ]
     assert df["region"].isin(valid_regions).all(), "Invalid region values found"
 
