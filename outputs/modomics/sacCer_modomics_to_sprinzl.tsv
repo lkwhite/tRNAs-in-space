@@ -1,0 +1,132 @@
+modomics_id	modomics_name	species	trna_type	anticodon	gtRNAdb_trna_id	alignment_score	alignment_identity	modification_position_modomics	modification_char	modification_name	modification_short_name	unmodified_char	position_gtRNAdb	sprinzl_index	sprinzl_label	region
+50	tdbR00000012	Saccharomyces cerevisiae	Ala	AGC	nuc-tRNA-Ala-AGC-1-1	152.0	100.0	9	K	1N-methylguanosine-5'-monophosphate	pm1G	G	9	9	9	unknown
+50	tdbR00000012	Saccharomyces cerevisiae	Ala	AGC	nuc-tRNA-Ala-AGC-1-1	152.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop
+50	tdbR00000012	Saccharomyces cerevisiae	Ala	AGC	nuc-tRNA-Ala-AGC-1-1	152.0	100.0	20	D	dihydrouridine	D	U	20	19	20	D-loop
+50	tdbR00000012	Saccharomyces cerevisiae	Ala	AGC	nuc-tRNA-Ala-AGC-1-1	152.0	100.0	26	R	N2-dimethylguanosine-5'-monophosphate	pm2,2G	G	26	25	26	unknown
+50	tdbR00000012	Saccharomyces cerevisiae	Ala	AGC	nuc-tRNA-Ala-AGC-1-1	152.0	100.0	34	I	inosine-5'-monophosphate	pI	A	34	33	34	anticodon-loop
+50	tdbR00000012	Saccharomyces cerevisiae	Ala	AGC	nuc-tRNA-Ala-AGC-1-1	152.0	100.0	37	O	1-methylinosine-5'-monophosphate	pm1I	A	37	36	37	anticodon-loop
+50	tdbR00000012	Saccharomyces cerevisiae	Ala	AGC	nuc-tRNA-Ala-AGC-1-1	152.0	100.0	38	P	pseudouridine-5'-monophosphate	pY	U	38	37	38	anticodon-loop
+50	tdbR00000012	Saccharomyces cerevisiae	Ala	AGC	nuc-tRNA-Ala-AGC-1-1	152.0	100.0	47	D	dihydrouridine	D	U	47	46	47	variable-arm
+50	tdbR00000012	Saccharomyces cerevisiae	Ala	AGC	nuc-tRNA-Ala-AGC-1-1	152.0	100.0	54	T	5-methyluridine-5'-monophosphate	pm5U	U	54	53	54	T-loop
+50	tdbR00000012	Saccharomyces cerevisiae	Ala	AGC	nuc-tRNA-Ala-AGC-1-1	152.0	100.0	55	P	pseudouridine-5'-monophosphate	pY	U	55	54	55	T-loop
+64	tdbR00000021	Saccharomyces cerevisiae	Cys	GCA	nuc-tRNA-Cys-GCA-1-1	150.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop
+64	tdbR00000021	Saccharomyces cerevisiae	Cys	GCA	nuc-tRNA-Cys-GCA-1-1	150.0	100.0	19	D	dihydrouridine	D	U	19	19	20	D-loop
+64	tdbR00000021	Saccharomyces cerevisiae	Cys	GCA	nuc-tRNA-Cys-GCA-1-1	150.0	100.0	31	P	pseudouridine-5'-monophosphate	pY	U	31	31	32	anticodon-loop
+64	tdbR00000021	Saccharomyces cerevisiae	Cys	GCA	nuc-tRNA-Cys-GCA-1-1	150.0	100.0	36	Ч	N6-isopentenyladenosine	i6A	A	36	36	37	anticodon-loop
+64	tdbR00000021	Saccharomyces cerevisiae	Cys	GCA	nuc-tRNA-Cys-GCA-1-1	150.0	100.0	38	P	pseudouridine-5'-monophosphate	pY	U	38	38	39	anticodon-stem
+64	tdbR00000021	Saccharomyces cerevisiae	Cys	GCA	nuc-tRNA-Cys-GCA-1-1	150.0	100.0	45	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	45	45	46	variable-region
+64	tdbR00000021	Saccharomyces cerevisiae	Cys	GCA	nuc-tRNA-Cys-GCA-1-1	150.0	100.0	46	D	dihydrouridine	D	U	46	46	47	variable-arm
+64	tdbR00000021	Saccharomyces cerevisiae	Cys	GCA	nuc-tRNA-Cys-GCA-1-1	150.0	100.0	47	?	5-methylcytidine-5'-monophosphate	pm5C	C	47	47	48	variable-arm
+64	tdbR00000021	Saccharomyces cerevisiae	Cys	GCA	nuc-tRNA-Cys-GCA-1-1	150.0	100.0	53	T	5-methyluridine-5'-monophosphate	pm5U	U	53	53	54	T-loop
+64	tdbR00000021	Saccharomyces cerevisiae	Cys	GCA	nuc-tRNA-Cys-GCA-1-1	150.0	100.0	54	P	pseudouridine-5'-monophosphate	pY	U	54	54	55	T-loop
+64	tdbR00000021	Saccharomyces cerevisiae	Cys	GCA	nuc-tRNA-Cys-GCA-1-1	150.0	100.0	57	Ѣ	N(1)-methyladenosine 5'-monophosphate	pm1A	A	57	57	58	T-loop
+74	tdbR00000129	Saccharomyces cerevisiae	Gly	GCC	nuc-tRNA-Gly-GCC-1-1	144.0	100.0	4	B	O2'-methylcytidine-5'-monophosphate	pCm	C	4	4	4	acceptor-stem
+74	tdbR00000129	Saccharomyces cerevisiae	Gly	GCC	nuc-tRNA-Gly-GCC-1-1	144.0	100.0	9	K	1N-methylguanosine-5'-monophosphate	pm1G	G	9	9	9	unknown
+74	tdbR00000129	Saccharomyces cerevisiae	Gly	GCC	nuc-tRNA-Gly-GCC-1-1	144.0	100.0	13	P	pseudouridine-5'-monophosphate	pY	U	13	13	13	D-stem
+74	tdbR00000129	Saccharomyces cerevisiae	Gly	GCC	nuc-tRNA-Gly-GCC-1-1	144.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop
+74	tdbR00000129	Saccharomyces cerevisiae	Gly	GCC	nuc-tRNA-Gly-GCC-1-1	144.0	100.0	19	D	dihydrouridine	D	U	19	19	20	D-loop
+74	tdbR00000129	Saccharomyces cerevisiae	Gly	GCC	nuc-tRNA-Gly-GCC-1-1	144.0	100.0	31	P	pseudouridine-5'-monophosphate	pY	U	31	31	32	anticodon-loop
+74	tdbR00000129	Saccharomyces cerevisiae	Gly	GCC	nuc-tRNA-Gly-GCC-1-1	144.0	100.0	37	P	pseudouridine-5'-monophosphate	pY	U	37	37	38	anticodon-loop
+74	tdbR00000129	Saccharomyces cerevisiae	Gly	GCC	nuc-tRNA-Gly-GCC-1-1	144.0	100.0	46	?	5-methylcytidine-5'-monophosphate	pm5C	C	46	47	48	variable-arm
+74	tdbR00000129	Saccharomyces cerevisiae	Gly	GCC	nuc-tRNA-Gly-GCC-1-1	144.0	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	52	53	54	T-loop
+74	tdbR00000129	Saccharomyces cerevisiae	Gly	GCC	nuc-tRNA-Gly-GCC-1-1	144.0	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	53	54	55	T-loop
+91	tdbR00000249	Saccharomyces cerevisiae	Leu	CAA	nuc-tRNA-Leu-CAA-1-1	170.0	100.0	10	L	N2-methylguanosine	m2G	G	10	11	11	D-stem
+91	tdbR00000249	Saccharomyces cerevisiae	Leu	CAA	nuc-tRNA-Leu-CAA-1-1	170.0	100.0	12	M	N4-acetylcytidine	ac4C	C	12	13	13	D-stem
+91	tdbR00000249	Saccharomyces cerevisiae	Leu	CAA	nuc-tRNA-Leu-CAA-1-1	170.0	100.0	17	#	O2'-methylguanosine-5'-monophosphate	pGm	G	17	18	18	D-loop
+91	tdbR00000249	Saccharomyces cerevisiae	Leu	CAA	nuc-tRNA-Leu-CAA-1-1	170.0	100.0	19	D	dihydrouridine	D	U	19	20	20	D-loop
+91	tdbR00000249	Saccharomyces cerevisiae	Leu	CAA	nuc-tRNA-Leu-CAA-1-1	170.0	100.0	21	D	dihydrouridine	D	U	21	22	21	D-loop
+91	tdbR00000249	Saccharomyces cerevisiae	Leu	CAA	nuc-tRNA-Leu-CAA-1-1	170.0	100.0	27	R	N2-dimethylguanosine-5'-monophosphate	pm2,2G	G	27	27	26	unknown
+91	tdbR00000249	Saccharomyces cerevisiae	Leu	CAA	nuc-tRNA-Leu-CAA-1-1	170.0	100.0	33	P	pseudouridine-5'-monophosphate	pY	U	33	33	32	anticodon-loop
+91	tdbR00000249	Saccharomyces cerevisiae	Leu	CAA	nuc-tRNA-Leu-CAA-1-1	170.0	100.0	35	?	5-methylcytidine-5'-monophosphate	pm5C	C	35	35	34	anticodon-loop
+91	tdbR00000249	Saccharomyces cerevisiae	Leu	CAA	nuc-tRNA-Leu-CAA-1-1	170.0	100.0	38	K	1N-methylguanosine-5'-monophosphate	pm1G	G	38	38	37	anticodon-loop
+91	tdbR00000249	Saccharomyces cerevisiae	Leu	CAA	nuc-tRNA-Leu-CAA-1-1	170.0	100.0	40	P	pseudouridine-5'-monophosphate	pY	U	40	40	39	anticodon-stem
+91	tdbR00000249	Saccharomyces cerevisiae	Leu	CAA	nuc-tRNA-Leu-CAA-1-1	170.0	100.0	57	?	5-methylcytidine-5'-monophosphate	pm5C	C	57	59	48	variable-arm
+91	tdbR00000249	Saccharomyces cerevisiae	Leu	CAA	nuc-tRNA-Leu-CAA-1-1	170.0	100.0	63	T	5-methyluridine-5'-monophosphate	pm5U	U	63	65	54	T-loop
+91	tdbR00000249	Saccharomyces cerevisiae	Leu	CAA	nuc-tRNA-Leu-CAA-1-1	170.0	100.0	64	P	pseudouridine-5'-monophosphate	pY	U	64	66	55	T-loop
+101	tdbR00000083	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-2-1	152.0	100.0	10	L	N2-methylguanosine	m2G	G	10	10	10	D-stem
+101	tdbR00000083	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-2-1	152.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop
+101	tdbR00000083	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-2-1	152.0	100.0	17	D	dihydrouridine	D	U	17	17	17	D-loop
+101	tdbR00000083	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-2-1	152.0	100.0	26	R	N2-dimethylguanosine-5'-monophosphate	pm2,2G	G	26	26	26	unknown
+101	tdbR00000083	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-2-1	152.0	100.0	32	B	O2'-methylcytidine-5'-monophosphate	pCm	C	32	32	32	anticodon-loop
+101	tdbR00000083	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-2-1	152.0	100.0	34	#	O2'-methylguanosine-5'-monophosphate	pGm	G	34	34	34	anticodon-loop
+101	tdbR00000083	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-2-1	152.0	100.0	37	Y	wybutosine-5'-monophosphate	pyW	G	37	37	37	anticodon-loop
+101	tdbR00000083	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-2-1	152.0	100.0	39	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem
+101	tdbR00000083	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-2-1	152.0	100.0	40	?	5-methylcytidine-5'-monophosphate	pm5C	C	40	40	40	anticodon-stem
+101	tdbR00000083	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-2-1	152.0	100.0	46	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region
+101	tdbR00000083	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-2-1	152.0	100.0	49	?	5-methylcytidine-5'-monophosphate	pm5C	C	49	49	49	T-stem
+101	tdbR00000083	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-2-1	152.0	100.0	54	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop
+101	tdbR00000083	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-2-1	152.0	100.0	55	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop
+101	tdbR00000083	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-2-1	152.0	100.0	58	Ѣ	N(1)-methyladenosine 5'-monophosphate	pm1A	A	58	58	58	T-loop
+103	tdbR00000084	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-1-1	152.0	100.0	10	L	N2-methylguanosine	m2G	G	10	10	10	D-stem
+103	tdbR00000084	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-1-1	152.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop
+103	tdbR00000084	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-1-1	152.0	100.0	17	D	dihydrouridine	D	U	17	17	17	D-loop
+103	tdbR00000084	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-1-1	152.0	100.0	26	R	N2-dimethylguanosine-5'-monophosphate	pm2,2G	G	26	26	26	unknown
+103	tdbR00000084	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-1-1	152.0	100.0	32	B	O2'-methylcytidine-5'-monophosphate	pCm	C	32	32	32	anticodon-loop
+103	tdbR00000084	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-1-1	152.0	100.0	34	#	O2'-methylguanosine-5'-monophosphate	pGm	G	34	34	34	anticodon-loop
+103	tdbR00000084	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-1-1	152.0	100.0	37	Y	wybutosine-5'-monophosphate	pyW	G	37	37	37	anticodon-loop
+103	tdbR00000084	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-1-1	152.0	100.0	39	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem
+103	tdbR00000084	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-1-1	152.0	100.0	40	?	5-methylcytidine-5'-monophosphate	pm5C	C	40	40	40	anticodon-stem
+103	tdbR00000084	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-1-1	152.0	100.0	46	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region
+103	tdbR00000084	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-1-1	152.0	100.0	49	?	5-methylcytidine-5'-monophosphate	pm5C	C	49	49	49	T-stem
+103	tdbR00000084	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-1-1	152.0	100.0	54	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop
+103	tdbR00000084	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-1-1	152.0	100.0	55	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop
+103	tdbR00000084	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-1-1	152.0	100.0	58	Ѣ	N(1)-methyladenosine 5'-monophosphate	pm1A	A	58	58	58	T-loop
+108	tdbD00009888	Saccharomyces cerevisiae	Ser	CGA	nuc-tRNA-Ser-CGA-1-1	170.0	100.0	12	M	N4-acetylcytidine	ac4C	C	12	12	12	D-stem
+108	tdbD00009888	Saccharomyces cerevisiae	Ser	CGA	nuc-tRNA-Ser-CGA-1-1	170.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop
+108	tdbD00009888	Saccharomyces cerevisiae	Ser	CGA	nuc-tRNA-Ser-CGA-1-1	170.0	100.0	17	#	O2'-methylguanosine-5'-monophosphate	pGm	G	17	17	18	D-loop
+108	tdbD00009888	Saccharomyces cerevisiae	Ser	CGA	nuc-tRNA-Ser-CGA-1-1	170.0	100.0	19	D	dihydrouridine	D	U	19	19	20	D-loop
+108	tdbD00009888	Saccharomyces cerevisiae	Ser	CGA	nuc-tRNA-Ser-CGA-1-1	170.0	100.0	20	D	dihydrouridine	D	U	20	20	20a	D-loop
+108	tdbD00009888	Saccharomyces cerevisiae	Ser	CGA	nuc-tRNA-Ser-CGA-1-1	170.0	100.0	26	R	N2-dimethylguanosine-5'-monophosphate	pm2,2G	G	26	26	26	unknown
+108	tdbD00009888	Saccharomyces cerevisiae	Ser	CGA	nuc-tRNA-Ser-CGA-1-1	170.0	100.0	32	Щ	3-Methylcytidine- 5'-monophosphate	pm3C	C	32	32	32	anticodon-loop
+108	tdbD00009888	Saccharomyces cerevisiae	Ser	CGA	nuc-tRNA-Ser-CGA-1-1	170.0	100.0	37	Ч	N6-isopentenyladenosine	i6A	A	37	37	37	anticodon-loop
+108	tdbD00009888	Saccharomyces cerevisiae	Ser	CGA	nuc-tRNA-Ser-CGA-1-1	170.0	100.0	39	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem
+108	tdbD00009888	Saccharomyces cerevisiae	Ser	CGA	nuc-tRNA-Ser-CGA-1-1	170.0	100.0	44	J	O2'-methyluridine 5'-monophosphate	pUm	U	44	44	44	variable-region
+108	tdbD00009888	Saccharomyces cerevisiae	Ser	CGA	nuc-tRNA-Ser-CGA-1-1	170.0	100.0	57	?	5-methylcytidine-5'-monophosphate	pm5C	C	57	57	48	variable-arm
+108	tdbD00009888	Saccharomyces cerevisiae	Ser	CGA	nuc-tRNA-Ser-CGA-1-1	170.0	100.0	63	T	5-methyluridine-5'-monophosphate	pm5U	U	63	63	54	T-loop
+108	tdbD00009888	Saccharomyces cerevisiae	Ser	CGA	nuc-tRNA-Ser-CGA-1-1	170.0	100.0	64	P	pseudouridine-5'-monophosphate	pY	U	64	64	55	T-loop
+122	tdbR00000494	Saccharomyces cerevisiae	Trp	CCA	nuc-tRNA-Trp-CCA-1-1	150.0	100.0	9	K	1N-methylguanosine-5'-monophosphate	pm1G	G	9	9	9	unknown
+122	tdbR00000494	Saccharomyces cerevisiae	Trp	CCA	nuc-tRNA-Trp-CCA-1-1	150.0	100.0	10	L	N2-methylguanosine	m2G	G	10	10	10	D-stem
+122	tdbR00000494	Saccharomyces cerevisiae	Trp	CCA	nuc-tRNA-Trp-CCA-1-1	150.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop
+122	tdbR00000494	Saccharomyces cerevisiae	Trp	CCA	nuc-tRNA-Trp-CCA-1-1	150.0	100.0	17	#	O2'-methylguanosine-5'-monophosphate	pGm	G	17	17	17	D-loop
+122	tdbR00000494	Saccharomyces cerevisiae	Trp	CCA	nuc-tRNA-Trp-CCA-1-1	150.0	100.0	19	D	dihydrouridine	D	U	19	19	19	D-loop
+122	tdbR00000494	Saccharomyces cerevisiae	Trp	CCA	nuc-tRNA-Trp-CCA-1-1	150.0	100.0	25	P	pseudouridine-5'-monophosphate	pY	U	25	26	26	unknown
+122	tdbR00000494	Saccharomyces cerevisiae	Trp	CCA	nuc-tRNA-Trp-CCA-1-1	150.0	100.0	26	P	pseudouridine-5'-monophosphate	pY	U	26	27	27	anticodon-stem
+122	tdbR00000494	Saccharomyces cerevisiae	Trp	CCA	nuc-tRNA-Trp-CCA-1-1	150.0	100.0	27	P	pseudouridine-5'-monophosphate	pY	U	27	28	28	anticodon-stem
+122	tdbR00000494	Saccharomyces cerevisiae	Trp	CCA	nuc-tRNA-Trp-CCA-1-1	150.0	100.0	31	B	O2'-methylcytidine-5'-monophosphate	pCm	C	31	32	32	anticodon-loop
+122	tdbR00000494	Saccharomyces cerevisiae	Trp	CCA	nuc-tRNA-Trp-CCA-1-1	150.0	100.0	33	B	O2'-methylcytidine-5'-monophosphate	pCm	C	33	34	34	anticodon-loop
+122	tdbR00000494	Saccharomyces cerevisiae	Trp	CCA	nuc-tRNA-Trp-CCA-1-1	150.0	100.0	38	P	pseudouridine-5'-monophosphate	pY	U	38	39	39	anticodon-stem
+122	tdbR00000494	Saccharomyces cerevisiae	Trp	CCA	nuc-tRNA-Trp-CCA-1-1	150.0	100.0	45	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	45	46	46	variable-region
+122	tdbR00000494	Saccharomyces cerevisiae	Trp	CCA	nuc-tRNA-Trp-CCA-1-1	150.0	100.0	46	D	dihydrouridine	D	U	46	47	47	variable-arm
+122	tdbR00000494	Saccharomyces cerevisiae	Trp	CCA	nuc-tRNA-Trp-CCA-1-1	150.0	100.0	53	T	5-methyluridine-5'-monophosphate	pm5U	U	53	54	54	T-loop
+122	tdbR00000494	Saccharomyces cerevisiae	Trp	CCA	nuc-tRNA-Trp-CCA-1-1	150.0	100.0	54	P	pseudouridine-5'-monophosphate	pY	U	54	55	55	T-loop
+122	tdbR00000494	Saccharomyces cerevisiae	Trp	CCA	nuc-tRNA-Trp-CCA-1-1	150.0	100.0	57	Ѣ	N(1)-methyladenosine 5'-monophosphate	pm1A	A	57	58	58	T-loop
+122	tdbR00000494	Saccharomyces cerevisiae	Trp	CCA	nuc-tRNA-Trp-CCA-1-1	150.0	100.0	64	P	pseudouridine-5'-monophosphate	pY	U	64	-1		unknown
+128	tdbR00000465	Saccharomyces cerevisiae	Val	CAC	nuc-tRNA-Val-CAC-1-1	152.0	100.0	10	L	N2-methylguanosine	m2G	G	10	10	10	D-stem
+128	tdbR00000465	Saccharomyces cerevisiae	Val	CAC	nuc-tRNA-Val-CAC-1-1	152.0	100.0	13	P	pseudouridine-5'-monophosphate	pY	U	13	13		D-stem
+128	tdbR00000465	Saccharomyces cerevisiae	Val	CAC	nuc-tRNA-Val-CAC-1-1	152.0	100.0	20	D	dihydrouridine	D	U	20	20	20a	D-loop
+128	tdbR00000465	Saccharomyces cerevisiae	Val	CAC	nuc-tRNA-Val-CAC-1-1	152.0	100.0	26	L	N2-methylguanosine	m2G	G	26	26	26	unknown
+128	tdbR00000465	Saccharomyces cerevisiae	Val	CAC	nuc-tRNA-Val-CAC-1-1	152.0	100.0	27	P	pseudouridine-5'-monophosphate	pY	U	27	27	27	anticodon-stem
+128	tdbR00000465	Saccharomyces cerevisiae	Val	CAC	nuc-tRNA-Val-CAC-1-1	152.0	100.0	28	P	pseudouridine-5'-monophosphate	pY	U	28	28	28	anticodon-stem
+128	tdbR00000465	Saccharomyces cerevisiae	Val	CAC	nuc-tRNA-Val-CAC-1-1	152.0	100.0	32	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop
+128	tdbR00000465	Saccharomyces cerevisiae	Val	CAC	nuc-tRNA-Val-CAC-1-1	152.0	100.0	46	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region
+128	tdbR00000465	Saccharomyces cerevisiae	Val	CAC	nuc-tRNA-Val-CAC-1-1	152.0	100.0	47	D	dihydrouridine	D	U	47	47	47	variable-arm
+128	tdbR00000465	Saccharomyces cerevisiae	Val	CAC	nuc-tRNA-Val-CAC-1-1	152.0	100.0	49	?	5-methylcytidine-5'-monophosphate	pm5C	C	49	49	49	T-stem
+128	tdbR00000465	Saccharomyces cerevisiae	Val	CAC	nuc-tRNA-Val-CAC-1-1	152.0	100.0	54	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop
+128	tdbR00000465	Saccharomyces cerevisiae	Val	CAC	nuc-tRNA-Val-CAC-1-1	152.0	100.0	55	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop
+128	tdbR00000465	Saccharomyces cerevisiae	Val	CAC	nuc-tRNA-Val-CAC-1-1	152.0	100.0	58	Ѣ	N(1)-methyladenosine 5'-monophosphate	pm1A	A	58	58	58	T-loop
+130	tdbR00000464	Saccharomyces cerevisiae	Val	AAC	nuc-tRNA-Val-AAC-1-1	154.0	100.0	9	K	1N-methylguanosine-5'-monophosphate	pm1G	G	9	9	9	unknown
+130	tdbR00000464	Saccharomyces cerevisiae	Val	AAC	nuc-tRNA-Val-AAC-1-1	154.0	100.0	13	P	pseudouridine-5'-monophosphate	pY	U	13	13		D-stem
+130	tdbR00000464	Saccharomyces cerevisiae	Val	AAC	nuc-tRNA-Val-AAC-1-1	154.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop
+130	tdbR00000464	Saccharomyces cerevisiae	Val	AAC	nuc-tRNA-Val-AAC-1-1	154.0	100.0	20	D	dihydrouridine	D	U	20	19	20	D-loop
+130	tdbR00000464	Saccharomyces cerevisiae	Val	AAC	nuc-tRNA-Val-AAC-1-1	154.0	100.0	21	D	dihydrouridine	D	U	21	20	20a	D-loop
+130	tdbR00000464	Saccharomyces cerevisiae	Val	AAC	nuc-tRNA-Val-AAC-1-1	154.0	100.0	28	P	pseudouridine-5'-monophosphate	pY	U	28	27	27	anticodon-stem
+130	tdbR00000464	Saccharomyces cerevisiae	Val	AAC	nuc-tRNA-Val-AAC-1-1	154.0	100.0	33	P	pseudouridine-5'-monophosphate	pY	U	33	32	32	anticodon-loop
+130	tdbR00000464	Saccharomyces cerevisiae	Val	AAC	nuc-tRNA-Val-AAC-1-1	154.0	100.0	35	I	inosine-5'-monophosphate	pI	A	35	34	34	anticodon-loop
+130	tdbR00000464	Saccharomyces cerevisiae	Val	AAC	nuc-tRNA-Val-AAC-1-1	154.0	100.0	47	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	47	46	46	variable-region
+130	tdbR00000464	Saccharomyces cerevisiae	Val	AAC	nuc-tRNA-Val-AAC-1-1	154.0	100.0	48	D	dihydrouridine	D	U	48	47	47	variable-arm
+130	tdbR00000464	Saccharomyces cerevisiae	Val	AAC	nuc-tRNA-Val-AAC-1-1	154.0	100.0	50	?	5-methylcytidine-5'-monophosphate	pm5C	C	50	49	49	T-stem
+130	tdbR00000464	Saccharomyces cerevisiae	Val	AAC	nuc-tRNA-Val-AAC-1-1	154.0	100.0	55	T	5-methyluridine-5'-monophosphate	pm5U	U	55	54	54	T-loop
+130	tdbR00000464	Saccharomyces cerevisiae	Val	AAC	nuc-tRNA-Val-AAC-1-1	154.0	100.0	56	P	pseudouridine-5'-monophosphate	pY	U	56	55	55	T-loop
+130	tdbR00000464	Saccharomyces cerevisiae	Val	AAC	nuc-tRNA-Val-AAC-1-1	154.0	100.0	59	Ѣ	N(1)-methyladenosine 5'-monophosphate	pm1A	A	59	58	58	T-loop
+1161	1I9V_A	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-2-1	152.0	100.0	37	Y	wybutosine-5'-monophosphate	pyW	G	37	37	37	anticodon-loop
+1161	1I9V_A	Saccharomyces cerevisiae	Phe	GAA	nuc-tRNA-Phe-GAA-2-1	152.0	100.0	54	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop

@@ -1,7 +1,7 @@
 # Modomics Integration - Implementation Guide
 
-**Status:** Phase 1 Setup Complete
-**Next Step:** Continue with unmodified FASTA processing
+**Status:** Phase 2 Complete - Alignment Pipeline Operational
+**Next Step:** Expand to additional species or integrate into automated pipeline
 
 ---
 
@@ -46,25 +46,47 @@ outputs/modomics/             # For output files
 
 ---
 
-### 🔄 Phase 2: Sequence Alignment & Position Mapping (NEXT)
+### ✅ Phase 2: Sequence Alignment & Position Mapping (COMPLETED)
 
 **Goal:** Map Modomics sequences to gtRNAdb sequences to transfer Sprinzl positions
 
-**Required inputs:**
-- ✅ `docs/development/modified_tRNA_all_all_rna_sequences.fasta` (already present)
-- ⏳ `docs/development/unmodified_tRNA_all_all_rna_sequences.fasta` (YOU NEED TO ADD THIS)
-- ✅ `docs/development/modomicscodes.csv` (already present)
-- ✅ `outputs/{organism}_global_coords.tsv` files (already present for 3 species)
+**What was built:**
+- `scripts/modomics/align_to_sprinzl.py` - Complete alignment and mapping pipeline
+- Species name normalization (Modomics ↔ gtRNAdb)
+- BioPython-based global sequence alignment (Needleman-Wunsch)
+- Position transfer through alignment gaps
+- Anticodon normalization for modified bases
 
-**Implementation tasks:**
-1. Run Phase 1 parser to generate `modomics_modifications.json`
-2. Build species name normalization (Modomics ↔ gtRNAdb)
-3. Implement tRNA sequence alignment (BioPython)
-4. Map Modomics positions → gtRNAdb positions → Sprinzl positions
-5. Generate `modomics_to_sprinzl_mapping.tsv`
+**Capabilities:**
+- Align Modomics unmodified sequences to gtRNAdb sequences
+- Map modification positions through alignment to Sprinzl coordinates
+- Filter by alignment quality (identity threshold)
+- Handle modified anticodons (I→G, etc.)
+- Export comprehensive TSV with all mappings
 
-**File to create:**
-- `scripts/modomics/align_to_sprinzl.py` - Alignment and mapping logic
+**Files created:**
+- `scripts/modomics/align_to_sprinzl.py` - Main alignment pipeline
+- `outputs/modomics/modomics_modifications.json` - Parsed Modomics data (963 tRNAs, 82 species)
+- `outputs/modomics/modomics_to_sprinzl_mapping.tsv` - Combined multi-species mappings
+- `outputs/modomics/ecoli_modomics_to_sprinzl.tsv` - E. coli mappings (261)
+- `outputs/modomics/sacCer_modomics_to_sprinzl.tsv` - Yeast mappings (131)
+- `outputs/modomics/hg38_modomics_to_sprinzl.tsv` - Human mappings (43)
+
+**Multi-Species Results (E. coli, Yeast, Human):**
+- **435 total mappings** across 3 species
+- **70 Modomics tRNAs** aligned to **37 gtRNAdb tRNAs**
+- **99.9% mean alignment identity** (median 100%)
+- **28 modification types** mapped to **55 Sprinzl positions**
+
+**Per-Species Breakdown:**
+- E. coli: 261 mappings (41 tRNAs, 12 mod types, 28 positions)
+- Yeast: 131 mappings (11 tRNAs, 18 mod types, 42 positions)
+- Human: 43 mappings (18 tRNAs, 16 mod types, 24 positions)
+
+**Cross-Species Conservation:**
+- 9 Sprinzl positions have modifications in all 3 species
+- Top conserved positions: 31, 32, 38, 47, 53, 55 (structural hotspots)
+- Key positions covered: 8, 17, 20, 34, 37, 46, 54, 55
 
 ---
 
@@ -329,4 +351,4 @@ Will need to map between formats:
 
 ---
 
-**Last Updated:** Session 1 - Phase 1 Setup Complete
+**Last Updated:** Session 2 - Phase 2 Complete (3 species: E. coli, yeast, human)
