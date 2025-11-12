@@ -46,6 +46,37 @@ python scripts/trnas_in_space.py ./r2dt_output_dir/ my_output.tsv
 
 See [examples/01_basic_visualization.ipynb](examples/01_basic_visualization.ipynb) for detailed usage examples.
 
+## Modomics Modification Annotations
+
+Pre-computed modification data from [MODOMICS](https://genesilico.pl/modomics/) is included, mapped to the global coordinate system. This enables comparison of experimental modification detection against known reference modifications from mass spectrometry data.
+
+**Available species:**
+- *E. coli*: 261 modification positions across 14 tRNAs (12 modification types)
+- *S. cerevisiae*: 131 modification positions across 10 tRNAs (18 modification types)
+- *H. sapiens*: 43 modification positions across 16 tRNAs (16 modification types)
+
+**Usage example:**
+```python
+import pandas as pd
+
+# Load Modomics annotations
+mods = pd.read_csv('outputs/modomics/modomics_to_sprinzl_mapping.tsv', sep='\t')
+
+# Join with your global coordinates
+coords = pd.read_csv('outputs/ecoliK12_global_coords.tsv', sep='\t')
+annotated = coords.merge(
+    mods[['gtRNAdb_trna_id', 'position_gtRNAdb', 'modification_short_name']],
+    left_on=['trna_id', 'seq_index'],
+    right_on=['gtRNAdb_trna_id', 'position_gtRNAdb'],
+    how='left'
+)
+# Now 'annotated' includes modification_short_name for known modifications
+```
+
+See [`docs/development/MODOMICS_INTEGRATION.md`](docs/development/MODOMICS_INTEGRATION.md) for implementation details and alignment methodology.
+
+---
+
 This README documents how to go from tRNA reference sequences → a single shared, equal‑spaced coordinate axis for plotting and cross‑isodecoder comparisons.
 
 In this repository, you can also find pre-computed tables containing these indexed coordinates (`outputs/$SPECIES_global_coords.tsv`) for tRNAs from common model organisms as we build them. Currently you can find *E. coli*, *S. cerevisiae*, and *H. sapiens* tRNAs here; however, *S. cerevisiae* mitochondrial tRNAs may need to be additionally hand-curated for accurate alignment due to [the unavailability of models specific to fungal mitochondria](https://github.com/r2dt-bio/R2DT/issues/197#issuecomment-3201887161). If this is relevant to your work we recommend the alignments in Reinsch and Garcia 2025 (see References).
@@ -82,11 +113,11 @@ Here's an example from [our own work](https://pubmed.ncbi.nlm.nih.gov/39091754/)
 
 However, there are still a few issues with the heatmap above.
 
--   The distribution of "missing" positions in the variable loop don't line up correctly with their Sprinzl annotations, because
+-   The distribution of "missing" positions in the variable loop don't line up correctly with their Sprinzl annotations, because the Sprinzl annotations along the X axis are actually only added during the plotting step
 
--   the Sprinzl annotations along the X axis are actually only added during the plotting step, and
+-   Not all tRNAs are pictured, because these structural alignments were generated from a non-comprehensive `.afa` file
 
--   not all tRNAs are pictured, because these structural alignments were generated from a non-comprehensive `.afa` file downloaded from [Modomics](%5Burl%5D(https://genesilico.pl/modomics/rnafamilies/rf00005/))
+**Note:** This repository now includes properly aligned Modomics modification data mapped to the global coordinate system (see `outputs/modomics/`), which resolves these alignment issues for downstream analysis
 
 By introducing a global index, we eliminate spacing irregularities and enable cross-isodecoder comparison in a clean, standardized coordinate space.
 
@@ -154,6 +185,7 @@ Note that this script overwrites the values of `sprinzl_index` with a best-effor
 ## Documentation
 
 - **[OUTPUT_FORMAT.md](docs/OUTPUT_FORMAT.md)** - Detailed specification of output TSV columns
+- **[MODOMICS_INTEGRATION.md](docs/development/MODOMICS_INTEGRATION.md)** - Modomics modification database integration
 - **[FAQ.md](docs/FAQ.md)** - Frequently asked questions and practical tips
 - **[examples/01_basic_visualization.ipynb](examples/01_basic_visualization.ipynb)** - Interactive visualization tutorial
 - **[CHANGELOG.md](CHANGELOG.md)** - Version history and release notes

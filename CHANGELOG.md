@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Modomics Integration**: Pre-computed modification annotations from MODOMICS database
+  - 435 modification positions mapped across E. coli, S. cerevisiae, and H. sapiens
+  - 100% mapping success to global coordinate system
+  - Includes modification names, positions, Sprinzl coordinates, and structural regions
+  - Output files: `outputs/modomics/*.tsv`
+  - Documentation: `docs/development/MODOMICS_INTEGRATION.md`
+  - Enables validation of detected modifications against known reference data
+
 ## [1.0.0] - 2025-01-15
 
 ### Added
