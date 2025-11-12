@@ -148,6 +148,7 @@ class GTRNAdbLoader:
         possible_names = [
             f"{organism_id}-tRNAs.fa",
             f"{organism_id}-mature-tRNAs.fa",
+            f"{organism_id}-mito-and-nuclear-tRNAs.fa",  # Yeast/human format
             f"{organism_id}MG1655-tRNAs.fa",  # E. coli special case
         ]
 
@@ -342,19 +343,35 @@ class ModomicsAligner:
 
         for trna_id, gtRNAdb_seq in gtRNAdb_sequences.items():
             # Quick filter: check if anticodon and subtype match
-            # tRNA ID format: tRNA-{Subtype}-{Anticodon}-{Copy}-{Variant}
+            # tRNA ID formats:
+            #   tRNA-{Subtype}-{Anticodon}-{Copy}-{Variant}  (E. coli)
+            #   nuc-tRNA-{Subtype}-{Anticodon}-{Copy}-{Variant}  (yeast/human nuclear)
+            #   mito-tRNA-{Subtype}-{Anticodon}-{Copy}-{Variant}  (yeast/human mito)
             parts = trna_id.split('-')
-            if len(parts) >= 3:
-                gtR_subtype = parts[1]
-                gtR_anticodon = parts[2]
 
-                # Skip if amino acid doesn't match
-                if gtR_subtype.lower() != modomics_subtype.lower():
+            # Handle prefix (nuc-, mito-, or no prefix)
+            if parts[0] in ['nuc', 'mito']:
+                # Format: nuc-tRNA-Ala-AGC-1-1
+                if len(parts) >= 5:
+                    gtR_subtype = parts[2]
+                    gtR_anticodon = parts[3]
+                else:
+                    continue
+            else:
+                # Format: tRNA-Ala-AGC-1-1
+                if len(parts) >= 3:
+                    gtR_subtype = parts[1]
+                    gtR_anticodon = parts[2]
+                else:
                     continue
 
-                # Skip if anticodon doesn't match (allowing for normalized anticodon)
-                if gtR_anticodon.upper() != norm_anticodon.upper():
-                    continue
+            # Skip if amino acid doesn't match
+            if gtR_subtype.lower() != modomics_subtype.lower():
+                continue
+
+            # Skip if anticodon doesn't match (allowing for normalized anticodon)
+            if gtR_anticodon.upper() != norm_anticodon.upper():
+                continue
 
             # Perform alignment
             aligned_mod, aligned_gtR, score = self.align_sequences(modomics_seq, gtRNAdb_seq)

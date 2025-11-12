@@ -66,15 +66,27 @@ outputs/modomics/             # For output files
 
 **Files created:**
 - `scripts/modomics/align_to_sprinzl.py` - Main alignment pipeline
-- `outputs/modomics/modomics_modifications.json` - Parsed Modomics data
-- `outputs/modomics/ecoli_modomics_to_sprinzl.tsv` - E. coli test case
+- `outputs/modomics/modomics_modifications.json` - Parsed Modomics data (963 tRNAs, 82 species)
+- `outputs/modomics/modomics_to_sprinzl_mapping.tsv` - Combined multi-species mappings
+- `outputs/modomics/ecoli_modomics_to_sprinzl.tsv` - E. coli mappings (261)
+- `outputs/modomics/sacCer_modomics_to_sprinzl.tsv` - Yeast mappings (131)
+- `outputs/modomics/hg38_modomics_to_sprinzl.tsv` - Human mappings (43)
 
-**E. coli Test Results:**
-- **261 mappings** created from 41 aligned tRNAs
-- **99.9% mean alignment identity** (all >98%)
-- **12 modification types** mapped to **28 Sprinzl positions**
-- Key positions covered: 8 (ps4U), 34 (wobble), 37 (ms2i6A), 54-55 (TΨC loop)
-- Modifications distributed across all structural regions
+**Multi-Species Results (E. coli, Yeast, Human):**
+- **435 total mappings** across 3 species
+- **70 Modomics tRNAs** aligned to **37 gtRNAdb tRNAs**
+- **99.9% mean alignment identity** (median 100%)
+- **28 modification types** mapped to **55 Sprinzl positions**
+
+**Per-Species Breakdown:**
+- E. coli: 261 mappings (41 tRNAs, 12 mod types, 28 positions)
+- Yeast: 131 mappings (11 tRNAs, 18 mod types, 42 positions)
+- Human: 43 mappings (18 tRNAs, 16 mod types, 24 positions)
+
+**Cross-Species Conservation:**
+- 9 Sprinzl positions have modifications in all 3 species
+- Top conserved positions: 31, 32, 38, 47, 53, 55 (structural hotspots)
+- Key positions covered: 8, 17, 20, 34, 37, 46, 54, 55
 
 ---
 
@@ -339,4 +351,4 @@ Will need to map between formats:
 
 ---
 
-**Last Updated:** Session 2 - Phase 2 Complete (E. coli test successful)
+**Last Updated:** Session 2 - Phase 2 Complete (3 species: E. coli, yeast, human)
