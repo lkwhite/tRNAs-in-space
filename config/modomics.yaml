@@ -1,0 +1,110 @@
+# Configuration for Modomics integration
+
+version: "0.1.0"
+description: "Configuration for integrating Modomics tRNA modification data"
+
+# Input file paths
+input_files:
+  modified_fasta: "docs/development/modified_tRNA_all_all_rna_sequences.fasta"
+  unmodified_fasta: "docs/development/unmodified_tRNA_all_all_rna_sequences.fasta"
+  modification_codes: "docs/development/modomicscodes.csv"
+
+# Output paths
+output:
+  base_directory: "outputs/modomics"
+  modifications_json: "outputs/modomics/modomics_modifications.json"
+  sprinzl_mapping: "outputs/modomics/modomics_to_sprinzl_mapping.tsv"
+  species_coverage: "outputs/modomics/species_coverage.tsv"
+  alignment_qc: "outputs/modomics/alignment_qc.tsv"
+  per_species_template: "outputs/{organism_id}_modomics_annotations.tsv"
+
+# Species name mapping (Modomics → gtRNAdb organism_id)
+species_mapping:
+  "Escherichia coli": "ecoliK12"
+  "Saccharomyces cerevisiae": "sacCer"
+  "Homo sapiens": "hg38"
+  "Mus musculus": "mm39"
+  "Drosophila melanogaster": "dm6"
+  "Caenorhabditis elegans": "ce11"
+  "Danio rerio": "danRer11"
+  "Arabidopsis thaliana": "araTha1"
+  "Schizosaccharomyces pombe": "schiPomb972h"
+  "Bacillus subtilis": "bacSubt168"
+  "Pseudomonas aeruginosa PAO1": "pseAer"
+  "Candida albicans": "canAlb"
+  "Xenopus laevis": "xenTro9"  # Note: gtRNAdb has X. tropicalis
+  "Rattus norvegicus": "rn7"
+  "Bos taurus": null  # Not in current gtRNAdb config
+  "Gallus gallus": null  # Not in current gtRNAdb config
+
+# Anticodon normalization (modified anticodons → standard)
+# Modomics uses modified bases in anticodon field
+anticodon_normalization:
+  "I": "G"  # Inosine → Guanosine
+  "Q": "G"  # Queuosine → Guanosine
+  "M": "A"  # N6-methyladenosine
+  "Y": "U"  # Pseudouridine
+  "B": "T"  # Various (context-dependent)
+  "V": "A"  # Various (context-dependent)
+  "S": "C"  # Various (context-dependent)
+  ")": "T"  # Various (context-dependent)
+  "U": "T"  # Occasionally used for T
+
+# Alignment parameters
+alignment:
+  algorithm: "needleman-wunsch"  # Global alignment
+  scoring:
+    match: 2
+    mismatch: -1
+    gap_open: -2
+    gap_extend: -0.5
+  quality_thresholds:
+    confident: 0.90  # >90% identity = confident match
+    acceptable: 0.85  # 85-90% = acceptable, flag for review
+    poor: 0.80  # 80-85% = poor, requires manual review
+    reject: 0.80  # <80% = reject, don't use
+
+# Filtering options
+filtering:
+  min_sequence_length: 50  # Minimum tRNA length
+  max_sequence_length: 120  # Maximum tRNA length (exclude seleno, etc.)
+  exclude_incomplete: true  # Exclude sequences with ambiguous bases
+  require_both_sequences: true  # Require both modified and unmodified
+
+# Processing options
+processing:
+  parallel: false  # Set to true when multiprocessing is implemented
+  batch_size: 100  # For batch processing
+  log_level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+
+# Validation
+validation:
+  check_sequence_lengths: true  # Verify modified/unmodified same length
+  check_anticodon_positions: true  # Verify anticodon around position 34-36
+  check_sprinzl_coverage: true  # Verify Sprinzl positions exist
+  report_ambiguous_matches: true  # Report when multiple tRNAs match
+
+# Known modification hotspots (for QC)
+# These positions commonly have modifications
+modification_hotspots:
+  - position: 34
+    name: "wobble position"
+    expected_modifications: ["I", "Q", "mnm5U", "cmnm5U"]
+  - position: 37
+    name: "3' to anticodon"
+    expected_modifications: ["m1G", "i6A", "t6A", "ms2i6A"]
+  - position: 54
+    name: "T-loop"
+    expected_modifications: ["T", "m5U"]
+  - position: 55
+    name: "T-loop"
+    expected_modifications: ["Y", "m1Y"]
+  - position: 58
+    name: "T-loop"
+    expected_modifications: ["m1A", "m1I"]
+
+# Reporting
+reporting:
+  generate_statistics: true
+  generate_visualizations: false  # Future: matplotlib plots
+  summary_format: "markdown"  # markdown, json, or both
