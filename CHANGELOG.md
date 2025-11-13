@@ -15,6 +15,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Output files: `outputs/modomics/*.tsv`
   - Documentation: `docs/development/MODOMICS_INTEGRATION.md`
   - Enables validation of detected modifications against known reference data
+- **Multi-species Processing Infrastructure**: Tools for batch processing multiple organisms
+  - Organism configuration system (`config/organisms.yaml`)
+  - Automated processing pipeline (`scripts/process_organisms.py`)
+  - Download helper for GtRNAdb FASTA files (`scripts/download_gtrnadb_fastas.py`)
+  - Comprehensive download guide (`docs/DOWNLOAD_GUIDE.md`)
+  - Support for 14 Tier 1 model organisms (11 new: mouse, fly, worm, zebrafish, arabidopsis, etc.)
+
+### Changed
+- **Documentation Organization**: Reorganized documentation structure
+  - Created `docs/archive/` for historical planning documents
+  - Moved completed planning docs to `docs/archive/planning/`
+  - Moved completed PR summaries to `docs/archive/completed-prs/`
+  - Added archive README explaining historical context
+  - Keeps `docs/development/` focused on active reference documentation
 
 ## [1.0.0] - 2025-01-15
 
