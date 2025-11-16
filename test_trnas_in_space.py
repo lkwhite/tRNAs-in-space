@@ -36,9 +36,26 @@ def test_sort_key():
     assert trnas_in_space.sort_key("20") < trnas_in_space.sort_key("20A")
     assert trnas_in_space.sort_key("20A") < trnas_in_space.sort_key("20B")
 
+    # Test "e" positions (extended variable arm) - should sort between 47 and 48
+    assert trnas_in_space.sort_key("47") < trnas_in_space.sort_key("e1")
+    assert trnas_in_space.sort_key("e1") < trnas_in_space.sort_key("48")
+    assert trnas_in_space.sort_key("e1") < trnas_in_space.sort_key("e2")
+    assert trnas_in_space.sort_key("e2") < trnas_in_space.sort_key("e12")
+    assert trnas_in_space.sort_key("e12") < trnas_in_space.sort_key("e13")
+    assert trnas_in_space.sort_key("e13") < trnas_in_space.sort_key("48")
+
+    # Test that e positions don't sort at the end (old bug)
+    assert trnas_in_space.sort_key("e1") < trnas_in_space.sort_key("76")
+
+    # Comprehensive ordering test for extended variable arm
+    labels = ["44", "45", "46", "47", "e1", "e2", "e3", "e12", "e13", "e14", "48", "49"]
+    sorted_labels = sorted(labels, key=trnas_in_space.sort_key)
+    assert sorted_labels == labels, f"Expected {labels}, got {sorted_labels}"
+
     # Test empty/nan labels (should sort to end)
     assert trnas_in_space.sort_key("1") < trnas_in_space.sort_key("")
     assert trnas_in_space.sort_key("1") < trnas_in_space.sort_key("nan")
+    assert trnas_in_space.sort_key("e1") < trnas_in_space.sort_key("")
 
 
 def test_sprinzl_numeric_from_label():
