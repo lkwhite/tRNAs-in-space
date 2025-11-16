@@ -116,10 +116,17 @@ def collect_rows_from_json(fp: str):
 
 
 def sort_key(lbl: str):
-    """Order labels: 20 < 20A < 20B; allow dotted like 9.1; unknowns at end."""
+    """Order labels: 20 < 20A < 20B; allow dotted like 9.1; e positions between 47 and 48; unknowns at end."""
     if lbl is None or lbl == "" or lbl == "nan":
         return (10**9, 2, "")
     s = str(lbl)
+    # Handle "e" positions (extended variable arm): e1, e2, e12, etc.
+    # Place them between position 47 and 48
+    m = re.fullmatch(r"e(\d+)", s)
+    if m:
+        e_num = int(m.group(1))
+        # Return (47, 1, e_num) to place between 47 (base=47, tier=0) and 48 (base=48, tier=0)
+        return (47, 1, e_num)
     m = re.fullmatch(r"(\d+)([A-Za-z]+)?", s)
     if m:
         base = int(m.group(1))
