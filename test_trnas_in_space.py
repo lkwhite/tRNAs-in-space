@@ -37,11 +37,11 @@ def test_sort_key():
     assert trnas_in_space.sort_key("20A") < trnas_in_space.sort_key("20B")
 
     # Test Type II extended variable arm positions (e1-e24)
-    # These should sort after position 46 but before 48
+    # These should sort after position 46 but before 47 (reserved coordinate space)
     assert trnas_in_space.sort_key("46") < trnas_in_space.sort_key("e1")
     assert trnas_in_space.sort_key("e1") < trnas_in_space.sort_key("e2")
     assert trnas_in_space.sort_key("e12") < trnas_in_space.sort_key("e13")
-    assert trnas_in_space.sort_key("e24") < trnas_in_space.sort_key("48")
+    assert trnas_in_space.sort_key("e24") < trnas_in_space.sort_key("47")
 
     # Test that "e" positions sort in reserved coordinate space
     # "e" positions map to (46, 2, e_num) which sorts after (46, *) and before (47, 0, '')
@@ -49,6 +49,14 @@ def test_sort_key():
     assert trnas_in_space.sort_key("e1") < trnas_in_space.sort_key("47A")
     # But "e" positions should sort after any 46 insertions
     assert trnas_in_space.sort_key("46A") < trnas_in_space.sort_key("e1")
+
+    # Test that e positions don't sort at the end (old bug)
+    assert trnas_in_space.sort_key("e1") < trnas_in_space.sort_key("76")
+
+    # Comprehensive ordering test for extended variable arm (reserved coordinate space)
+    labels = ["44", "45", "46", "e1", "e2", "e3", "e12", "e13", "e14", "47", "48", "49"]
+    sorted_labels = sorted(labels, key=trnas_in_space.sort_key)
+    assert sorted_labels == labels, f"Expected {labels}, got {sorted_labels}"
 
     # Test empty/nan labels (should sort to end)
     assert trnas_in_space.sort_key("1") < trnas_in_space.sort_key("")

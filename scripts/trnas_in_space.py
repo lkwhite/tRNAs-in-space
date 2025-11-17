@@ -206,6 +206,12 @@ def sort_key(lbl: str):
     if lbl is None or lbl == "" or lbl == "nan":
         return (10**9, 2, "")
     s = str(lbl)
+    # Type II extended variable arm positions (e1-e24) map to reserved coordinate space
+    m = re.fullmatch(r"e(\d+)", s)
+    if m:
+        e_num = int(m.group(1))
+        # Map to reserved space: after position 46, before regular 48
+        return (46, 2, e_num)
     m = re.fullmatch(r"(\d+)([A-Za-z]+)?", s)
     if m:
         base = int(m.group(1))
@@ -214,13 +220,6 @@ def sort_key(lbl: str):
     m = re.fullmatch(r"(\d+)\.(\d+)", s)
     if m:
         return (int(m.group(1)), 1, int(m.group(2)))
-    # Type II extended variable arm positions (e1-e24) map to reserved coordinate space
-    m = re.fullmatch(r"e(\d+)", s)
-    if m:
-        e_num = int(m.group(1))
-        # Map to reserved space: after position 46, before regular 48
-        # This places them after (47, 1, *) SeC insertions but in proper structural location
-        return (46, 2, e_num)
     return (10**9 - 1, 2, s)
 
 
