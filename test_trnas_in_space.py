@@ -36,9 +36,24 @@ def test_sort_key():
     assert trnas_in_space.sort_key("20") < trnas_in_space.sort_key("20A")
     assert trnas_in_space.sort_key("20A") < trnas_in_space.sort_key("20B")
 
+    # Test Type II extended variable arm positions (e1-e24)
+    # These should sort after position 46 but before 48
+    assert trnas_in_space.sort_key("46") < trnas_in_space.sort_key("e1")
+    assert trnas_in_space.sort_key("e1") < trnas_in_space.sort_key("e2")
+    assert trnas_in_space.sort_key("e12") < trnas_in_space.sort_key("e13")
+    assert trnas_in_space.sort_key("e24") < trnas_in_space.sort_key("48")
+
+    # Test that "e" positions sort in reserved coordinate space
+    # "e" positions map to (46, 2, e_num) which sorts after (46, *) and before (47, 0, '')
+    assert trnas_in_space.sort_key("e1") < trnas_in_space.sort_key("47")
+    assert trnas_in_space.sort_key("e1") < trnas_in_space.sort_key("47A")
+    # But "e" positions should sort after any 46 insertions
+    assert trnas_in_space.sort_key("46A") < trnas_in_space.sort_key("e1")
+
     # Test empty/nan labels (should sort to end)
     assert trnas_in_space.sort_key("1") < trnas_in_space.sort_key("")
     assert trnas_in_space.sort_key("1") < trnas_in_space.sort_key("nan")
+    assert trnas_in_space.sort_key("e24") < trnas_in_space.sort_key("")
 
 
 def test_sprinzl_numeric_from_label():
@@ -96,6 +111,62 @@ def test_infer_trna_id_from_filename():
         trnas_in_space.infer_trna_id_from_filename("/path/to/tRNA-Leu-CAA-1-1-B_Leu.enriched.json")
         == "tRNA-Leu-CAA-1-1"
     )
+
+
+def test_should_exclude_trna():
+    """Test SeC and mitochondrial tRNA filtering function."""
+    # Should exclude SeC tRNAs
+    assert trnas_in_space.should_exclude_trna("nuc-tRNA-SeC-TCA-1-1")
+    assert trnas_in_space.should_exclude_trna("tRNA-Sec-TCA-1-1")
+    assert trnas_in_space.should_exclude_trna("Selenocysteine-tRNA-1")
+    assert trnas_in_space.should_exclude_trna("SEC_tRNA")
+
+    # Should exclude mitochondrial tRNAs
+    assert trnas_in_space.should_exclude_trna("mito-tRNA-Ala-UGC")
+    assert trnas_in_space.should_exclude_trna("mito-tRNA-Leu-UAA")
+    assert trnas_in_space.should_exclude_trna("MITO-tRNA-Phe-GAA")
+
+    # Should exclude initiator methionine tRNAs
+    assert trnas_in_space.should_exclude_trna("nuc-tRNA-iMet-CAT-1-1")
+    assert trnas_in_space.should_exclude_trna("tRNA-initiator-Met-CAU")
+
+    # Should not exclude standard nuclear elongator tRNAs
+    assert not trnas_in_space.should_exclude_trna("nuc-tRNA-Ala-GGC-1-1")
+    assert not trnas_in_space.should_exclude_trna("nuc-tRNA-Leu-CAA-1-1")
+    assert not trnas_in_space.should_exclude_trna("nuc-tRNA-Ser-GCT-1-1")
+    assert not trnas_in_space.should_exclude_trna("nuc-tRNA-Phe-GAA-1-1")
+
+    # Handle edge cases
+    assert not trnas_in_space.should_exclude_trna(None)
+    assert not trnas_in_space.should_exclude_trna("")
+
+
+def test_validate_no_global_index_collisions():
+    """Test collision detection function."""
+    # Create test DataFrame with no collisions
+    good_df = pd.DataFrame({
+        'global_index': [1, 2, 3, 4],
+        'sprinzl_label': ['1', '2', '3', '4'],
+        'trna_id': ['test1', 'test1', 'test1', 'test1']
+    })
+
+    # Should not raise any errors
+    try:
+        trnas_in_space.validate_no_global_index_collisions(good_df)
+    except SystemExit:
+        assert False, "Should not exit on good data"
+
+    # Create test DataFrame with collisions
+    bad_df = pd.DataFrame({
+        'global_index': [1, 2, 2, 3],  # Collision at index 2
+        'sprinzl_label': ['1', '47', 'e1', '3'],  # Different labels with same index
+        'trna_id': ['test1', 'test1', 'test2', 'test1']
+    })
+
+    # Should exit with error
+    import pytest
+    with pytest.raises(SystemExit):
+        trnas_in_space.validate_no_global_index_collisions(bad_df)
 
 
 def test_output_files_exist():
@@ -196,6 +267,8 @@ def run_basic_tests():
         ("Sprinzl numeric extraction", test_sprinzl_numeric_from_label),
         ("Region assignment", test_assign_region_from_sprinzl),
         ("Filename parsing", test_infer_trna_id_from_filename),
+        ("SeC filtering", test_should_exclude_trna),
+        ("Collision detection", test_validate_no_global_index_collisions),
         ("Output files exist", test_output_files_exist),
         ("Output file structure", test_output_file_structure),
         ("Global index continuity", test_global_index_continuity),

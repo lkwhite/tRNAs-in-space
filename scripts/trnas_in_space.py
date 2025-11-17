@@ -36,6 +36,86 @@ def infer_trna_id_from_filename(path: str) -> str:
     return m.group(1) if m else name
 
 
+def should_exclude_trna(trna_id: str) -> bool:
+    """
+    Filter out structurally incompatible tRNAs that cannot be meaningfully aligned
+    with standard nuclear tRNA coordinate systems.
+
+    Exclusions:
+    1. SeC tRNAs: Structurally distinctive due to unique biological requirements:
+       - Avoid normal stop codon recognition (would terminate translation)
+       - Recruit specialized factors (SelA/SelB complex)
+       - Coordinate with SECIS elements (distant mRNA signals)
+       - Results in ~95 nucleotides vs. standard 76, with 17+ nucleotide extended
+         variable arms that cannot be aligned with Type I/II tRNAs.
+
+    2. Mitochondrial tRNAs: Fundamentally different architecture:
+       - Often 60-75 nucleotides vs. 76 for nuclear tRNAs
+       - Can lack certain structural features (e.g., D-loop)
+       - Different Sprinzl numbering patterns
+       - Designed for mitochondrial translation system, not cytoplasmic
+       - Cannot be meaningfully aligned with nuclear tRNA coordinates
+
+    Focus on nuclear tRNAs (nuc-tRNA-*) which have standardized Type I/II structures.
+    """
+    if trna_id is None:
+        return False
+
+    trna_id_upper = trna_id.upper()
+
+    # Exclude selenocysteine - incompatible structure
+    if 'SEC' in trna_id_upper or 'SELENOCYSTEINE' in trna_id_upper:
+        return True
+
+    # Exclude mitochondrial tRNAs - different structural architecture
+    if 'MITO-TRNA' in trna_id_upper or trna_id_upper.startswith('MITO-'):
+        return True
+
+    # Exclude initiator methionine tRNAs - different structural features
+    # Initiator tRNAs have modified structures for ribosome binding
+    if 'IMET' in trna_id_upper or 'INITIAT' in trna_id_upper:
+        return True
+
+    # Add other exclusions as needed
+    return False
+
+
+def validate_no_global_index_collisions(df: pd.DataFrame):
+    """
+    Detect and report global_index collisions that would break coordinate alignment.
+    Exits with error if collisions are found.
+    """
+    # Group by global_index and find any with multiple distinct sprinzl_label values
+    collision_groups = []
+    for global_idx, group in df.groupby('global_index'):
+        if pd.isna(global_idx):
+            continue
+        unique_labels = group['sprinzl_label'].unique()
+        unique_labels = [lbl for lbl in unique_labels if pd.notna(lbl) and lbl != '']
+        if len(unique_labels) > 1:
+            # Found collision: multiple labels mapping to same global_index
+            collision_groups.append((global_idx, unique_labels, group))
+
+    if collision_groups:
+        print("\n[ERROR] Global index collisions detected!")
+        print("Multiple structural positions share the same global_index, breaking coordinate alignment:\n")
+        for global_idx, labels, group in collision_groups:
+            print(f"  global_index {global_idx}:")
+            for label in labels:
+                trna_examples = group[group['sprinzl_label'] == label]['trna_id'].unique()[:3]
+                print(f"    - position '{label}' (examples: {', '.join(trna_examples)})")
+            print()
+
+        print("This indicates that the coordinate system cannot properly handle the diversity")
+        print("of tRNA structures present. Consider:")
+        print("  1. Filtering out additional incompatible tRNA types")
+        print("  2. Adjusting the sort_key() function for better position ordering")
+        print("  3. Expanding reserved coordinate space for extended variable arms")
+        sys.exit(1)
+
+    print(f"[ok] Global index validation: No collisions detected among {df['global_index'].nunique()} unique positions")
+
+
 # --------------------- phase 1: JSON -> rows ----------------------
 
 
@@ -46,6 +126,12 @@ def collect_rows_from_json(fp: str):
     seq = mol["sequence"]
 
     trna_id = infer_trna_id_from_filename(fp)
+
+    # Filter out structurally incompatible tRNAs (e.g., SeC)
+    if should_exclude_trna(trna_id):
+        print(f"Excluding incompatible tRNA: {trna_id}")
+        return []
+
     rows = []
     for s in seq:
         rname = s.get("residueName")
@@ -116,7 +202,7 @@ def collect_rows_from_json(fp: str):
 
 
 def sort_key(lbl: str):
-    """Order labels: 20 < 20A < 20B; allow dotted like 9.1; unknowns at end."""
+    """Order labels: 20 < 20A < 20B; allow dotted like 9.1; Type II extended arms (e1-e24) map to reserved space; unknowns at end."""
     if lbl is None or lbl == "" or lbl == "nan":
         return (10**9, 2, "")
     s = str(lbl)
@@ -128,21 +214,38 @@ def sort_key(lbl: str):
     m = re.fullmatch(r"(\d+)\.(\d+)", s)
     if m:
         return (int(m.group(1)), 1, int(m.group(2)))
+    # Type II extended variable arm positions (e1-e24) map to reserved coordinate space
+    m = re.fullmatch(r"e(\d+)", s)
+    if m:
+        e_num = int(m.group(1))
+        # Map to reserved space: after position 46, before regular 48
+        # This places them after (47, 1, *) SeC insertions but in proper structural location
+        return (46, 2, e_num)
     return (10**9 - 1, 2, s)
 
 
 def build_pref_label(df: pd.DataFrame) -> pd.Series:
     """
     Prefer sprinzl_index (numeric) for standard positions [1..76] to ensure consistency.
-    Use sprinzl_label only for insertions (e.g., "20a", "47a") where index is invalid.
+    Use sprinzl_label for structural insertions:
+    - Type II extended arms ("e1", "e2", etc.) - crucial structural information
+    - Other insertions (e.g., "20a", "47a") where index is invalid
     Returns strings with '' for unknown.
     """
     lbl = df["sprinzl_label"].astype("string").fillna("").str.strip()
     num = pd.to_numeric(df["sprinzl_index"], errors="coerce")
     num_ok = num.where((num >= 1) & (num <= 76))
     num_ok_str = num_ok.astype("Int64").astype(str).replace({"<NA>": ""})
+
+    # Always preserve Type II extended arm positions (e1, e2, e3, etc.)
+    is_extended_arm = lbl.str.match(r'^e\d+$', na=False)
+
     # Use numeric index when valid (1-76), otherwise fall back to label for insertions
     pref = num_ok_str.mask(num_ok_str.eq(""), other=lbl)
+
+    # Override with extended arm labels to preserve structural information
+    pref = pref.mask(is_extended_arm, other=lbl)
+
     return pref
 
 
@@ -255,6 +358,10 @@ def main():
         "json_dir", help="Directory with R2DT *.enriched.json files (searched recursively)."
     )
     ap.add_argument("out_tsv", help="Output TSV path.")
+    ap.add_argument(
+        "--allow-collisions", action="store_true",
+        help="Allow coordinate generation despite isoacceptor-level position collisions."
+    )
     args = ap.parse_args()
 
     paths = glob(os.path.join(args.json_dir, "**", "*.enriched.json"), recursive=True)
@@ -291,6 +398,12 @@ def main():
     uniq_cont = sorted(cont_round.dropna().unique().tolist())
     cont_to_global = {v: i + 1 for i, v in enumerate(uniq_cont)}
     df["global_index"] = cont_round.map(cont_to_global).astype("Int64")
+
+    # Validate no global_index collisions (unless explicitly allowing them)
+    if hasattr(args, 'allow_collisions') and args.allow_collisions:
+        print("[info] Collision validation bypassed due to --allow-collisions flag")
+    else:
+        validate_no_global_index_collisions(df)
 
     # Region annotation from Sprinzl
     df["region"] = compute_region_column(df)

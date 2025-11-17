@@ -75,6 +75,57 @@ annotated = coords.merge(
 
 See [`docs/development/MODOMICS_INTEGRATION.md`](docs/development/MODOMICS_INTEGRATION.md) for implementation details and alignment methodology.
 
+## Global Coordinate System
+
+This project provides a **standardized coordinate system for nuclear elongator tRNAs** that enables comparative structural analysis across different tRNA families. The coordinate system supports both Type I (standard) and Type II (extended variable arm) tRNAs, allowing researchers to perform analyses that were not previously possible with individual tRNA studies.
+
+### Research Capabilities
+
+**Cross-tRNA Comparative Analysis:**
+- Compare modification patterns across amino acid families
+- Analyze structural domain conservation (acceptor stem, anticodon loop, T-arm)
+- Study extended variable arm differences between Leu/Ser/Tyr and other tRNAs
+- Generate multi-tRNA heatmaps and statistical comparisons
+
+**Position-Specific Studies:**
+- Map modification frequencies to standardized structural positions
+- Identify hotspots of evolutionary conservation or variation
+- Correlate structural features with experimental modification data
+
+**Type I vs Type II Analysis:**
+- Compare standard tRNAs (76 nt) with extended variable arm tRNAs (~90 nt)
+- Study structural adaptations in Leucine, Serine, and Tyrosine tRNAs
+- Analyze how extended arms affect surrounding structural regions
+
+### System Scope
+
+**✅ Supported tRNA Types:**
+- **Nuclear elongator tRNAs**: Standard cytoplasmic tRNAs used in protein synthesis
+- **Type I**: Alanine, Phenylalanine, Glycine, and most other amino acids (standard structure)
+- **Type II**: Leucine, Serine, Tyrosine (extended variable arms with e1-e24 positions)
+
+**🚫 Excluded by Design:**
+- **Selenocysteine tRNAs**: Structurally incompatible (~95 nt with unique binding requirements)
+- **Mitochondrial tRNAs**: Different architecture (60-75 nt, missing structural features)
+- **Initiator methionine tRNAs**: Modified structure for specialized ribosome binding
+
+### Usage Guidelines
+
+**High-Confidence Analyses:**
+- Cross-amino-acid modification comparisons
+- Structural domain analysis (acceptor, anticodon, T-regions)
+- Type I vs Type II extended variable arm studies
+
+**Moderate-Confidence Analyses:**
+- Position-specific studies (validation recommended for critical positions)
+- Inter-species comparative analysis
+
+**Alternative Approaches Recommended:**
+- Fine-grained analysis within single tRNA families (use individual tRNA coordinates)
+- Studies requiring selenocysteine or mitochondrial tRNAs (specialized analysis needed)
+
+For detailed analysis guidelines, see [ANALYSIS_GUIDELINES.md](ANALYSIS_GUIDELINES.md). For technical implementation details, see [COORDINATE_SYSTEM_SCOPE.md](COORDINATE_SYSTEM_SCOPE.md).
+
 ---
 
 This README documents how to go from tRNA reference sequences → a single shared, equal‑spaced coordinate axis for plotting and cross‑isodecoder comparisons.
