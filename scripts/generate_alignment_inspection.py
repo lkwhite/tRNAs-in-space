@@ -19,35 +19,35 @@ def generate_alignment_inspection(input_file, output_file):
     df = pd.read_csv(input_file, sep='\t')
 
     # Create a pivot table
-    # Rows: global_index, Columns: trna_id, Values: sprinzl_label
+    # Rows: trna_id, Columns: global_index, Values: sprinzl_label
     pivot = df.pivot_table(
-        index='global_index',
-        columns='trna_id',
+        index='trna_id',
+        columns='global_index',
         values='sprinzl_label',
         aggfunc='first'  # In case of duplicates, take the first
     )
 
-    # Sort columns alphabetically
-    pivot = pivot[sorted(pivot.columns)]
+    # Ensure all global_index values from min to max are present
+    min_idx = int(pivot.columns.min())
+    max_idx = int(pivot.columns.max())
+    full_columns = range(min_idx, max_idx + 1)
+    pivot = pivot.reindex(columns=full_columns, fill_value='NA')
 
     # Fill missing values with 'NA'
     pivot = pivot.fillna('NA')
 
-    # Ensure all global_index values from min to max are present
-    min_idx = int(pivot.index.min())
-    max_idx = int(pivot.index.max())
-    full_index = range(min_idx, max_idx + 1)
-    pivot = pivot.reindex(full_index, fill_value='NA')
+    # Sort rows (tRNA IDs) alphabetically
+    pivot = pivot.sort_index()
 
-    # Reset index to make global_index a column
+    # Reset index to make trna_id a column
     pivot = pivot.reset_index()
-    pivot = pivot.rename(columns={'index': 'global_index'})
+    pivot = pivot.rename(columns={'trna_id': 'tRNA'})
 
     # Save to TSV
     pivot.to_csv(output_file, sep='\t', index=False)
 
     print(f"Generated alignment inspection file: {output_file}")
-    print(f"Dimensions: {len(pivot)} rows (global_index) × {len(pivot.columns)-1} columns (tRNA IDs)")
+    print(f"Dimensions: {len(pivot)} rows (tRNAs) × {len(pivot.columns)-1} columns (global_index positions)")
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
