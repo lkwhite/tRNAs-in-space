@@ -73,28 +73,63 @@ def should_exclude_trna(trna_id: str) -> bool:
 
     # Exclude initiator methionine tRNAs - different structural features
     # Initiator tRNAs have modified structures for ribosome binding
-    if 'IMET' in trna_id_upper or 'INITIAT' in trna_id_upper:
+    if 'IMET' in trna_id_upper or 'INITIAT' in trna_id_upper or 'FMET' in trna_id_upper:
         return True
 
     # Add other exclusions as needed
     return False
 
 
+def classify_trna_type(trna_id: str) -> str:
+    """
+    Classify tRNAs into structural types for dual coordinate system approach.
+
+    Returns:
+        'type1': Standard tRNAs with simple variable arm (most amino acids)
+        'type2': Extended variable arm tRNAs (Leu, Ser, Tyr with e-positions)
+        'exclude': Structurally incompatible tRNAs (SeC, mito, iMet)
+    """
+    # First check if this tRNA should be excluded entirely
+    if should_exclude_trna(trna_id):
+        return 'exclude'
+
+    if trna_id is None:
+        return 'exclude'
+
+    trna_id_upper = trna_id.upper()
+
+    # Type II: Extended variable arm tRNAs (Leu, Ser, Tyr)
+    # These have e1-e24 positions in their extended variable arms
+    if any(amino_acid in trna_id_upper for amino_acid in ['LEU', 'SER', 'TYR']):
+        return 'type2'
+
+    # Type I: All other nuclear elongator tRNAs
+    # Standard 76nt structure with simple variable arm (positions 47-48)
+    return 'type1'
+
+
 def validate_no_global_index_collisions(df: pd.DataFrame):
     """
     Detect and report global_index collisions that would break coordinate alignment.
+    Uses the preferred label (the one actually used for coordinates) rather than
+    raw sprinzl_label to avoid false positives from R2DT template differences.
     Exits with error if collisions are found.
     """
-    # Group by global_index and find any with multiple distinct sprinzl_label values
+    # Build preferred labels using the same logic as coordinate generation
+    pref_labels = build_pref_label(df)
+    df_with_pref = df.copy()
+    df_with_pref['pref_label'] = pref_labels
+
+    # Group by global_index and find any with multiple distinct preferred labels
     collision_groups = []
-    for global_idx, group in df.groupby('global_index'):
+    for global_idx, group in df_with_pref.groupby('global_index'):
         if pd.isna(global_idx):
             continue
-        unique_labels = group['sprinzl_label'].unique()
-        unique_labels = [lbl for lbl in unique_labels if pd.notna(lbl) and lbl != '']
-        if len(unique_labels) > 1:
-            # Found collision: multiple labels mapping to same global_index
-            collision_groups.append((global_idx, unique_labels, group))
+        unique_pref_labels = group['pref_label'].unique()
+        unique_pref_labels = [lbl for lbl in unique_pref_labels if pd.notna(lbl) and lbl != '']
+        if len(unique_pref_labels) > 1:
+            # Found collision: multiple preferred labels mapping to same global_index
+            collision_groups.append((global_idx, unique_pref_labels, group))
 
     if collision_groups:
         print("\n[ERROR] Global index collisions detected!")
@@ -102,7 +137,7 @@ def validate_no_global_index_collisions(df: pd.DataFrame):
         for global_idx, labels, group in collision_groups:
             print(f"  global_index {global_idx}:")
             for label in labels:
-                trna_examples = group[group['sprinzl_label'] == label]['trna_id'].unique()[:3]
+                trna_examples = group[group['pref_label'] == label]['trna_id'].unique()[:3]
                 print(f"    - position '{label}' (examples: {', '.join(trna_examples)})")
             print()
 
@@ -220,6 +255,69 @@ def sort_key(lbl: str):
     m = re.fullmatch(r"(\d+)\.(\d+)", s)
     if m:
         return (int(m.group(1)), 1, int(m.group(2)))
+    return (10**9 - 1, 2, s)
+
+
+def sort_key_type1(lbl: str):
+    """
+    Sort key for Type I tRNAs: Standard 76nt tRNAs with simple variable arm.
+    No e-positions expected, simpler coordinate space.
+    """
+    if lbl is None or lbl == "" or lbl == "nan":
+        return (10**9, 2, "")
+    s = str(lbl)
+
+    # Standard numeric positions with optional letter suffixes
+    m = re.fullmatch(r"(\d+)([A-Za-z]+)?", s)
+    if m:
+        base = int(m.group(1))
+        suf = (m.group(2) or "").upper()
+        return (base, 1 if suf else 0, suf)
+
+    # Allow dotted positions like 9.1
+    m = re.fullmatch(r"(\d+)\.(\d+)", s)
+    if m:
+        return (int(m.group(1)), 1, int(m.group(2)))
+
+    # e-positions should not occur in Type I, but handle gracefully
+    m = re.fullmatch(r"e(\d+)", s)
+    if m:
+        print(f"Warning: e-position {s} found in Type I tRNA (unexpected)")
+        return (10**8, 2, int(m.group(1)))
+
+    # Unknown labels at end
+    return (10**9 - 1, 2, s)
+
+
+def sort_key_type2(lbl: str):
+    """
+    Sort key for Type II tRNAs: Extended variable arm tRNAs (Leu, Ser, Tyr).
+    Optimized for e-position handling without collision concerns.
+    """
+    if lbl is None or lbl == "" or lbl == "nan":
+        return (10**9, 2, "")
+    s = str(lbl)
+
+    # Type II extended variable arm positions (e1-e24) - natural ordering
+    m = re.fullmatch(r"e(\d+)", s)
+    if m:
+        e_num = int(m.group(1))
+        # Place e-positions after position 46, in natural order
+        return (46, 2, e_num)
+
+    # Standard numeric positions with optional letter suffixes
+    m = re.fullmatch(r"(\d+)([A-Za-z]+)?", s)
+    if m:
+        base = int(m.group(1))
+        suf = (m.group(2) or "").upper()
+        return (base, 1 if suf else 0, suf)
+
+    # Allow dotted positions like 9.1
+    m = re.fullmatch(r"(\d+)\.(\d+)", s)
+    if m:
+        return (int(m.group(1)), 1, int(m.group(2)))
+
+    # Unknown labels at end
     return (10**9 - 1, 2, s)
 
 
@@ -349,40 +447,61 @@ def compute_region_column(df: pd.DataFrame) -> pd.Series:
 # -------------------------------- main ---------------------------------
 
 
-def main():
-    ap = argparse.ArgumentParser(
-        description="Build global equal-spaced tRNA coordinates + regions from R2DT JSON."
-    )
-    ap.add_argument(
-        "json_dir", help="Directory with R2DT *.enriched.json files (searched recursively)."
-    )
-    ap.add_argument("out_tsv", help="Output TSV path.")
-    ap.add_argument(
-        "--allow-collisions", action="store_true",
-        help="Allow coordinate generation despite isoacceptor-level position collisions."
-    )
-    args = ap.parse_args()
+def build_global_label_order_type1(pref: pd.Series):
+    """Build global label order for Type I tRNAs using type1-specific sort key."""
+    uniq = sorted({p for p in pref if p not in ("", "nan")}, key=sort_key_type1)
+    to_ord = {u: i + 1 for i, u in enumerate(uniq)}  # 1..K
+    return uniq, to_ord
 
-    paths = glob(os.path.join(args.json_dir, "**", "*.enriched.json"), recursive=True)
-    if not paths:
-        print(f"[error] No *.enriched.json files found under: {args.json_dir}")
-        sys.exit(2)
 
-    all_rows, skipped = [], 0
-    for fp in sorted(paths):
-        try:
-            all_rows.extend(collect_rows_from_json(fp))
-        except Exception as e:
-            skipped += 1
-            print(f"[warn] Skipping {fp} due to error: {e}")
+def build_global_label_order_type2(pref: pd.Series):
+    """Build global label order for Type II tRNAs using type2-specific sort key."""
+    uniq = sorted({p for p in pref if p not in ("", "nan")}, key=sort_key_type2)
+    to_ord = {u: i + 1 for i, u in enumerate(uniq)}  # 1..K
+    return uniq, to_ord
 
-    df = pd.DataFrame(all_rows).sort_values(["trna_id", "seq_index"]).reset_index(drop=True)
 
-    # Preferred text label, else numeric 1..76
+def generate_coordinates_for_type(all_rows, trna_type, output_file, allow_collisions=False):
+    """
+    Generate coordinates for a specific tRNA type (Type I or Type II).
+
+    Args:
+        all_rows: List of all tRNA data rows
+        trna_type: 'type1' or 'type2'
+        output_file: Path to output TSV file
+        allow_collisions: Whether to allow coordinate collisions
+    """
+    # Filter rows to only include the specified type
+    filtered_rows = []
+    excluded_count = 0
+
+    for row in all_rows:
+        classification = classify_trna_type(row['trna_id'])
+        if classification == trna_type:
+            filtered_rows.append(row)
+        else:
+            excluded_count += 1
+
+    if not filtered_rows:
+        print(f"[error] No {trna_type} tRNAs found in dataset")
+        return
+
+    print(f"[info] Processing {len(filtered_rows)} {trna_type} tRNAs (excluded {excluded_count} other types)")
+
+    # Convert to DataFrame
+    df = pd.DataFrame(filtered_rows).sort_values(["trna_id", "seq_index"]).reset_index(drop=True)
+
+    # Build preferred labels
     pref = build_pref_label(df)
 
-    # Global label order and ordinal
-    uniq_labels, to_ord = build_global_label_order(pref)
+    # Use type-specific label ordering
+    if trna_type == 'type1':
+        uniq_labels, to_ord = build_global_label_order_type1(pref)
+    elif trna_type == 'type2':
+        uniq_labels, to_ord = build_global_label_order_type2(pref)
+    else:
+        raise ValueError(f"Unknown trna_type: {trna_type}")
+
     df["sprinzl_ordinal"] = pd.to_numeric(pref.map(to_ord), errors="coerce")
 
     # Continuous coordinate per tRNA
@@ -392,45 +511,141 @@ def main():
         cont.append(make_continuous_for_trna(sub, ord_series))
     df["sprinzl_continuous"] = pd.concat(cont).sort_index().astype("float64")
 
-    # Global equal-spaced index (rounded internally to PRECISION)
+    # Global equal-spaced index
     cont_round = df["sprinzl_continuous"].round(PRECISION)
     uniq_cont = sorted(cont_round.dropna().unique().tolist())
     cont_to_global = {v: i + 1 for i, v in enumerate(uniq_cont)}
     df["global_index"] = cont_round.map(cont_to_global).astype("Int64")
 
-    # Validate no global_index collisions (unless explicitly allowing them)
-    if hasattr(args, 'allow_collisions') and args.allow_collisions:
-        print("[info] Collision validation bypassed due to --allow-collisions flag")
+    # Validate no collisions (unless allowing them)
+    if allow_collisions:
+        print(f"[info] {trna_type.upper()}: Collision validation bypassed due to --allow-collisions flag")
     else:
         validate_no_global_index_collisions(df)
 
-    # Region annotation from Sprinzl
+    # Region annotation
     df["region"] = compute_region_column(df)
 
-    # Write out
+    # Write output
     cols = [
-        "trna_id",
-        "source_file",
-        "seq_index",
-        "sprinzl_index",
-        "sprinzl_label",
-        "residue",
-        "sprinzl_ordinal",
-        "sprinzl_continuous",
-        "global_index",
-        "region",
+        "trna_id", "source_file", "seq_index", "sprinzl_index", "sprinzl_label",
+        "residue", "sprinzl_ordinal", "sprinzl_continuous", "global_index", "region",
     ]
-    df.to_csv(args.out_tsv, sep="\t", index=False, columns=cols)
+    df.to_csv(output_file, sep="\t", index=False, columns=cols)
 
     # Stats
-    print(f"[ok] Wrote {args.out_tsv}")
-    print(f"  JSON files parsed: {len(paths)}  |  skipped: {skipped}")
+    print(f"[ok] {trna_type.upper()}: Wrote {output_file}")
     print(f"  Rows: {len(df)}  |  tRNAs: {df['trna_id'].nunique()}")
     print(f"  Unique labeled bins: {len(uniq_labels)}")
     print(f"  Unique global positions (K): {len(uniq_cont)}  |  rounding={PRECISION} d.p.")
-    missing = (df["sprinzl_index"] < 1).sum()
-    if missing:
-        print(f"  Note: {missing} rows still have sprinzl_index == -1 (unresolvable from JSON).")
+
+
+def main():
+    ap = argparse.ArgumentParser(
+        description="Build global equal-spaced tRNA coordinates + regions from R2DT JSON."
+    )
+    ap.add_argument(
+        "json_dir", help="Directory with R2DT *.enriched.json files (searched recursively)."
+    )
+    ap.add_argument("out_tsv", help="Output TSV path (or base name for dual system).")
+    ap.add_argument(
+        "--allow-collisions", action="store_true",
+        help="Allow coordinate generation despite isoacceptor-level position collisions."
+    )
+    ap.add_argument(
+        "--dual-system", action="store_true",
+        help="Generate separate coordinate files for Type I and Type II tRNAs."
+    )
+    ap.add_argument(
+        "--type", choices=['type1', 'type2'],
+        help="Generate coordinates for specific tRNA type only (overrides --dual-system)."
+    )
+    args = ap.parse_args()
+
+    paths = glob(os.path.join(args.json_dir, "**", "*.enriched.json"), recursive=True)
+    if not paths:
+        print(f"[error] No *.enriched.json files found under: {args.json_dir}")
+        sys.exit(2)
+
+    # Collect all tRNA data
+    all_rows, skipped = [], 0
+    for fp in sorted(paths):
+        try:
+            all_rows.extend(collect_rows_from_json(fp))
+        except Exception as e:
+            skipped += 1
+            print(f"[warn] Skipping {fp} due to error: {e}")
+
+    print(f"[info] JSON files parsed: {len(paths)}  |  skipped: {skipped}")
+
+    # Determine which coordinate systems to generate
+    if args.type:
+        # Generate coordinates for specific type only
+        output_file = args.out_tsv
+        generate_coordinates_for_type(all_rows, args.type, output_file, args.allow_collisions)
+
+    elif args.dual_system:
+        # Generate separate coordinate files for both types
+        base_name = args.out_tsv
+        if base_name.endswith('.tsv'):
+            base_name = base_name[:-4]
+
+        type1_file = f"{base_name}_type1.tsv"
+        type2_file = f"{base_name}_type2.tsv"
+
+        print(f"[info] Generating dual coordinate system:")
+        print(f"  Type I (standard): {type1_file}")
+        print(f"  Type II (extended): {type2_file}")
+
+        generate_coordinates_for_type(all_rows, 'type1', type1_file, args.allow_collisions)
+        generate_coordinates_for_type(all_rows, 'type2', type2_file, args.allow_collisions)
+
+    else:
+        # Legacy unified system (original behavior) - for backwards compatibility
+        print("[warn] Using legacy unified coordinate system. Consider using --dual-system for better results.")
+
+        # Filter out excluded tRNAs for unified system
+        filtered_rows = []
+        for row in all_rows:
+            classification = classify_trna_type(row['trna_id'])
+            if classification in ['type1', 'type2']:
+                filtered_rows.append(row)
+
+        df = pd.DataFrame(filtered_rows).sort_values(["trna_id", "seq_index"]).reset_index(drop=True)
+
+        # Use original unified processing (this will likely have collisions)
+        pref = build_pref_label(df)
+        uniq_labels, to_ord = build_global_label_order(pref)
+        df["sprinzl_ordinal"] = pd.to_numeric(pref.map(to_ord), errors="coerce")
+
+        ord_series = pref.map(to_ord)
+        cont = []
+        for _, sub in df.groupby("trna_id", sort=False):
+            cont.append(make_continuous_for_trna(sub, ord_series))
+        df["sprinzl_continuous"] = pd.concat(cont).sort_index().astype("float64")
+
+        cont_round = df["sprinzl_continuous"].round(PRECISION)
+        uniq_cont = sorted(cont_round.dropna().unique().tolist())
+        cont_to_global = {v: i + 1 for i, v in enumerate(uniq_cont)}
+        df["global_index"] = cont_round.map(cont_to_global).astype("Int64")
+
+        if args.allow_collisions:
+            print("[info] Collision validation bypassed due to --allow-collisions flag")
+        else:
+            validate_no_global_index_collisions(df)
+
+        df["region"] = compute_region_column(df)
+
+        cols = [
+            "trna_id", "source_file", "seq_index", "sprinzl_index", "sprinzl_label",
+            "residue", "sprinzl_ordinal", "sprinzl_continuous", "global_index", "region",
+        ]
+        df.to_csv(args.out_tsv, sep="\t", index=False, columns=cols)
+
+        print(f"[ok] Wrote {args.out_tsv}")
+        print(f"  Rows: {len(df)}  |  tRNAs: {df['trna_id'].nunique()}")
+        print(f"  Unique labeled bins: {len(uniq_labels)}")
+        print(f"  Unique global positions (K): {len(uniq_cont)}  |  rounding={PRECISION} d.p.")
 
 
 if __name__ == "__main__":
