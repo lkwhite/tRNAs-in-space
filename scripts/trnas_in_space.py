@@ -73,7 +73,8 @@ def should_exclude_trna(trna_id: str) -> bool:
 
     # Exclude initiator methionine tRNAs - different structural features
     # Initiator tRNAs have modified structures for ribosome binding
-    if 'IMET' in trna_id_upper or 'INITIAT' in trna_id_upper:
+    # This includes both iMet and fMet (formyl-methionine in prokaryotes)
+    if 'IMET' in trna_id_upper or 'FMET' in trna_id_upper or 'INITIAT' in trna_id_upper:
         return True
 
     # Add other exclusions as needed
@@ -306,44 +307,77 @@ def sprinzl_numeric_from_label(label: str):
 
 def assign_region_from_sprinzl(base_num: int) -> str:
     """
-    Region buckets (Type I canonical; robust to insertions).
+    Region buckets aligned with Sprinzl canonical positions.
     See README text: acceptor-stem, D-stem/loop, anticodon-stem/loop,
     variable-region/arm, T-stem/loop, acceptor-tail.
+
+    Fixed to cover all positions 1-76 without gaps:
+    - Positions 8-9 now included in D-stem (was falling through to unknown)
+    - Position 26 now included in anticodon-stem (was falling through to unknown)
     """
     if base_num is None:
         return "unknown"
     p = base_num
+
+    # 5' acceptor stem (1-7) + 3' acceptor stem (66-72)
     if (1 <= p <= 7) or (66 <= p <= 72):
         return "acceptor-stem"
-    if p == 73 or p > 73:
-        return "acceptor-tail"  # include CCA if present
-    if (10 <= p <= 13) or (22 <= p <= 25):
+
+    # Acceptor tail: 73-76 (includes CCA if present)
+    if p >= 73:
+        return "acceptor-tail"
+
+    # D-stem: 8-13, 22-25  (FIXED: now includes 8-9)
+    if (8 <= p <= 13) or (22 <= p <= 25):
         return "D-stem"
+
+    # D-loop: 14-21
     if 14 <= p <= 21:
         return "D-loop"
-    if (27 <= p <= 31) or (39 <= p <= 43):
+
+    # Anticodon stem: 26-31, 39-43  (FIXED: now includes 26)
+    if (26 <= p <= 31) or (39 <= p <= 43):
         return "anticodon-stem"
+
+    # Anticodon loop: 32-38
     if 32 <= p <= 38:
         return "anticodon-loop"
-    if 44 <= p <= 46:
+
+    # Variable region: 44-48 (Type I standard variable)
+    if 44 <= p <= 48:
         return "variable-region"
-    if 46 < p < 49:
-        return "variable-arm"  # Type II long arm insertions
+
+    # T-stem: 49-53, 61-65
     if (49 <= p <= 53) or (61 <= p <= 65):
         return "T-stem"
+
+    # T-loop: 54-60
     if 54 <= p <= 60:
         return "T-loop"
+
     return "unknown"
 
 
 def compute_region_column(df: pd.DataFrame) -> pd.Series:
-    # prefer label’s numeric part; fall back to sprinzl_index (1..76)
+    """
+    Assign regions based on Sprinzl position, with special handling for e-positions.
+
+    Extended variable arm positions (e1-e24 in Type II tRNAs) are always assigned
+    to "variable-arm" region regardless of their numeric Sprinzl index.
+    """
+    # prefer label's numeric part; fall back to sprinzl_index (1..76)
     base_from_label = df["sprinzl_label"].apply(sprinzl_numeric_from_label)
     idx_fallback = pd.to_numeric(df["sprinzl_index"], errors="coerce").where(
         lambda x: (x >= 1) & (x <= 76)
     )
     base_num = base_from_label.fillna(idx_fallback)
-    return base_num.apply(assign_region_from_sprinzl)
+    regions = base_num.apply(assign_region_from_sprinzl)
+
+    # Override: e-positions (Type II extended variable arm) always get "variable-arm"
+    is_e_position = df["sprinzl_label"].str.match(r'^e\d+$', na=False)
+    regions = regions.mask(is_e_position, other='variable-arm')
+
+    return regions
 
 
 # -------------------------------- main ---------------------------------

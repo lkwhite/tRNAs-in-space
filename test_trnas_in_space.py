@@ -86,14 +86,42 @@ def test_assign_region_from_sprinzl():
     assert trnas_in_space.assign_region_from_sprinzl(73) == "acceptor-tail"
     assert trnas_in_space.assign_region_from_sprinzl(74) == "acceptor-tail"
 
+    # D-stem (including previously uncovered positions 8-9)
+    assert trnas_in_space.assign_region_from_sprinzl(8) == "D-stem"
+    assert trnas_in_space.assign_region_from_sprinzl(9) == "D-stem"
+    assert trnas_in_space.assign_region_from_sprinzl(10) == "D-stem"
+    assert trnas_in_space.assign_region_from_sprinzl(13) == "D-stem"
+    assert trnas_in_space.assign_region_from_sprinzl(22) == "D-stem"
+    assert trnas_in_space.assign_region_from_sprinzl(25) == "D-stem"
+
+    # D-loop
+    assert trnas_in_space.assign_region_from_sprinzl(14) == "D-loop"
+    assert trnas_in_space.assign_region_from_sprinzl(20) == "D-loop"
+
+    # Anticodon stem (including previously uncovered position 26)
+    assert trnas_in_space.assign_region_from_sprinzl(26) == "anticodon-stem"
+    assert trnas_in_space.assign_region_from_sprinzl(27) == "anticodon-stem"
+    assert trnas_in_space.assign_region_from_sprinzl(31) == "anticodon-stem"
+    assert trnas_in_space.assign_region_from_sprinzl(39) == "anticodon-stem"
+    assert trnas_in_space.assign_region_from_sprinzl(43) == "anticodon-stem"
+
     # Anticodon loop
     assert trnas_in_space.assign_region_from_sprinzl(34) == "anticodon-loop"
     assert trnas_in_space.assign_region_from_sprinzl(35) == "anticodon-loop"
     assert trnas_in_space.assign_region_from_sprinzl(36) == "anticodon-loop"
 
-    # D-loop
-    assert trnas_in_space.assign_region_from_sprinzl(14) == "D-loop"
-    assert trnas_in_space.assign_region_from_sprinzl(20) == "D-loop"
+    # Variable region
+    assert trnas_in_space.assign_region_from_sprinzl(44) == "variable-region"
+    assert trnas_in_space.assign_region_from_sprinzl(45) == "variable-region"
+    assert trnas_in_space.assign_region_from_sprinzl(46) == "variable-region"
+    assert trnas_in_space.assign_region_from_sprinzl(47) == "variable-region"
+    assert trnas_in_space.assign_region_from_sprinzl(48) == "variable-region"
+
+    # T-stem
+    assert trnas_in_space.assign_region_from_sprinzl(49) == "T-stem"
+    assert trnas_in_space.assign_region_from_sprinzl(53) == "T-stem"
+    assert trnas_in_space.assign_region_from_sprinzl(61) == "T-stem"
+    assert trnas_in_space.assign_region_from_sprinzl(65) == "T-stem"
 
     # T-loop
     assert trnas_in_space.assign_region_from_sprinzl(54) == "T-loop"
@@ -134,15 +162,19 @@ def test_should_exclude_trna():
     assert trnas_in_space.should_exclude_trna("mito-tRNA-Leu-UAA")
     assert trnas_in_space.should_exclude_trna("MITO-tRNA-Phe-GAA")
 
-    # Should exclude initiator methionine tRNAs
+    # Should exclude initiator methionine tRNAs (both iMet and fMet)
     assert trnas_in_space.should_exclude_trna("nuc-tRNA-iMet-CAT-1-1")
     assert trnas_in_space.should_exclude_trna("tRNA-initiator-Met-CAU")
+    assert trnas_in_space.should_exclude_trna("tRNA-fMet-CAT-1-1")  # Prokaryotic initiator
+    assert trnas_in_space.should_exclude_trna("tRNA-fMet-CAT-1-2")
+    assert trnas_in_space.should_exclude_trna("TRNA-FMET-CAT-1-1")  # Case insensitive
 
     # Should not exclude standard nuclear elongator tRNAs
     assert not trnas_in_space.should_exclude_trna("nuc-tRNA-Ala-GGC-1-1")
     assert not trnas_in_space.should_exclude_trna("nuc-tRNA-Leu-CAA-1-1")
     assert not trnas_in_space.should_exclude_trna("nuc-tRNA-Ser-GCT-1-1")
     assert not trnas_in_space.should_exclude_trna("nuc-tRNA-Phe-GAA-1-1")
+    assert not trnas_in_space.should_exclude_trna("tRNA-Met-CAT-1-1")  # Regular Met (not initiator)
 
     # Handle edge cases
     assert not trnas_in_space.should_exclude_trna(None)
