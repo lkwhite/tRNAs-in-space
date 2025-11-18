@@ -4,11 +4,15 @@ This directory contains pre-computed global coordinate mappings for tRNAs from c
 
 ## Available Datasets
 
+**Production-ready coordinate files** (validated, collision-free):
+
 | File | Organism | tRNAs | Nucleotides | Global Positions | Size |
 |------|----------|-------|-------------|------------------|------|
-| `ecoliK12_global_coords.tsv` | *E. coli* K12 MG1655 | 87 | 6,793 | 130 | 588 KB |
-| `sacCer_global_coords.tsv` | *S. cerevisiae* S288C | 292 | 21,877 | 150 | 2.1 MB |
-| `hg38_global_coords.tsv` | *H. sapiens* GRCh38 | 454 | 33,819 | 265 | 3.2 MB |
+| `ecoliK12_global_coords_fixed.tsv` | *E. coli* K12 MG1655 | 82 | 7,075 | 130 | 552 KB |
+| `sacCer_global_coords_fixed.tsv` | *S. cerevisiae* S288C | 268 | 23,119 | 150 | 1.9 MB |
+| `hg38_global_coords_fixed.tsv` | *H. sapiens* GRCh38 | 422 | 36,356 | 265 | 3.0 MB |
+
+**Note**: All files contain only **nuclear elongator tRNAs**. Selenocysteine, mitochondrial, and initiator tRNAs are excluded by design (see [ANALYSIS_GUIDELINES.md](../ANALYSIS_GUIDELINES.md)).
 
 ## Quick Start
 
@@ -18,7 +22,7 @@ This directory contains pre-computed global coordinate mappings for tRNAs from c
 import pandas as pd
 
 # Load E. coli data
-df = pd.read_csv('outputs/ecoliK12_global_coords.tsv', sep='\t')
+df = pd.read_csv('outputs/ecoliK12_global_coords_fixed.tsv', sep='\t')
 
 # Create alignment matrix
 alignment = df.pivot_table(
@@ -38,7 +42,7 @@ library(readr)
 library(dplyr)
 
 # Load yeast data
-df <- read_tsv('outputs/sacCer_global_coords.tsv')
+df <- read_tsv('outputs/sacCer_global_coords_fixed.tsv')
 
 # Filter nuclear tRNAs (exclude mito)
 nuclear <- df %>%
@@ -95,23 +99,36 @@ Detailed metadata for all datasets is available in `METADATA.json`, including:
 
 ## Important Notes
 
-### Mitochondrial tRNAs
+### Scope and Filtering
 
-**S. cerevisiae mitochondrial tRNAs** may require additional manual curation due to:
-- Lack of fungal mitochondrial-specific models in R2DT
-- Non-standard tRNA structures in mitochondria
-- Potential alignment inaccuracies
+**These datasets contain only nuclear elongator tRNAs** for structural consistency:
 
-If working with yeast mitochondrial tRNAs, we recommend:
-1. Manual review of alignments
-2. Consulting Reinsch & Garcia 2025 for validated alignments
-3. Using these coordinates as a starting point, not ground truth
+**✅ Included:**
+- Type I tRNAs (standard structure, ~76 nt)
+- Type II tRNAs (extended variable arm: Leu, Ser, Tyr, ~90 nt)
+
+**🚫 Excluded by design:**
+- **Selenocysteine tRNAs** - Structurally incompatible (~95 nt, unique binding requirements)
+- **Mitochondrial tRNAs** - Different architecture (60-75 nt, missing canonical features)
+- **Initiator methionine tRNAs** - Modified structure for specialized ribosome binding
+
+For analysis of excluded tRNA types, see [ANALYSIS_GUIDELINES.md](../ANALYSIS_GUIDELINES.md) for alternative approaches.
+
+### Coordinate System Success
+
+All files have been validated with **zero collisions** across all organisms:
+- ✅ E. coli: 82 nuclear elongator tRNAs, 7,075 positions
+- ✅ Yeast: 268 nuclear elongator tRNAs, 23,119 positions
+- ✅ Human: 422 nuclear elongator tRNAs, 36,356 positions
+
+See [docs/archive/coordinate-fixes/COORDINATE_SYSTEM_SUCCESS_REPORT.md](../docs/archive/coordinate-fixes/COORDINATE_SYSTEM_SUCCESS_REPORT.md) for technical details.
 
 ## Data Provenance
 
 All sequences were obtained from [GtRNAdb](https://gtrnadb.org) and processed using:
-1. **R2DT 2.0** - For Sprinzl position annotation
-2. **trnas_in_space.py** - For coordinate transformation
+1. **R2DT 2.0** - For Sprinzl position annotation and structural alignment
+2. **trnas_in_space.py** - For coordinate transformation and global index generation
+3. **Filtering** - Nuclear elongator tRNAs only (excludes SeC, mitochondrial, initiator)
 
 ## Regenerating Data
 
