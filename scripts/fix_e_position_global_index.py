@@ -10,13 +10,14 @@ Usage:
     python scripts/fix_e_position_global_index.py <input.tsv> <output.tsv>
 """
 
-import sys
 import os
+import sys
+
 import pandas as pd
 
 # Add scripts directory to path
 sys.path.insert(0, os.path.dirname(__file__))
-import trnas_in_space
+import trnas_in_space  # noqa: E402
 
 PRECISION = 6  # Must match PRECISION in trnas_in_space.py
 
@@ -29,7 +30,7 @@ def fix_global_index(input_tsv: str, output_tsv: str):
     sort_key function, and writes the corrected output.
     """
     print(f"Reading {input_tsv}...")
-    df = pd.read_csv(input_tsv, sep='\t')
+    df = pd.read_csv(input_tsv, sep="\t")
 
     print(f"  Rows: {len(df)}")
     print(f"  tRNAs: {df['trna_id'].nunique()}")
@@ -46,7 +47,7 @@ def fix_global_index(input_tsv: str, output_tsv: str):
     to_ord = {u: i + 1 for i, u in enumerate(uniq)}
 
     print(f"  Unique labels: {len(uniq)}")
-    print(f"  Sample labels around position 47-48:")
+    print("  Sample labels around position 47-48:")
     for i, label in enumerate(uniq):
         if label in ["44", "45", "46", "47", "48", "49"] or label.startswith("e"):
             print(f"    {i+1:3d}: {label}")

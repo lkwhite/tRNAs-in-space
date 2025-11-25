@@ -29,12 +29,13 @@ Examples:
 """
 
 import argparse
-import os
-import sys
-import subprocess
 import json
-from pathlib import Path
+import os
+import subprocess
+import sys
 from datetime import datetime
+from pathlib import Path
+
 import yaml
 
 # Ensure we're in the project root
@@ -49,7 +50,7 @@ def load_config():
         print(f"Error: Configuration file not found at {config_path}")
         sys.exit(1)
 
-    with open(config_path, 'r') as f:
+    with open(config_path, "r") as f:
         config = yaml.safe_load(f)
 
     return config
@@ -66,24 +67,28 @@ def get_organisms_to_process(config, organism_ids=None):
     Returns:
         List of organism dictionaries to process
     """
-    all_organisms = config['organisms']
+    all_organisms = config["organisms"]
 
     if organism_ids:
         # Process specific organisms
-        organisms = [org for org in all_organisms if org['organism_id'] in organism_ids]
+        organisms = [org for org in all_organisms if org["organism_id"] in organism_ids]
         if not organisms:
             print(f"Error: No organisms found with IDs: {organism_ids}")
             sys.exit(1)
     else:
         # Process all pending organisms (priority 1)
-        organisms = [org for org in all_organisms if org.get('status') == 'pending' and org.get('priority') == 1]
+        organisms = [
+            org
+            for org in all_organisms
+            if org.get("status") == "pending" and org.get("priority") == 1
+        ]
 
     return organisms
 
 
 def check_fasta_exists(organism):
     """Check if FASTA file exists for organism."""
-    gtrnadb_id = organism['gtrnadb_id']
+    gtrnadb_id = organism["gtrnadb_id"]
 
     # Try common naming patterns
     possible_names = [
@@ -110,7 +115,7 @@ def run_r2dt(organism, fasta_path):
     Returns:
         Path to output JSON directory
     """
-    organism_id = organism['organism_id']
+    organism_id = organism["organism_id"]
     json_output_dir = PROJECT_ROOT / "outputs" / "jsons" / organism_id
     json_output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -122,19 +127,24 @@ def run_r2dt(organism, fasta_path):
 
     # Build Docker command
     cmd = [
-        "docker", "run", "--rm",
-        "-v", f"{PROJECT_ROOT}:/data",
+        "docker",
+        "run",
+        "--rm",
+        "-v",
+        f"{PROJECT_ROOT}:/data",
         "rnacentral/r2dt",
-        "r2dt.py", "gtrnadb", "draw",
+        "r2dt.py",
+        "gtrnadb",
+        "draw",
         f"/data/{fasta_path}",
-        f"/data/{json_output_dir.relative_to(PROJECT_ROOT)}"
+        f"/data/{json_output_dir.relative_to(PROJECT_ROOT)}",
     ]
 
     print(f"\nCommand: {' '.join(cmd)}")
     print("\nThis may take several minutes...\n")
 
     try:
-        result = subprocess.run(cmd, check=True, capture_output=True, text=True)
+        subprocess.run(cmd, check=True, capture_output=True, text=True)
         print("R2DT completed successfully!")
         return json_output_dir
     except subprocess.CalledProcessError as e:
@@ -155,7 +165,7 @@ def generate_coordinates(organism, json_dir):
     Returns:
         Path to output TSV file
     """
-    organism_id = organism['organism_id']
+    organism_id = organism["organism_id"]
     output_tsv = PROJECT_ROOT / "outputs" / f"{organism_id}_global_coords.tsv"
 
     print(f"\n{'='*80}")
@@ -165,11 +175,7 @@ def generate_coordinates(organism, json_dir):
     print(f"Output TSV: {output_tsv}")
 
     # Build command
-    cmd = [
-        "python", "scripts/trnas_in_space.py",
-        str(json_dir),
-        str(output_tsv)
-    ]
+    cmd = ["python", "scripts/trnas_in_space.py", str(json_dir), str(output_tsv)]
 
     print(f"\nCommand: {' '.join(cmd)}\n")
 
@@ -207,13 +213,20 @@ def validate_output(output_tsv):
     import pandas as pd
 
     try:
-        df = pd.read_csv(output_tsv, sep='\t')
+        df = pd.read_csv(output_tsv, sep="\t")
 
         # Expected columns
         expected_cols = [
-            'trna_id', 'source_file', 'seq_index', 'sprinzl_index',
-            'sprinzl_label', 'residue', 'sprinzl_ordinal',
-            'sprinzl_continuous', 'global_index', 'region'
+            "trna_id",
+            "source_file",
+            "seq_index",
+            "sprinzl_index",
+            "sprinzl_label",
+            "residue",
+            "sprinzl_ordinal",
+            "sprinzl_continuous",
+            "global_index",
+            "region",
         ]
 
         # Check columns
@@ -222,19 +235,19 @@ def validate_output(output_tsv):
             return {"success": False, "error": f"Missing columns: {missing_cols}"}
 
         # Get statistics
-        n_trnas = df['trna_id'].nunique()
+        n_trnas = df["trna_id"].nunique()
         n_nucleotides = len(df)
-        n_global_positions = df['global_index'].max()
+        n_global_positions = df["global_index"].max()
 
         stats = {
             "success": True,
             "n_trnas": n_trnas,
             "n_nucleotides": n_nucleotides,
             "n_global_positions": int(n_global_positions),
-            "file_size_kb": round(output_tsv.stat().st_size / 1024, 2)
+            "file_size_kb": round(output_tsv.stat().st_size / 1024, 2),
         }
 
-        print(f"✓ Valid TSV file")
+        print("✓ Valid TSV file")
         print(f"✓ tRNAs: {n_trnas}")
         print(f"✓ Nucleotides: {n_nucleotides}")
         print(f"✓ Global positions: {n_global_positions}")
@@ -259,8 +272,8 @@ def process_organism(organism, skip_r2dt=False, dry_run=False):
     Returns:
         Dictionary with processing results
     """
-    organism_id = organism['organism_id']
-    organism_name = organism['name']
+    organism_id = organism["organism_id"]
+    organism_name = organism["name"]
 
     print(f"\n\n{'#'*80}")
     print(f"# Processing: {organism_name} ({organism_id})")
@@ -270,7 +283,7 @@ def process_organism(organism, skip_r2dt=False, dry_run=False):
         "organism_id": organism_id,
         "organism_name": organism_name,
         "success": False,
-        "steps_completed": []
+        "steps_completed": [],
     }
 
     # Check if FASTA exists
@@ -278,16 +291,16 @@ def process_organism(organism, skip_r2dt=False, dry_run=False):
     if not fasta_path:
         print(f"\n❌ ERROR: FASTA file not found for {organism_name}")
         print(f"   Expected in fastas/ with name pattern: {organism['gtrnadb_id']}-tRNAs.fa")
-        print(f"   Please download from GtRNAdb: http://gtrnadb.ucsc.edu/")
-        result['error'] = "FASTA file not found"
+        print("   Please download from GtRNAdb: http://gtrnadb.ucsc.edu/")
+        result["error"] = "FASTA file not found"
         return result
 
     print(f"✓ FASTA file found: {fasta_path}")
-    result['fasta_path'] = fasta_path
+    result["fasta_path"] = fasta_path
 
     if dry_run:
         print("\n[DRY RUN] Would process this organism")
-        result['success'] = True
+        result["success"] = True
         return result
 
     # Run R2DT
@@ -295,36 +308,36 @@ def process_organism(organism, skip_r2dt=False, dry_run=False):
     if not skip_r2dt:
         json_dir = run_r2dt(organism, fasta_path)
         if not json_dir:
-            result['error'] = "R2DT annotation failed"
+            result["error"] = "R2DT annotation failed"
             return result
-        result['steps_completed'].append("r2dt")
+        result["steps_completed"].append("r2dt")
     else:
         # Use existing JSON directory
         json_dir = PROJECT_ROOT / "outputs" / "jsons" / organism_id
         if not json_dir.exists():
             print(f"❌ ERROR: JSON directory not found: {json_dir}")
-            result['error'] = "JSON directory not found (use without --skip-r2dt)"
+            result["error"] = "JSON directory not found (use without --skip-r2dt)"
             return result
         print(f"✓ Using existing JSON directory: {json_dir}")
 
     # Generate coordinates
     output_tsv = generate_coordinates(organism, json_dir)
     if not output_tsv:
-        result['error'] = "Coordinate generation failed"
+        result["error"] = "Coordinate generation failed"
         return result
-    result['steps_completed'].append("coordinates")
-    result['output_tsv'] = str(output_tsv)
+    result["steps_completed"].append("coordinates")
+    result["output_tsv"] = str(output_tsv)
 
     # Validate output
     validation = validate_output(output_tsv)
-    if not validation['success']:
-        result['error'] = f"Validation failed: {validation.get('error')}"
+    if not validation["success"]:
+        result["error"] = f"Validation failed: {validation.get('error')}"
         return result
-    result['steps_completed'].append("validation")
-    result['validation'] = validation
+    result["steps_completed"].append("validation")
+    result["validation"] = validation
 
     # Success!
-    result['success'] = True
+    result["success"] = True
     print(f"\n✅ Successfully processed {organism_name}")
 
     return result
@@ -334,22 +347,20 @@ def main():
     parser = argparse.ArgumentParser(
         description="Bulk process organisms for tRNA global coordinates",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog=__doc__
+        epilog=__doc__,
     )
     parser.add_argument(
-        '--organisms',
-        help='Comma-separated list of organism IDs to process (default: all pending)',
-        default=None
+        "--organisms",
+        help="Comma-separated list of organism IDs to process (default: all pending)",
+        default=None,
     )
     parser.add_argument(
-        '--skip-r2dt',
-        action='store_true',
-        help='Skip R2DT annotation and use existing JSON files'
+        "--skip-r2dt", action="store_true", help="Skip R2DT annotation and use existing JSON files"
     )
     parser.add_argument(
-        '--dry-run',
-        action='store_true',
-        help='Show what would be processed without actually running'
+        "--dry-run",
+        action="store_true",
+        help="Show what would be processed without actually running",
     )
 
     args = parser.parse_args()
@@ -358,7 +369,7 @@ def main():
     config = load_config()
 
     # Get organisms to process
-    organism_ids = args.organisms.split(',') if args.organisms else None
+    organism_ids = args.organisms.split(",") if args.organisms else None
     organisms = get_organisms_to_process(config, organism_ids)
 
     if not organisms:
@@ -366,7 +377,7 @@ def main():
         sys.exit(0)
 
     print(f"\n{'='*80}")
-    print(f"tRNAs in Space - Bulk Organism Processing")
+    print("tRNAs in Space - Bulk Organism Processing")
     print(f"{'='*80}")
     print(f"Mode: {'DRY RUN' if args.dry_run else 'LIVE'}")
     print(f"Skip R2DT: {args.skip_r2dt}")
@@ -386,37 +397,36 @@ def main():
 
     # Summary
     print(f"\n\n{'='*80}")
-    print(f"PROCESSING SUMMARY")
+    print("PROCESSING SUMMARY")
     print(f"{'='*80}")
 
-    successful = [r for r in results if r['success']]
-    failed = [r for r in results if not r['success']]
+    successful = [r for r in results if r["success"]]
+    failed = [r for r in results if not r["success"]]
 
     print(f"\nTotal organisms: {len(results)}")
     print(f"Successful: {len(successful)}")
     print(f"Failed: {len(failed)}")
 
     if successful:
-        print(f"\n✅ Successfully processed:")
+        print("\n✅ Successfully processed:")
         for r in successful:
             print(f"   - {r['organism_name']}")
-            if not args.dry_run and 'validation' in r:
-                v = r['validation']
-                print(f"     {v['n_trnas']} tRNAs, {v['n_nucleotides']} nucleotides, {v['file_size_kb']} KB")
+            if not args.dry_run and "validation" in r:
+                v = r["validation"]
+                print(
+                    f"     {v['n_trnas']} tRNAs, {v['n_nucleotides']} nucleotides, {v['file_size_kb']} KB"
+                )
 
     if failed:
-        print(f"\n❌ Failed:")
+        print("\n❌ Failed:")
         for r in failed:
             print(f"   - {r['organism_name']}: {r.get('error', 'Unknown error')}")
 
     # Save results to JSON
     if not args.dry_run:
         results_file = PROJECT_ROOT / "outputs" / "processing_results.json"
-        with open(results_file, 'w') as f:
-            json.dump({
-                'timestamp': datetime.now().isoformat(),
-                'results': results
-            }, f, indent=2)
+        with open(results_file, "w") as f:
+            json.dump({"timestamp": datetime.now().isoformat(), "results": results}, f, indent=2)
         print(f"\nResults saved to: {results_file}")
 
     print(f"\n{'='*80}\n")
@@ -425,5 +435,5 @@ def main():
     sys.exit(0 if len(failed) == 0 else 1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

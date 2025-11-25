@@ -9,9 +9,9 @@ This module provides functions to:
 """
 
 import csv
-from pathlib import Path
-from typing import Dict, Optional, Tuple
 import logging
+from pathlib import Path
+from typing import Dict, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -38,32 +38,34 @@ class ModificationCodec:
         if not self.codes_csv_path.exists():
             raise FileNotFoundError(f"Modification codes file not found: {self.codes_csv_path}")
 
-        with open(self.codes_csv_path, 'r', encoding='utf-8') as f:
+        with open(self.codes_csv_path, "r", encoding="utf-8") as f:
             reader = csv.DictReader(f)
             for row in reader:
-                code = row.get('RNAMods code (2023)', '').strip()
+                code = row.get("RNAMods code (2023)", "").strip()
                 if not code:
                     logger.warning(f"Skipping row with empty code: {row}")
                     continue
 
                 info = {
-                    'name': row.get('Name', '').strip(),
-                    'short_name': row.get('Short Name', '').strip(),
-                    'modomics_code_new': row.get('MODOMICS code new (2023)', '').strip(),
-                    'moiety_type': row.get('Moiety type', '').strip(),
-                    'reference_base': row.get('Reference NucleoBase', '').strip(),
-                    'modomics_db_id': row.get('MODOMICS Database ID', '').strip(),
+                    "name": row.get("Name", "").strip(),
+                    "short_name": row.get("Short Name", "").strip(),
+                    "modomics_code_new": row.get("MODOMICS code new (2023)", "").strip(),
+                    "moiety_type": row.get("Moiety type", "").strip(),
+                    "reference_base": row.get("Reference NucleoBase", "").strip(),
+                    "modomics_db_id": row.get("MODOMICS Database ID", "").strip(),
                 }
 
                 self.code_to_info[code] = info
 
                 # Build reverse lookups
-                if info['name']:
-                    self.name_to_code[info['name']] = code
-                if info['short_name']:
-                    self.short_name_to_code[info['short_name']] = code
+                if info["name"]:
+                    self.name_to_code[info["name"]] = code
+                if info["short_name"]:
+                    self.short_name_to_code[info["short_name"]] = code
 
-        logger.info(f"Loaded {len(self.code_to_info)} modification codes from {self.codes_csv_path}")
+        logger.info(
+            f"Loaded {len(self.code_to_info)} modification codes from {self.codes_csv_path}"
+        )
 
     def decode(self, code: str) -> Optional[dict]:
         """
@@ -88,7 +90,7 @@ class ModificationCodec:
             Full modification name, or None if not found
         """
         info = self.decode(code)
-        return info['name'] if info else None
+        return info["name"] if info else None
 
     def get_short_name(self, code: str) -> Optional[str]:
         """
@@ -101,7 +103,7 @@ class ModificationCodec:
             Short modification name (e.g., "m1A", "Y"), or None if not found
         """
         info = self.decode(code)
-        return info['short_name'] if info else None
+        return info["short_name"] if info else None
 
     def get_reference_base(self, code: str) -> Optional[str]:
         """
@@ -114,7 +116,7 @@ class ModificationCodec:
             Reference base (A, C, G, or U), or None if not found
         """
         info = self.decode(code)
-        return info['reference_base'] if info else None
+        return info["reference_base"] if info else None
 
     def encode(self, name: str) -> Optional[str]:
         """
@@ -156,7 +158,7 @@ class ModificationCodec:
         Returns:
             True if the character is A, C, G, or U
         """
-        return char.upper() in ['A', 'C', 'G', 'U']
+        return char.upper() in ["A", "C", "G", "U"]
 
     def get_all_codes(self) -> list:
         """Get list of all known modification codes."""
@@ -164,18 +166,18 @@ class ModificationCodec:
 
     def get_statistics(self) -> dict:
         """Get statistics about loaded modifications."""
-        base_counts = {'A': 0, 'C': 0, 'G': 0, 'U': 0, 'Unknown': 0}
+        base_counts = {"A": 0, "C": 0, "G": 0, "U": 0, "Unknown": 0}
 
         for info in self.code_to_info.values():
-            ref_base = info.get('reference_base', 'Unknown')
+            ref_base = info.get("reference_base", "Unknown")
             if ref_base in base_counts:
                 base_counts[ref_base] += 1
             else:
-                base_counts['Unknown'] += 1
+                base_counts["Unknown"] += 1
 
         return {
-            'total_modifications': len(self.code_to_info),
-            'by_reference_base': base_counts,
+            "total_modifications": len(self.code_to_info),
+            "by_reference_base": base_counts,
         }
 
 
@@ -192,14 +194,14 @@ def load_modification_codec(codes_csv_path: str) -> ModificationCodec:
     return ModificationCodec(codes_csv_path)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Test the codec
     import sys
 
     if len(sys.argv) > 1:
         codec_path = sys.argv[1]
     else:
-        codec_path = 'docs/development/modomicscodes.csv'
+        codec_path = "docs/development/modomicscodes.csv"
 
     logging.basicConfig(level=logging.INFO)
     codec = load_modification_codec(codec_path)
@@ -208,12 +210,12 @@ if __name__ == '__main__':
     stats = codec.get_statistics()
     print(f"Total modifications: {stats['total_modifications']}")
     print("\nBy reference base:")
-    for base, count in stats['by_reference_base'].items():
+    for base, count in stats["by_reference_base"].items():
         print(f"  {base}: {count}")
 
     print("\n=== Example Lookups ===")
     # Test with some example codes that should be in the file
-    test_codes = ['D', 'T', 'Y', 'K', 'Ѣ']
+    test_codes = ["D", "T", "Y", "K", "Ѣ"]
     for code in test_codes:
         info = codec.decode(code)
         if info:
