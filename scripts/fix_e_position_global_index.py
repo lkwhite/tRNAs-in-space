@@ -16,7 +16,7 @@ import pandas as pd
 
 # Add scripts directory to path
 sys.path.insert(0, os.path.dirname(__file__))
-import trnas_in_space
+import trnas_in_space  # noqa: E402
 
 PRECISION = 6  # Must match PRECISION in trnas_in_space.py
 
@@ -46,7 +46,7 @@ def fix_global_index(input_tsv: str, output_tsv: str):
     to_ord = {u: i + 1 for i, u in enumerate(uniq)}
 
     print(f"  Unique labels: {len(uniq)}")
-    print(f"  Sample labels around position 47-48:")
+    print("  Sample labels around position 47-48:")
     for i, label in enumerate(uniq):
         if label in ["44", "45", "46", "47", "48", "49"] or label.startswith("e"):
             print(f"    {i+1:3d}: {label}")

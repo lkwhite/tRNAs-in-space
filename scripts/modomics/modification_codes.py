@@ -10,7 +10,7 @@ This module provides functions to:
 
 import csv
 from pathlib import Path
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional
 import logging
 
 logger = logging.getLogger(__name__)

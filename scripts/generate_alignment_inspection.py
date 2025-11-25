@@ -7,6 +7,7 @@ Pivots the data to show global_index as rows and tRNA IDs as columns.
 import pandas as pd
 import sys
 
+
 def generate_alignment_inspection(input_file, output_file):
     """
     Transform the global coordinates TSV for alignment inspection.
@@ -48,6 +49,7 @@ def generate_alignment_inspection(input_file, output_file):
 
     print(f"Generated alignment inspection file: {output_file}")
     print(f"Dimensions: {len(pivot)} rows (tRNAs) × {len(pivot.columns)-1} columns (global_index positions)")
+
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:

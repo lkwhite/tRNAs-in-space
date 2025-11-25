@@ -14,7 +14,11 @@ Usage:
   python trnas_in_space.py /path/to/r2dt_output_dir out.tsv
 """
 
-import os, sys, json, re, argparse
+import argparse
+import json
+import os
+import re
+import sys
 from glob import glob
 import pandas as pd
 import numpy as np
@@ -593,7 +597,7 @@ def main():
         type1_file = f"{base_name}_type1.tsv"
         type2_file = f"{base_name}_type2.tsv"
 
-        print(f"[info] Generating dual coordinate system:")
+        print("[info] Generating dual coordinate system:")
         print(f"  Type I (standard): {type1_file}")
         print(f"  Type II (extended): {type2_file}")
 

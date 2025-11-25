@@ -9,10 +9,9 @@ This module provides functions to:
 - Generate structured output for downstream analysis
 """
 
-import re
 import json
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 from dataclasses import dataclass, asdict
 import logging
 
@@ -98,15 +97,15 @@ class ModomicsParser:
         Returns:
             Dictionary mapping modomics_id to ModomicsTRNA objects
         """
-        fasta_path = Path(fasta_path)
-        if not fasta_path.exists():
-            raise FileNotFoundError(f"FASTA file not found: {fasta_path}")
+        path = Path(fasta_path)
+        if not path.exists():
+            raise FileNotFoundError(f"FASTA file not found: {path}")
 
         trnas = {}
         current_header = None
-        current_sequence = []
+        current_sequence: list[str] = []
 
-        with open(fasta_path, 'r', encoding='utf-8') as f:
+        with open(path, 'r', encoding='utf-8') as f:
             for line in f:
                 line = line.strip()
                 if not line:
@@ -158,12 +157,14 @@ class ModomicsParser:
 
                 trnas[metadata['modomics_id']] = trna
 
-        logger.info(f"Parsed {len(trnas)} tRNA sequences from {fasta_path}")
+        logger.info(f"Parsed {len(trnas)} tRNA sequences from {path}")
         return trnas
 
-    def merge_sequences(self,
-                       modified_trnas: Dict[int, ModomicsTRNA],
-                       unmodified_trnas: Dict[int, ModomicsTRNA]) -> Dict[int, ModomicsTRNA]:
+    def merge_sequences(
+        self,
+        modified_trnas: Dict[int, ModomicsTRNA],
+        unmodified_trnas: Dict[int, ModomicsTRNA]
+    ) -> Dict[int, ModomicsTRNA]:
         """
         Merge modified and unmodified sequence data.
 
@@ -263,8 +264,8 @@ class ModomicsParser:
             trnas: Dictionary of ModomicsTRNA objects
             output_path: Path for output JSON file
         """
-        output_path = Path(output_path)
-        output_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path = Path(output_path)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
 
         # Convert to serializable format
         data = {
@@ -272,10 +273,10 @@ class ModomicsParser:
             for trna_id, trna in trnas.items()
         }
 
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(out_path, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
 
-        logger.info(f"Exported {len(trnas)} tRNAs to {output_path}")
+        logger.info(f"Exported {len(trnas)} tRNAs to {out_path}")
 
     def get_species_list(self, trnas: Dict[int, ModomicsTRNA]) -> List[str]:
         """Get sorted list of unique species in the dataset."""
@@ -292,8 +293,8 @@ class ModomicsParser:
         Returns:
             Dictionary with statistics
         """
-        species_counts = {}
-        subtype_counts = {}
+        species_counts: Dict[str, int] = {}
+        subtype_counts: Dict[str, int] = {}
         total_modifications = 0
 
         for trna in trnas.values():
@@ -360,7 +361,7 @@ def parse_modomics_files(modified_fasta: str,
 
     # Print statistics
     stats = parser.get_statistics(trnas)
-    logger.info(f"\n=== Statistics ===")
+    logger.info("\n=== Statistics ===")
     logger.info(f"Total tRNAs: {stats['total_trnas']}")
     logger.info(f"Total species: {stats['total_species']}")
     logger.info(f"Total modifications: {stats['total_modifications']}")
@@ -370,7 +371,6 @@ def parse_modomics_files(modified_fasta: str,
 
 
 if __name__ == '__main__':
-    import sys
     import argparse
 
     parser = argparse.ArgumentParser(description='Parse Modomics tRNA FASTA files')

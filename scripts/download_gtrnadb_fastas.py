@@ -141,7 +141,7 @@ def download_file(url, output_path, timeout=30):
 
             # Verify it's a FASTA file
             if not content.startswith(b'>'):
-                print(f"  ❌ Not a FASTA file (doesn't start with '>')")
+                print("  ❌ Not a FASTA file (doesn't start with '>')")
                 return False
 
             # Write to file
@@ -186,8 +186,10 @@ def download_organism_fasta(organism, manual_only=False):
     fastas_dir = PROJECT_ROOT / "fastas"
     fastas_dir.mkdir(exist_ok=True)
 
-    existing_files = list(fastas_dir.glob(f"*{organism_id}*.fa")) + \
-                     list(fastas_dir.glob(f"*{organism['gtrnadb_id']}*.fa"))
+    existing_files = (
+        list(fastas_dir.glob(f"*{organism_id}*.fa"))
+        + list(fastas_dir.glob(f"*{organism['gtrnadb_id']}*.fa"))
+    )
 
     if existing_files:
         print(f"✓ FASTA file already exists: {existing_files[0]}")
@@ -197,14 +199,14 @@ def download_organism_fasta(organism, manual_only=False):
     urls = construct_gtrnadb_url(organism)
 
     if manual_only:
-        print(f"\nManual download URLs to try:")
+        print("\nManual download URLs to try:")
         for url, filename in urls:
             print(f"  {url}")
         print(f"\nSave as: fastas/{organism['gtrnadb_id']}-tRNAs.fa")
         return {"success": False, "manual": True}
 
     # Try each URL
-    print(f"\nAttempting automated download...")
+    print("\nAttempting automated download...")
     for url, filename in urls:
         output_path = fastas_dir / f"{organism['gtrnadb_id']}-tRNAs.fa"
 
@@ -216,10 +218,10 @@ def download_organism_fasta(organism, manual_only=False):
 
     # All URLs failed
     print(f"\n❌ Automated download failed for {organism_name}")
-    print(f"\nPlease manually download from GtRNAdb:")
-    print(f"  1. Visit: http://gtrnadb.ucsc.edu/")
+    print("\nPlease manually download from GtRNAdb:")
+    print("  1. Visit: http://gtrnadb.ucsc.edu/")
     print(f"  2. Navigate to: {organism['kingdom']} → {organism_name}")
-    print(f"  3. Download mature tRNA sequences (FASTA)")
+    print("  3. Download mature tRNA sequences (FASTA)")
     print(f"  4. Save as: fastas/{organism['gtrnadb_id']}-tRNAs.fa")
 
     return {"success": False, "error": "All download URLs failed"}
@@ -262,7 +264,7 @@ def main():
         sys.exit(0)
 
     print(f"\n{'='*80}")
-    print(f"GtRNAdb FASTA Download Tool")
+    print("GtRNAdb FASTA Download Tool")
     print(f"{'='*80}")
     print(f"Mode: {'MANUAL URLS ONLY' if args.manual else 'AUTOMATED DOWNLOAD'}")
     print(f"Organisms: {len(organisms)}")
@@ -280,12 +282,12 @@ def main():
 
     # Summary
     print(f"\n\n{'='*80}")
-    print(f"DOWNLOAD SUMMARY")
+    print("DOWNLOAD SUMMARY")
     print(f"{'='*80}")
 
     successful = [r for r in results if r['success']]
     failed = [r for r in results if not r['success'] and not r.get('manual')]
-    manual = [r for r in results if r.get('manual')]
+    # Note: 'manual' results are those where --manual flag was used
 
     print(f"\nTotal organisms: {len(results)}")
     print(f"Already exist: {len([r for r in successful if r.get('already_exists')])}")
@@ -293,10 +295,10 @@ def main():
     print(f"Failed (manual download required): {len(failed)}")
 
     if failed:
-        print(f"\n⚠️  Manual download required for:")
+        print("\n⚠️  Manual download required for:")
         for r in failed:
             print(f"   - {r['organism_name']}")
-        print(f"\nVisit http://gtrnadb.ucsc.edu/ to download these organisms manually.")
+        print("\nVisit http://gtrnadb.ucsc.edu/ to download these organisms manually.")
 
     print(f"\n{'='*80}\n")
 

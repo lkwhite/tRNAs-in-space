@@ -16,7 +16,6 @@ from collections import defaultdict
 
 try:
     from Bio import pairwise2
-    from Bio.pairwise2 import format_alignment
 except ImportError:
     print("ERROR: BioPython not installed. Run: pip install biopython")
     import sys
@@ -166,7 +165,7 @@ class GTRNAdbLoader:
 
         sequences = {}
         current_id = None
-        current_seq = []
+        current_seq: list[str] = []
 
         with open(fasta_file, 'r') as f:
             for line in f:
@@ -319,9 +318,11 @@ class ModomicsAligner:
 
         return mapping
 
-    def find_best_match(self, modomics_seq: str, modomics_anticodon: str,
-                       modomics_subtype: str, gtRNAdb_sequences: Dict[str, str],
-                       min_identity: float = 80.0) -> Optional[AlignmentResult]:
+    def find_best_match(
+        self, modomics_seq: str, modomics_anticodon: str,
+        modomics_subtype: str, gtRNAdb_sequences: Dict[str, str],
+        min_identity: float = 80.0
+    ) -> Optional[AlignmentResult]:
         """
         Find best matching gtRNAdb sequence for a Modomics tRNA.
 
@@ -548,8 +549,8 @@ class SprinzlMapper:
             mappings: List of SprinzlMapping objects
             output_path: Output TSV file path
         """
-        output_path = Path(output_path)
-        output_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path = Path(output_path)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
 
         fieldnames = [
             'modomics_id',
@@ -571,7 +572,7 @@ class SprinzlMapper:
             'region'
         ]
 
-        with open(output_path, 'w', newline='') as f:
+        with open(out_path, 'w', newline='') as f:
             writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter='\t')
             writer.writeheader()
 
@@ -596,7 +597,7 @@ class SprinzlMapper:
                     'region': mapping.region
                 })
 
-        logger.info(f"Exported {len(mappings)} mappings to {output_path}")
+        logger.info(f"Exported {len(mappings)} mappings to {out_path}")
 
 
 def main():

@@ -15,7 +15,7 @@ from pathlib import Path
 # Add scripts directory to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "scripts"))
 
-import trnas_in_space
+import trnas_in_space  # noqa: E402
 
 
 def test_imports():
@@ -152,8 +152,10 @@ def test_should_exclude_trna():
 def test_validate_no_global_index_collisions():
     """Test collision detection function."""
     # Create test DataFrame with no collisions
+    # Must include sprinzl_index column as required by validate_no_global_index_collisions
     good_df = pd.DataFrame({
         'global_index': [1, 2, 3, 4],
+        'sprinzl_index': [1, 2, 3, 4],
         'sprinzl_label': ['1', '2', '3', '4'],
         'trna_id': ['test1', 'test1', 'test1', 'test1']
     })
@@ -167,6 +169,7 @@ def test_validate_no_global_index_collisions():
     # Create test DataFrame with collisions
     bad_df = pd.DataFrame({
         'global_index': [1, 2, 2, 3],  # Collision at index 2
+        'sprinzl_index': [1, 47, -1, 3],  # e1 has invalid sprinzl_index
         'sprinzl_label': ['1', '47', 'e1', '3'],  # Different labels with same index
         'trna_id': ['test1', 'test1', 'test2', 'test1']
     })

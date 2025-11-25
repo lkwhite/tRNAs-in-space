@@ -134,7 +134,7 @@ def run_r2dt(organism, fasta_path):
     print("\nThis may take several minutes...\n")
 
     try:
-        result = subprocess.run(cmd, check=True, capture_output=True, text=True)
+        subprocess.run(cmd, check=True, capture_output=True, text=True)
         print("R2DT completed successfully!")
         return json_output_dir
     except subprocess.CalledProcessError as e:
@@ -234,7 +234,7 @@ def validate_output(output_tsv):
             "file_size_kb": round(output_tsv.stat().st_size / 1024, 2)
         }
 
-        print(f"✓ Valid TSV file")
+        print("✓ Valid TSV file")
         print(f"✓ tRNAs: {n_trnas}")
         print(f"✓ Nucleotides: {n_nucleotides}")
         print(f"✓ Global positions: {n_global_positions}")
@@ -278,7 +278,7 @@ def process_organism(organism, skip_r2dt=False, dry_run=False):
     if not fasta_path:
         print(f"\n❌ ERROR: FASTA file not found for {organism_name}")
         print(f"   Expected in fastas/ with name pattern: {organism['gtrnadb_id']}-tRNAs.fa")
-        print(f"   Please download from GtRNAdb: http://gtrnadb.ucsc.edu/")
+        print("   Please download from GtRNAdb: http://gtrnadb.ucsc.edu/")
         result['error'] = "FASTA file not found"
         return result
 
@@ -366,7 +366,7 @@ def main():
         sys.exit(0)
 
     print(f"\n{'='*80}")
-    print(f"tRNAs in Space - Bulk Organism Processing")
+    print("tRNAs in Space - Bulk Organism Processing")
     print(f"{'='*80}")
     print(f"Mode: {'DRY RUN' if args.dry_run else 'LIVE'}")
     print(f"Skip R2DT: {args.skip_r2dt}")
@@ -386,7 +386,7 @@ def main():
 
     # Summary
     print(f"\n\n{'='*80}")
-    print(f"PROCESSING SUMMARY")
+    print("PROCESSING SUMMARY")
     print(f"{'='*80}")
 
     successful = [r for r in results if r['success']]
@@ -397,7 +397,7 @@ def main():
     print(f"Failed: {len(failed)}")
 
     if successful:
-        print(f"\n✅ Successfully processed:")
+        print("\n✅ Successfully processed:")
         for r in successful:
             print(f"   - {r['organism_name']}")
             if not args.dry_run and 'validation' in r:
@@ -405,7 +405,7 @@ def main():
                 print(f"     {v['n_trnas']} tRNAs, {v['n_nucleotides']} nucleotides, {v['file_size_kb']} KB")
 
     if failed:
-        print(f"\n❌ Failed:")
+        print("\n❌ Failed:")
         for r in failed:
             print(f"   - {r['organism_name']}: {r.get('error', 'Unknown error')}")
 
