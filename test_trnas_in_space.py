@@ -276,6 +276,159 @@ def test_global_index_continuity():
     assert global_indices[-1] < 500, "Global index seems unreasonably high"
 
 
+# ======================== Tests for offset+type grouping ========================
+
+
+def test_offset_type_strategy_calculate_offset():
+    """Test offset calculation from conserved D-loop region (positions 15-25)."""
+    strategy = trnas_in_space.OffsetTypeStrategy()
+
+    # Offset 0: label == index
+    rows_offset0 = [
+        {"sprinzl_label": "15", "sprinzl_index": 15},
+        {"sprinzl_label": "18", "sprinzl_index": 18},
+        {"sprinzl_label": "20", "sprinzl_index": 20},
+    ]
+    assert strategy._calculate_offset(rows_offset0) == 0
+
+    # Offset +1: label > index (label 18 at index 17)
+    rows_offset_plus1 = [
+        {"sprinzl_label": "16", "sprinzl_index": 15},
+        {"sprinzl_label": "18", "sprinzl_index": 17},
+        {"sprinzl_label": "20", "sprinzl_index": 19},
+    ]
+    assert strategy._calculate_offset(rows_offset_plus1) == 1
+
+    # Offset -1: label < index (label 18 at index 19)
+    rows_offset_minus1 = [
+        {"sprinzl_label": "16", "sprinzl_index": 17},
+        {"sprinzl_label": "18", "sprinzl_index": 19},
+        {"sprinzl_label": "20", "sprinzl_index": 21},
+    ]
+    assert strategy._calculate_offset(rows_offset_minus1) == -1
+
+    # No valid positions (outside 15-25 range)
+    rows_no_range = [
+        {"sprinzl_label": "1", "sprinzl_index": 1},
+        {"sprinzl_label": "34", "sprinzl_index": 34},
+    ]
+    assert strategy._calculate_offset(rows_no_range) is None
+
+    # Mixed non-numeric labels should be ignored
+    rows_with_labels = [
+        {"sprinzl_label": "17a", "sprinzl_index": 18},  # Non-numeric, ignored
+        {"sprinzl_label": "18", "sprinzl_index": 18},
+        {"sprinzl_label": "e5", "sprinzl_index": -1},  # e-position, ignored
+    ]
+    assert strategy._calculate_offset(rows_with_labels) == 0
+
+
+def test_offset_type_strategy_classify():
+    """Test OffsetTypeStrategy classification."""
+    strategy = trnas_in_space.OffsetTypeStrategy()
+
+    # Type I tRNA with offset 0
+    rows_type1_offset0 = [
+        {"trna_id": "tRNA-Ala-GGC-1-1", "sprinzl_label": "18", "sprinzl_index": 18},
+        {"trna_id": "tRNA-Ala-GGC-1-1", "sprinzl_label": "20", "sprinzl_index": 20},
+    ]
+    result = strategy.classify("tRNA-Ala-GGC-1-1", rows_type1_offset0)
+    assert result is not None
+    assert result.dimensions == {"offset": "0", "type": "type1"}
+
+    # Type II tRNA (Leu) with offset +1
+    rows_type2_offset_plus1 = [
+        {"trna_id": "tRNA-Leu-CAA-1-1", "sprinzl_label": "18", "sprinzl_index": 17},
+        {"trna_id": "tRNA-Leu-CAA-1-1", "sprinzl_label": "20", "sprinzl_index": 19},
+    ]
+    result = strategy.classify("tRNA-Leu-CAA-1-1", rows_type2_offset_plus1)
+    assert result is not None
+    assert result.dimensions == {"offset": "+1", "type": "type2"}
+
+    # Excluded tRNA (SeC)
+    rows_sec = [
+        {"trna_id": "tRNA-SeC-TCA-1-1", "sprinzl_label": "18", "sprinzl_index": 18},
+    ]
+    result = strategy.classify("tRNA-SeC-TCA-1-1", rows_sec)
+    assert result is None  # Excluded
+
+    # Excluded tRNA (mitochondrial)
+    rows_mito = [
+        {"trna_id": "mito-tRNA-Ala-UGC", "sprinzl_label": "18", "sprinzl_index": 18},
+    ]
+    result = strategy.classify("mito-tRNA-Ala-UGC", rows_mito)
+    assert result is None  # Excluded
+
+
+def test_group_key_filename_suffix():
+    """Test GroupKey filename suffix generation."""
+    # Type only
+    key1 = trnas_in_space.GroupKey({"type": "type1"})
+    assert key1.to_filename_suffix() == "_type1"
+
+    # Offset and type
+    key2 = trnas_in_space.GroupKey({"offset": "-1", "type": "type2"})
+    assert key2.to_filename_suffix() == "_offset-1_type2"
+
+    # Positive offset
+    key3 = trnas_in_space.GroupKey({"offset": "+1", "type": "type1"})
+    assert key3.to_filename_suffix() == "_offset+1_type1"
+
+
+def test_offset_type_files_exist():
+    """Test that offset+type split files exist."""
+    outputs_dir = Path(__file__).parent / "outputs"
+
+    # Check for E. coli offset+type files
+    ecoli_files = list(outputs_dir.glob("ecoliK12_global_coords_offset*.tsv"))
+    assert (
+        len(ecoli_files) >= 4
+    ), f"Expected at least 4 E. coli offset+type files, found {len(ecoli_files)}"
+
+    # Check for yeast offset+type files
+    yeast_files = list(outputs_dir.glob("sacCer_global_coords_offset*.tsv"))
+    assert (
+        len(yeast_files) >= 3
+    ), f"Expected at least 3 yeast offset+type files, found {len(yeast_files)}"
+
+
+def test_position_55_alignment_within_groups():
+    """Test that position 55 aligns within each offset+type group."""
+    outputs_dir = Path(__file__).parent / "outputs"
+
+    for f in outputs_dir.glob("*_global_coords_offset*.tsv"):
+        df = pd.read_csv(f, sep="\t")
+        pos55 = df[df["sprinzl_label"] == "55"]
+
+        if len(pos55) < 2:
+            continue  # Skip files with too few pos55 entries
+
+        # All position 55 instances should have the same global_index
+        unique_gidx = pos55["global_index"].dropna().unique()
+        assert len(unique_gidx) == 1, (
+            f"Position 55 misalignment in {f.name}: "
+            f"found {len(unique_gidx)} different global_index values: {list(unique_gidx)}"
+        )
+
+
+def test_no_collisions_in_offset_type_files():
+    """Test that each offset+type file has no collisions."""
+    outputs_dir = Path(__file__).parent / "outputs"
+
+    for f in outputs_dir.glob("*_global_coords_offset*.tsv"):
+        df = pd.read_csv(f, sep="\t")
+
+        # Check for collisions: multiple distinct sprinzl_labels at same global_index
+        for gidx, group in df.groupby("global_index"):
+            if pd.isna(gidx):
+                continue
+            labels = group["sprinzl_label"].dropna().unique()
+            labels = [lbl for lbl in labels if lbl != ""]
+            assert (
+                len(labels) <= 1
+            ), f"Collision in {f.name}: global_index {gidx} has multiple labels: {labels}"
+
+
 def run_basic_tests():
     """Run all tests manually without pytest."""
     tests = [
@@ -289,6 +442,13 @@ def run_basic_tests():
         ("Output files exist", test_output_files_exist),
         ("Output file structure", test_output_file_structure),
         ("Global index continuity", test_global_index_continuity),
+        # New tests for offset+type grouping
+        ("Offset calculation", test_offset_type_strategy_calculate_offset),
+        ("Strategy classification", test_offset_type_strategy_classify),
+        ("GroupKey filename suffix", test_group_key_filename_suffix),
+        ("Offset+type files exist", test_offset_type_files_exist),
+        ("Position 55 alignment", test_position_55_alignment_within_groups),
+        ("No collisions in offset files", test_no_collisions_in_offset_type_files),
     ]
 
     passed = 0
