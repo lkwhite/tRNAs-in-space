@@ -1,5 +1,12 @@
 # Ignore raw R2DT outputs
 outputs/*_jsons/
+r2dt_outputs/
+
+# Ignore FASTA index files
+*.ssi
+
+# Ignore debug outputs
+*_debug.tsv
 
 # Ignore any other scratch/work dirs
 work/

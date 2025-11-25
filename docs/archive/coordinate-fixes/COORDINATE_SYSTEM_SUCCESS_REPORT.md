@@ -31,9 +31,9 @@ The tRNAs-in-space coordinate system is now **fully operational** and ready for 
 | **H. sapiens** | 422 | 208 | 31,549 | ✅ Zero collisions |
 
 ### Generated Files
-- `outputs/ecoliK12_global_coords_fixed.tsv`
-- `outputs/sacCer_global_coords_fixed.tsv`
-- `outputs/hg38_global_coords_fixed.tsv`
+- `outputs/ecoliK12_global_coords.tsv`
+- `outputs/sacCer_global_coords.tsv`
+- `outputs/hg38_global_coords.tsv`
 
 ## System Validation
 
@@ -104,9 +104,9 @@ The "collision crisis" was entirely due to a detection algorithm bug, not fundam
 - `scripts/trnas_in_space.py` - Fixed collision detection (lines 111-142)
 
 ### Generated Coordinates
-- `outputs/ecoliK12_global_coords_fixed.tsv` - E. coli coordinate file
-- `outputs/sacCer_global_coords_fixed.tsv` - Yeast coordinate file
-- `outputs/hg38_global_coords_fixed.tsv` - Human coordinate file
+- `outputs/ecoliK12_global_coords.tsv` - E. coli coordinate file
+- `outputs/sacCer_global_coords.tsv` - Yeast coordinate file
+- `outputs/hg38_global_coords.tsv` - Human coordinate file
 
 ### Documentation
 - `COORDINATE_SYSTEM_SUCCESS_REPORT.md` - This summary document
@@ -114,7 +114,7 @@ The "collision crisis" was entirely due to a detection algorithm bug, not fundam
 ## Next Steps
 
 ### Immediate Actions
-1. **Replace old coordinate files** with `*_fixed.tsv` versions in production pipelines
+1. **Use the latest coordinate files** (`*_global_coords.tsv`) in production pipelines
 2. **Update visualization scripts** to use new coordinate files
 3. **Begin analysis projects** using the functional coordinate system
 

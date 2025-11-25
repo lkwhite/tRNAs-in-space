@@ -31,7 +31,7 @@ For current, actively maintained documentation, see:
 - **[FAQ](../FAQ.md)** - Frequently asked questions
 - **[OUTPUT_FORMAT](../OUTPUT_FORMAT.md)** - Detailed output column specifications
 - **[DOWNLOAD_GUIDE](../DOWNLOAD_GUIDE.md)** - Guide for downloading GtRNAdb data
-- **[MODOMICS_INTEGRATION](../development/MODOMICS_INTEGRATION.md)** - Modomics integration documentation
+- **[MODOMICS_INTEGRATION](modomics-integration/MODOMICS_INTEGRATION.md)** - Modomics integration documentation
 - **[CHANGELOG](../../CHANGELOG.md)** - Version history
 - **[CONTRIBUTING](../../CONTRIBUTING.md)** - Contribution guidelines
 

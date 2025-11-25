@@ -8,9 +8,9 @@ This directory contains pre-computed global coordinate mappings for tRNAs from c
 
 | File | Organism | tRNAs | Nucleotides | Global Positions | Size |
 |------|----------|-------|-------------|------------------|------|
-| `ecoliK12_global_coords_fixed.tsv` | *E. coli* K12 MG1655 | 82 | 7,075 | 130 | 552 KB |
-| `sacCer_global_coords_fixed.tsv` | *S. cerevisiae* S288C | 268 | 23,119 | 150 | 1.9 MB |
-| `hg38_global_coords_fixed.tsv` | *H. sapiens* GRCh38 | 422 | 36,356 | 265 | 3.0 MB |
+| `ecoliK12_global_coords.tsv` | *E. coli* K12 MG1655 | 82 | 7,075 | 130 | 552 KB |
+| `sacCer_global_coords.tsv` | *S. cerevisiae* S288C | 268 | 23,119 | 150 | 1.9 MB |
+| `hg38_global_coords.tsv` | *H. sapiens* GRCh38 | 422 | 36,356 | 265 | 3.0 MB |
 
 **Note**: All files contain only **nuclear elongator tRNAs**. Selenocysteine, mitochondrial, and initiator tRNAs are excluded by design (see [ANALYSIS_GUIDELINES.md](../ANALYSIS_GUIDELINES.md)).
 
@@ -22,7 +22,7 @@ This directory contains pre-computed global coordinate mappings for tRNAs from c
 import pandas as pd
 
 # Load E. coli data
-df = pd.read_csv('outputs/ecoliK12_global_coords_fixed.tsv', sep='\t')
+df = pd.read_csv('outputs/ecoliK12_global_coords.tsv', sep='\t')
 
 # Create alignment matrix
 alignment = df.pivot_table(
@@ -42,7 +42,7 @@ library(readr)
 library(dplyr)
 
 # Load yeast data
-df <- read_tsv('outputs/sacCer_global_coords_fixed.tsv')
+df <- read_tsv('outputs/sacCer_global_coords.tsv')
 
 # Filter nuclear tRNAs (exclude mito)
 nuclear <- df %>%

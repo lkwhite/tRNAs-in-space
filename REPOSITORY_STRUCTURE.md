@@ -24,9 +24,9 @@ tRNAs-in-space/
 ├── outputs/                           # Production-ready outputs
 │   ├── README.md                     # Output file documentation
 │   ├── METADATA.json                 # Output metadata
-│   ├── ecoliK12_global_coords_fixed.tsv    # E. coli coordinates
-│   ├── sacCer_global_coords_fixed.tsv      # S. cerevisiae coordinates
-│   ├── hg38_global_coords_fixed.tsv        # H. sapiens coordinates
+│   ├── ecoliK12_global_coords.tsv         # E. coli coordinates
+│   ├── sacCer_global_coords.tsv           # S. cerevisiae coordinates
+│   ├── hg38_global_coords.tsv             # H. sapiens coordinates
 │   └── modomics/                     # Modomics annotation files
 │       └── modomics_to_sprinzl_mapping.tsv
 │
@@ -80,7 +80,7 @@ tRNAs-in-space/
 
 ### `/outputs/`
 Contains **production-ready coordinate files** for three model organisms:
-- All files use the `*_fixed.tsv` naming convention
+- All files use the `*_global_coords.tsv` naming convention
 - Each file contains validated, collision-free global coordinates
 - Ready for use in downstream analyses and visualizations
 
@@ -109,7 +109,7 @@ Jupyter notebooks demonstrating usage:
 ## File Naming Conventions
 
 ### Output Files
-- **Production files**: `{organism}_global_coords_fixed.tsv`
+- **Production files**: `{organism}_global_coords.tsv`
   - `ecoliK12` - *Escherichia coli* K12
   - `sacCer` - *Saccharomyces cerevisiae*
   - `hg38` - *Homo sapiens* (GRCh38)
@@ -141,7 +141,7 @@ All archived documents remain accessible but don't clutter the main repository n
 
 This structure was established in November 2025 following project completion. Key changes:
 - Consolidated 6 coordinate system docs → `docs/archive/coordinate-fixes/`
-- Removed duplicate/old output files (kept only `*_fixed.tsv` versions)
+- Removed duplicate/old output files (kept only `*_global_coords.tsv` versions)
 - Archived development documentation → `docs/archive/modomics-integration/`
 - Updated all documentation links to reflect new structure
 

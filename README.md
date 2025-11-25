@@ -15,7 +15,7 @@
 import pandas as pd
 
 # Load E. coli tRNA coordinates
-df = pd.read_csv('outputs/ecoliK12_global_coords_fixed.tsv', sep='\t')
+df = pd.read_csv('outputs/ecoliK12_global_coords.tsv', sep='\t')
 
 # Create alignment matrix
 alignment = df.pivot_table(
@@ -63,7 +63,7 @@ import pandas as pd
 mods = pd.read_csv('outputs/modomics/modomics_to_sprinzl_mapping.tsv', sep='\t')
 
 # Join with your global coordinates
-coords = pd.read_csv('outputs/ecoliK12_global_coords_fixed.tsv', sep='\t')
+coords = pd.read_csv('outputs/ecoliK12_global_coords.tsv', sep='\t')
 annotated = coords.merge(
     mods[['gtRNAdb_trna_id', 'position_gtRNAdb', 'modification_short_name']],
     left_on=['trna_id', 'seq_index'],
@@ -130,7 +130,7 @@ For detailed analysis guidelines, see [ANALYSIS_GUIDELINES.md](ANALYSIS_GUIDELIN
 
 This README documents how to go from tRNA reference sequences → a single shared, equal‑spaced coordinate axis for plotting and cross‑isodecoder comparisons.
 
-In this repository, you can also find pre-computed tables containing these indexed coordinates (`outputs/$SPECIES_global_coords_fixed.tsv`) for tRNAs from common model organisms. Production-ready outputs are available for *E. coli*, *S. cerevisiae*, and *H. sapiens* nuclear elongator tRNAs. Note that *S. cerevisiae* mitochondrial tRNAs may need additional hand-curation for accurate alignment due to [the unavailability of models specific to fungal mitochondria](https://github.com/r2dt-bio/R2DT/issues/197#issuecomment-3201887161). If this is relevant to your work we recommend the alignments in Reinsch and Garcia 2025 (see References).
+In this repository, you can also find pre-computed tables containing these indexed coordinates (`outputs/$SPECIES_global_coords.tsv`) for tRNAs from common model organisms. Production-ready outputs are available for *E. coli*, *S. cerevisiae*, and *H. sapiens* nuclear elongator tRNAs. Note that *S. cerevisiae* mitochondrial tRNAs may need additional hand-curation for accurate alignment due to [the unavailability of models specific to fungal mitochondria](https://github.com/r2dt-bio/R2DT/issues/197#issuecomment-3201887161). If this is relevant to your work we recommend the alignments in Reinsch and Garcia 2025 (see References).
 
 The documentation and code in this repository can be further used to build such tables from scratch.
 
