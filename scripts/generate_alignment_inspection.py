@@ -4,8 +4,9 @@ Generate a transformed TSV view for manual inspection of tRNA alignments.
 Pivots the data to show global_index as rows and tRNA IDs as columns.
 """
 
-import pandas as pd
 import sys
+
+import pandas as pd
 
 
 def generate_alignment_inspection(input_file, output_file):

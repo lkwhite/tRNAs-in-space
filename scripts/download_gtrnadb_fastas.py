@@ -22,11 +22,12 @@ Examples:
 import argparse
 import os
 import sys
-import urllib.request
-import urllib.error
-from pathlib import Path
-import yaml
 import time
+import urllib.error
+import urllib.request
+from pathlib import Path
+
+import yaml
 
 # Ensure we're in the project root
 PROJECT_ROOT = Path(__file__).parent.parent

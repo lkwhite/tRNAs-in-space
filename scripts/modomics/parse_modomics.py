@@ -10,10 +10,10 @@ This module provides functions to:
 """
 
 import json
+import logging
+from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Dict, List, Optional
-from dataclasses import dataclass, asdict
-import logging
 
 from .modification_codes import ModificationCodec
 

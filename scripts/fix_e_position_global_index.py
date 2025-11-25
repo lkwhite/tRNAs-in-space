@@ -10,8 +10,9 @@ Usage:
     python scripts/fix_e_position_global_index.py <input.tsv> <output.tsv>
 """
 
-import sys
 import os
+import sys
+
 import pandas as pd
 
 # Add scripts directory to path

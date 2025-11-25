@@ -6,13 +6,13 @@ This module aligns Modomics tRNA sequences to gtRNAdb sequences
 and maps modification positions to Sprinzl coordinates.
 """
 
-import json
 import csv
+import json
 import logging
+from collections import defaultdict
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
-from dataclasses import dataclass
-from collections import defaultdict
 
 try:
     from Bio import pairwise2

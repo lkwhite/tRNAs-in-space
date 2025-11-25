@@ -6,11 +6,12 @@ Run with: python -m pytest test_trnas_in_space.py -v
 Or: python test_trnas_in_space.py
 """
 
-import sys
 import os
-import pandas as pd
-import numpy as np
+import sys
 from pathlib import Path
+
+import numpy as np
+import pandas as pd
 
 # Add scripts directory to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "scripts"))
