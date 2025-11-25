@@ -153,12 +153,14 @@ def test_validate_no_global_index_collisions():
     """Test collision detection function."""
     # Create test DataFrame with no collisions
     # Must include sprinzl_index column as required by validate_no_global_index_collisions
-    good_df = pd.DataFrame({
-        'global_index': [1, 2, 3, 4],
-        'sprinzl_index': [1, 2, 3, 4],
-        'sprinzl_label': ['1', '2', '3', '4'],
-        'trna_id': ['test1', 'test1', 'test1', 'test1']
-    })
+    good_df = pd.DataFrame(
+        {
+            "global_index": [1, 2, 3, 4],
+            "sprinzl_index": [1, 2, 3, 4],
+            "sprinzl_label": ["1", "2", "3", "4"],
+            "trna_id": ["test1", "test1", "test1", "test1"],
+        }
+    )
 
     # Should not raise any errors
     try:
@@ -167,15 +169,18 @@ def test_validate_no_global_index_collisions():
         assert False, "Should not exit on good data"
 
     # Create test DataFrame with collisions
-    bad_df = pd.DataFrame({
-        'global_index': [1, 2, 2, 3],  # Collision at index 2
-        'sprinzl_index': [1, 47, -1, 3],  # e1 has invalid sprinzl_index
-        'sprinzl_label': ['1', '47', 'e1', '3'],  # Different labels with same index
-        'trna_id': ['test1', 'test1', 'test2', 'test1']
-    })
+    bad_df = pd.DataFrame(
+        {
+            "global_index": [1, 2, 2, 3],  # Collision at index 2
+            "sprinzl_index": [1, 47, -1, 3],  # e1 has invalid sprinzl_index
+            "sprinzl_label": ["1", "47", "e1", "3"],  # Different labels with same index
+            "trna_id": ["test1", "test1", "test2", "test1"],
+        }
+    )
 
     # Should exit with error
     import pytest
+
     with pytest.raises(SystemExit):
         trnas_in_space.validate_no_global_index_collisions(bad_df)
 

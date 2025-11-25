@@ -23,6 +23,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class ModomicsTRNA:
     """Data structure for a Modomics tRNA entry."""
+
     modomics_id: int
     name: str
     so_term: str
@@ -66,27 +67,29 @@ class ModomicsParser:
         Returns:
             Dictionary with parsed metadata
         """
-        header = header.lstrip('>')
+        header = header.lstrip(">")
         fields = {}
 
         # Split by | and parse key:value pairs
-        for part in header.split('|'):
-            if ':' in part:
-                key, value = part.split(':', 1)
+        for part in header.split("|"):
+            if ":" in part:
+                key, value = part.split(":", 1)
                 fields[key.strip()] = value.strip()
 
         return {
-            'modomics_id': int(fields.get('id', -1)),
-            'name': fields.get('Name', ''),
-            'so_term': fields.get('SOterm', ''),
-            'trna_type': fields.get('Type', ''),
-            'subtype': fields.get('Subtype', ''),
-            'anticodon': fields.get('Feature', ''),
-            'cellular_localization': fields.get('Cellular_Localization', ''),
-            'species': fields.get('Species', ''),
+            "modomics_id": int(fields.get("id", -1)),
+            "name": fields.get("Name", ""),
+            "so_term": fields.get("SOterm", ""),
+            "trna_type": fields.get("Type", ""),
+            "subtype": fields.get("Subtype", ""),
+            "anticodon": fields.get("Feature", ""),
+            "cellular_localization": fields.get("Cellular_Localization", ""),
+            "species": fields.get("Species", ""),
         }
 
-    def parse_fasta(self, fasta_path: str, sequence_type: str = 'modified') -> Dict[int, ModomicsTRNA]:
+    def parse_fasta(
+        self, fasta_path: str, sequence_type: str = "modified"
+    ) -> Dict[int, ModomicsTRNA]:
         """
         Parse a Modomics FASTA file.
 
@@ -105,32 +108,27 @@ class ModomicsParser:
         current_header = None
         current_sequence: list[str] = []
 
-        with open(path, 'r', encoding='utf-8') as f:
+        with open(path, "r", encoding="utf-8") as f:
             for line in f:
                 line = line.strip()
                 if not line:
                     continue
 
-                if line.startswith('>'):
+                if line.startswith(">"):
                     # Save previous entry
                     if current_header is not None:
                         metadata = self.parse_header(current_header)
-                        seq = ''.join(current_sequence)
+                        seq = "".join(current_sequence)
 
-                        if sequence_type == 'modified':
-                            trna = ModomicsTRNA(
-                                modified_sequence=seq,
-                                **metadata
-                            )
+                        if sequence_type == "modified":
+                            trna = ModomicsTRNA(modified_sequence=seq, **metadata)
                         else:
                             # For unmodified, we'll merge with existing entries later
                             trna = ModomicsTRNA(
-                                modified_sequence='',
-                                unmodified_sequence=seq,
-                                **metadata
+                                modified_sequence="", unmodified_sequence=seq, **metadata
                             )
 
-                        trnas[metadata['modomics_id']] = trna
+                        trnas[metadata["modomics_id"]] = trna
 
                     # Start new entry
                     current_header = line
@@ -141,29 +139,20 @@ class ModomicsParser:
             # Save last entry
             if current_header is not None:
                 metadata = self.parse_header(current_header)
-                seq = ''.join(current_sequence)
+                seq = "".join(current_sequence)
 
-                if sequence_type == 'modified':
-                    trna = ModomicsTRNA(
-                        modified_sequence=seq,
-                        **metadata
-                    )
+                if sequence_type == "modified":
+                    trna = ModomicsTRNA(modified_sequence=seq, **metadata)
                 else:
-                    trna = ModomicsTRNA(
-                        modified_sequence='',
-                        unmodified_sequence=seq,
-                        **metadata
-                    )
+                    trna = ModomicsTRNA(modified_sequence="", unmodified_sequence=seq, **metadata)
 
-                trnas[metadata['modomics_id']] = trna
+                trnas[metadata["modomics_id"]] = trna
 
         logger.info(f"Parsed {len(trnas)} tRNA sequences from {path}")
         return trnas
 
     def merge_sequences(
-        self,
-        modified_trnas: Dict[int, ModomicsTRNA],
-        unmodified_trnas: Dict[int, ModomicsTRNA]
+        self, modified_trnas: Dict[int, ModomicsTRNA], unmodified_trnas: Dict[int, ModomicsTRNA]
     ) -> Dict[int, ModomicsTRNA]:
         """
         Merge modified and unmodified sequence data.
@@ -199,7 +188,9 @@ class ModomicsParser:
             List of modification dictionaries with position and code information
         """
         if not trna.unmodified_sequence:
-            logger.warning(f"Cannot detect modifications for {trna.name}: missing unmodified sequence")
+            logger.warning(
+                f"Cannot detect modifications for {trna.name}: missing unmodified sequence"
+            )
             return []
 
         modifications = []
@@ -222,22 +213,24 @@ class ModomicsParser:
 
             if mod_char != unmod_char:
                 mod_info = {
-                    'position': pos + 1,  # 1-based position
-                    'modified_char': mod_char,
-                    'unmodified_char': unmod_char,
+                    "position": pos + 1,  # 1-based position
+                    "modified_char": mod_char,
+                    "unmodified_char": unmod_char,
                 }
 
                 # Add decoded information if codec available
                 if self.codec:
                     decoded = self.codec.decode(mod_char)
                     if decoded:
-                        mod_info['modification_name'] = decoded['name']
-                        mod_info['short_name'] = decoded['short_name']
-                        mod_info['reference_base'] = decoded['reference_base']
-                        mod_info['modomics_db_id'] = decoded['modomics_db_id']
+                        mod_info["modification_name"] = decoded["name"]
+                        mod_info["short_name"] = decoded["short_name"]
+                        mod_info["reference_base"] = decoded["reference_base"]
+                        mod_info["modomics_db_id"] = decoded["modomics_db_id"]
                     else:
-                        mod_info['modification_name'] = 'Unknown'
-                        logger.warning(f"Unknown modification code '{mod_char}' at position {pos+1} in {trna.name}")
+                        mod_info["modification_name"] = "Unknown"
+                        logger.warning(
+                            f"Unknown modification code '{mod_char}' at position {pos+1} in {trna.name}"
+                        )
 
                 modifications.append(mod_info)
 
@@ -268,12 +261,9 @@ class ModomicsParser:
         out_path.parent.mkdir(parents=True, exist_ok=True)
 
         # Convert to serializable format
-        data = {
-            str(trna_id): trna.to_dict()
-            for trna_id, trna in trnas.items()
-        }
+        data = {str(trna_id): trna.to_dict() for trna_id, trna in trnas.items()}
 
-        with open(out_path, 'w', encoding='utf-8') as f:
+        with open(out_path, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
 
         logger.info(f"Exported {len(trnas)} tRNAs to {out_path}")
@@ -309,19 +299,18 @@ class ModomicsParser:
                 total_modifications += len(trna.modifications)
 
         return {
-            'total_trnas': len(trnas),
-            'total_species': len(species_counts),
-            'total_modifications': total_modifications,
-            'avg_modifications_per_trna': total_modifications / len(trnas) if trnas else 0,
-            'species_counts': species_counts,
-            'subtype_counts': subtype_counts,
+            "total_trnas": len(trnas),
+            "total_species": len(species_counts),
+            "total_modifications": total_modifications,
+            "avg_modifications_per_trna": total_modifications / len(trnas) if trnas else 0,
+            "species_counts": species_counts,
+            "subtype_counts": subtype_counts,
         }
 
 
-def parse_modomics_files(modified_fasta: str,
-                         unmodified_fasta: str,
-                         codes_csv: str,
-                         output_json: Optional[str] = None) -> Dict[int, ModomicsTRNA]:
+def parse_modomics_files(
+    modified_fasta: str, unmodified_fasta: str, codes_csv: str, output_json: Optional[str] = None
+) -> Dict[int, ModomicsTRNA]:
     """
     Convenience function to parse Modomics files and detect modifications.
 
@@ -342,10 +331,10 @@ def parse_modomics_files(modified_fasta: str,
 
     # Parse both FASTA files
     logger.info("Parsing modified sequences...")
-    modified_trnas = parser.parse_fasta(modified_fasta, sequence_type='modified')
+    modified_trnas = parser.parse_fasta(modified_fasta, sequence_type="modified")
 
     logger.info("Parsing unmodified sequences...")
-    unmodified_trnas = parser.parse_fasta(unmodified_fasta, sequence_type='unmodified')
+    unmodified_trnas = parser.parse_fasta(unmodified_fasta, sequence_type="unmodified")
 
     # Merge sequences
     logger.info("Merging sequences...")
@@ -370,29 +359,30 @@ def parse_modomics_files(modified_fasta: str,
     return trnas
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description='Parse Modomics tRNA FASTA files')
-    parser.add_argument('--modified', required=True, help='Path to modified sequences FASTA')
-    parser.add_argument('--unmodified', required=True, help='Path to unmodified sequences FASTA')
-    parser.add_argument('--codes', required=True, help='Path to modification codes CSV')
-    parser.add_argument('--output', help='Output JSON path (default: outputs/modomics/modomics_modifications.json)')
+    parser = argparse.ArgumentParser(description="Parse Modomics tRNA FASTA files")
+    parser.add_argument("--modified", required=True, help="Path to modified sequences FASTA")
+    parser.add_argument("--unmodified", required=True, help="Path to unmodified sequences FASTA")
+    parser.add_argument("--codes", required=True, help="Path to modification codes CSV")
+    parser.add_argument(
+        "--output", help="Output JSON path (default: outputs/modomics/modomics_modifications.json)"
+    )
 
     args = parser.parse_args()
 
     logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     )
 
-    output_path = args.output or 'outputs/modomics/modomics_modifications.json'
+    output_path = args.output or "outputs/modomics/modomics_modifications.json"
 
     trnas = parse_modomics_files(
         modified_fasta=args.modified,
         unmodified_fasta=args.unmodified,
         codes_csv=args.codes,
-        output_json=output_path
+        output_json=output_path,
     )
 
     print(f"\n✓ Parsed {len(trnas)} tRNAs with modifications")

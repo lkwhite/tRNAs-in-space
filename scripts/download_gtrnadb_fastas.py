@@ -40,7 +40,7 @@ def load_config():
         print(f"Error: Configuration file not found at {config_path}")
         sys.exit(1)
 
-    with open(config_path, 'r') as f:
+    with open(config_path, "r") as f:
         config = yaml.safe_load(f)
 
     return config
@@ -60,16 +60,16 @@ def construct_gtrnadb_url(organism):
     Returns:
         Tuple of (url, filename) or None if URL cannot be constructed
     """
-    kingdom = organism['kingdom'].lower()
-    gtrnadb_id = organism['gtrnadb_id']
-    organism_id = organism['organism_id']
+    kingdom = organism["kingdom"].lower()
+    gtrnadb_id = organism["gtrnadb_id"]
+    organism_id = organism["organism_id"]
 
     # Determine kingdom path
     kingdom_map = {
-        'eukaryota': 'eukaryota',
-        'bacteria': 'bacteria',
-        'archaea': 'archaea',
-        'plantae': 'eukaryota'  # Plants are in eukaryota
+        "eukaryota": "eukaryota",
+        "bacteria": "bacteria",
+        "archaea": "archaea",
+        "plantae": "eukaryota",  # Plants are in eukaryota
     }
     kingdom_path = kingdom_map.get(kingdom, kingdom)
 
@@ -84,14 +84,16 @@ def construct_gtrnadb_url(organism):
     # This is tricky as GtRNAdb uses different naming conventions
     org_name_patterns = []
 
-    if kingdom == 'Eukaryota' or kingdom == 'Plantae':
+    if kingdom == "Eukaryota" or kingdom == "Plantae":
         # Common eukaryote patterns
-        name_parts = organism['name'].split()
+        name_parts = organism["name"].split()
         if len(name_parts) >= 2:
             # e.g., "Homo sapiens" -> "Hsapi38" or "Hsapi"
             genus_initial = name_parts[0][0].upper()
             species_abbrev = name_parts[1][:3].lower()  # or [:4]
-            org_name_patterns.append(f"{genus_initial}{species_abbrev}{organism_id.replace(organism_id[:len(genus_initial + species_abbrev)], '')}")
+            org_name_patterns.append(
+                f"{genus_initial}{species_abbrev}{organism_id.replace(organism_id[:len(genus_initial + species_abbrev)], '')}"
+            )
             org_name_patterns.append(f"{genus_initial}{species_abbrev}")
 
     # Add the gtrnadb_id as a pattern
@@ -106,11 +108,13 @@ def construct_gtrnadb_url(organism):
     ]
 
     # Add mito/nuclear variant for eukaryotes
-    if 'mitochondria' in organism.get('compartments', []):
-        filename_patterns.extend([
-            f"{gtrnadb_id}-mito-and-nuclear-tRNAs.fa",
-            f"{organism_id}-mito-and-nuclear-tRNAs.fa",
-        ])
+    if "mitochondria" in organism.get("compartments", []):
+        filename_patterns.extend(
+            [
+                f"{gtrnadb_id}-mito-and-nuclear-tRNAs.fa",
+                f"{organism_id}-mito-and-nuclear-tRNAs.fa",
+            ]
+        )
 
     # Generate all possible URLs
     urls = []
@@ -140,12 +144,12 @@ def download_file(url, output_path, timeout=30):
             content = response.read()
 
             # Verify it's a FASTA file
-            if not content.startswith(b'>'):
+            if not content.startswith(b">"):
                 print("  ❌ Not a FASTA file (doesn't start with '>')")
                 return False
 
             # Write to file
-            with open(output_path, 'wb') as f:
+            with open(output_path, "wb") as f:
                 f.write(content)
 
             # Get file size
@@ -175,8 +179,8 @@ def download_organism_fasta(organism, manual_only=False):
     Returns:
         Dictionary with download results
     """
-    organism_id = organism['organism_id']
-    organism_name = organism['name']
+    organism_id = organism["organism_id"]
+    organism_name = organism["name"]
 
     print(f"\n{'='*80}")
     print(f"Organism: {organism_name} ({organism_id})")
@@ -186,9 +190,8 @@ def download_organism_fasta(organism, manual_only=False):
     fastas_dir = PROJECT_ROOT / "fastas"
     fastas_dir.mkdir(exist_ok=True)
 
-    existing_files = (
-        list(fastas_dir.glob(f"*{organism_id}*.fa"))
-        + list(fastas_dir.glob(f"*{organism['gtrnadb_id']}*.fa"))
+    existing_files = list(fastas_dir.glob(f"*{organism_id}*.fa")) + list(
+        fastas_dir.glob(f"*{organism['gtrnadb_id']}*.fa")
     )
 
     if existing_files:
@@ -231,17 +234,17 @@ def main():
     parser = argparse.ArgumentParser(
         description="Download tRNA FASTA files from GtRNAdb",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog=__doc__
+        epilog=__doc__,
     )
     parser.add_argument(
-        '--organisms',
-        help='Comma-separated list of organism IDs to download (default: all pending)',
-        default=None
+        "--organisms",
+        help="Comma-separated list of organism IDs to download (default: all pending)",
+        default=None,
     )
     parser.add_argument(
-        '--manual',
-        action='store_true',
-        help='Only print URLs for manual download, do not attempt automated download'
+        "--manual",
+        action="store_true",
+        help="Only print URLs for manual download, do not attempt automated download",
     )
 
     args = parser.parse_args()
@@ -250,14 +253,18 @@ def main():
     config = load_config()
 
     # Get organisms to download
-    all_organisms = config['organisms']
+    all_organisms = config["organisms"]
 
     if args.organisms:
-        organism_ids = args.organisms.split(',')
-        organisms = [org for org in all_organisms if org['organism_id'] in organism_ids]
+        organism_ids = args.organisms.split(",")
+        organisms = [org for org in all_organisms if org["organism_id"] in organism_ids]
     else:
         # Download for all pending organisms
-        organisms = [org for org in all_organisms if org.get('status') == 'pending' and org.get('priority') == 1]
+        organisms = [
+            org
+            for org in all_organisms
+            if org.get("status") == "pending" and org.get("priority") == 1
+        ]
 
     if not organisms:
         print("No organisms to download!")
@@ -276,8 +283,8 @@ def main():
     results = []
     for organism in organisms:
         result = download_organism_fasta(organism, manual_only=args.manual)
-        result['organism_id'] = organism['organism_id']
-        result['organism_name'] = organism['name']
+        result["organism_id"] = organism["organism_id"]
+        result["organism_name"] = organism["name"]
         results.append(result)
 
     # Summary
@@ -285,8 +292,8 @@ def main():
     print("DOWNLOAD SUMMARY")
     print(f"{'='*80}")
 
-    successful = [r for r in results if r['success']]
-    failed = [r for r in results if not r['success'] and not r.get('manual')]
+    successful = [r for r in results if r["success"]]
+    failed = [r for r in results if not r["success"] and not r.get("manual")]
     # Note: 'manual' results are those where --manual flag was used
 
     print(f"\nTotal organisms: {len(results)}")
@@ -305,5 +312,5 @@ def main():
     sys.exit(0 if len(failed) == 0 else 1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -29,7 +29,7 @@ def fix_global_index(input_tsv: str, output_tsv: str):
     sort_key function, and writes the corrected output.
     """
     print(f"Reading {input_tsv}...")
-    df = pd.read_csv(input_tsv, sep='\t')
+    df = pd.read_csv(input_tsv, sep="\t")
 
     print(f"  Rows: {len(df)}")
     print(f"  tRNAs: {df['trna_id'].nunique()}")
