@@ -113,6 +113,84 @@ def classify_trna_type(trna_id: str) -> str:
     return "type1"
 
 
+# --------------------- grouping strategy classes ---------------------
+
+from collections import Counter
+from dataclasses import dataclass
+from typing import Dict, List, Optional
+
+
+@dataclass
+class GroupKey:
+    """Represents a unique combination of grouping dimensions."""
+
+    dimensions: Dict[str, str]
+
+    def __hash__(self):
+        return hash(tuple(sorted(self.dimensions.items())))
+
+    def __eq__(self, other):
+        if not isinstance(other, GroupKey):
+            return False
+        return self.dimensions == other.dimensions
+
+    def to_filename_suffix(self) -> str:
+        """Generate filename suffix like '_offset-1_type1'."""
+        parts = []
+        for k, v in sorted(self.dimensions.items()):
+            # Avoid duplication like "typetype1" - just use the value if it starts with the key
+            if v.startswith(k):
+                parts.append(v)
+            else:
+                parts.append(f"{k}{v}")
+        return "_" + "_".join(parts)
+
+
+class GroupingStrategy:
+    """Base class for tRNA grouping strategies."""
+
+    def classify(self, trna_id: str, trna_rows: List[dict]) -> Optional[GroupKey]:
+        """Classify a tRNA into a group. Returns None to exclude."""
+        raise NotImplementedError
+
+
+class OffsetTypeStrategy(GroupingStrategy):
+    """Groups tRNAs by labeling offset AND structural type."""
+
+    def classify(self, trna_id: str, trna_rows: List[dict]) -> Optional[GroupKey]:
+        # Check exclusions first
+        trna_type = classify_trna_type(trna_id)
+        if trna_type == "exclude":
+            return None
+
+        # Calculate offset
+        offset = self._calculate_offset(trna_rows)
+        if offset is None:
+            return None
+
+        offset_str = f"+{offset}" if offset > 0 else str(offset)
+        return GroupKey({"offset": offset_str, "type": trna_type})
+
+    def _calculate_offset(self, trna_rows: List[dict]) -> Optional[int]:
+        """
+        Calculate offset using positions 15-25 (conserved D-loop region).
+        Offset = sprinzl_label (canonical) - sprinzl_index (template-specific)
+        """
+        offsets = []
+        for row in trna_rows:
+            label = row.get("sprinzl_label", "")
+            idx = row.get("sprinzl_index", -1)
+
+            if label and label.isdigit() and idx > 0:
+                label_num = int(label)
+                if 15 <= label_num <= 25:
+                    offsets.append(label_num - idx)
+
+        if not offsets:
+            return None
+        return Counter(offsets).most_common(1)[0][0]
+
+
 def validate_no_global_index_collisions(df: pd.DataFrame):
     """
     Detect and report global_index collisions that would break coordinate alignment.
@@ -332,10 +410,11 @@ def sort_key_type2(lbl: str):
 
 def build_pref_label(df: pd.DataFrame) -> pd.Series:
     """
-    Prefer sprinzl_index (numeric) for standard positions [1..76] to ensure consistency.
-    Use sprinzl_label for structural insertions:
-    - Type II extended arms ("e1", "e2", etc.) - crucial structural information
-    - Other insertions (e.g., "20a", "47a") where index is invalid
+    Prefer sprinzl_label (templateNumberingLabel = canonical Sprinzl position).
+    This is the correct field for functional alignment as it represents the
+    canonical position (e.g., '18' is always position 18 regardless of insertions).
+
+    Falls back to sprinzl_index only when label is empty.
     Returns strings with '' for unknown.
     """
     lbl = df["sprinzl_label"].astype("string").fillna("").str.strip()
@@ -343,14 +422,8 @@ def build_pref_label(df: pd.DataFrame) -> pd.Series:
     num_ok = num.where((num >= 1) & (num <= 76))
     num_ok_str = num_ok.astype("Int64").astype(str).replace({"<NA>": ""})
 
-    # Always preserve Type II extended arm positions (e1, e2, e3, etc.)
-    is_extended_arm = lbl.str.match(r"^e\d+$", na=False)
-
-    # Use numeric index when valid (1-76), otherwise fall back to label for insertions
-    pref = num_ok_str.mask(num_ok_str.eq(""), other=lbl)
-
-    # Override with extended arm labels to preserve structural information
-    pref = pref.mask(is_extended_arm, other=lbl)
+    # Prefer label (canonical position), fallback to index when label is empty
+    pref = lbl.mask(lbl.eq(""), other=num_ok_str)
 
     return pref
 
@@ -561,6 +634,145 @@ def generate_coordinates_for_type(all_rows, trna_type, output_file, allow_collis
     print(f"  Unique global positions (K): {len(uniq_cont)}  |  rounding={PRECISION} d.p.")
 
 
+def generate_grouped_coordinates(
+    all_rows: list,
+    base_output: str,
+    strategy: GroupingStrategy,
+    allow_collisions: bool = False,
+) -> dict:
+    """
+    Generate separate coordinate files for each group defined by the strategy.
+
+    Args:
+        all_rows: List of all tRNA data rows
+        base_output: Base output path (suffix will be added for each group)
+        strategy: GroupingStrategy instance to classify tRNAs
+        allow_collisions: Whether to allow coordinate collisions
+
+    Returns:
+        Dict mapping group key strings to output file paths
+    """
+    from itertools import groupby
+    from operator import itemgetter
+
+    # Group rows by tRNA
+    sorted_rows = sorted(all_rows, key=itemgetter("trna_id"))
+    groups: Dict[GroupKey, list] = {}
+    excluded = []
+    undetermined_offset = []
+
+    for trna_id, trna_rows_iter in groupby(sorted_rows, key=itemgetter("trna_id")):
+        trna_rows_list = list(trna_rows_iter)
+        group_key = strategy.classify(trna_id, trna_rows_list)
+
+        if group_key is None:
+            # Check if it was excluded vs undetermined offset
+            trna_type = classify_trna_type(trna_id)
+            if trna_type == "exclude":
+                excluded.append(trna_id)
+            else:
+                undetermined_offset.append(trna_id)
+            continue
+
+        if group_key not in groups:
+            groups[group_key] = []
+        groups[group_key].extend(trna_rows_list)
+
+    print(f"[info] Classified tRNAs into {len(groups)} groups")
+    print(f"  Excluded (SeC/mito/iMet): {len(excluded)}")
+    if undetermined_offset:
+        print(f"  Undetermined offset: {len(undetermined_offset)}")
+        if len(undetermined_offset) <= 10:
+            print(f"    {undetermined_offset}")
+
+    # Generate file for each group
+    output_files = {}
+    base = base_output[:-4] if base_output.endswith(".tsv") else base_output
+
+    for group_key in sorted(groups.keys(), key=lambda k: str(k.dimensions)):
+        group_rows = groups[group_key]
+        trna_type = group_key.dimensions.get("type", "type1")
+        output_file = f"{base}{group_key.to_filename_suffix()}.tsv"
+
+        n_trnas = len(set(r["trna_id"] for r in group_rows))
+        print(f"\n  {group_key.to_filename_suffix()[1:]}: {n_trnas} tRNAs")
+
+        # Use existing coordinate generation logic for this group
+        # Filter all_rows to just this group's rows and generate coordinates
+        _generate_coordinates_for_group(group_rows, trna_type, output_file, allow_collisions)
+        output_files[str(group_key.dimensions)] = output_file
+
+    return output_files
+
+
+def _generate_coordinates_for_group(rows, trna_type, output_file, allow_collisions=False):
+    """
+    Generate coordinates for a pre-filtered group of tRNA rows.
+    Internal helper for generate_grouped_coordinates().
+    """
+    if not rows:
+        print(f"[warn] No rows for {output_file}, skipping")
+        return
+
+    # Convert to DataFrame
+    df = pd.DataFrame(rows).sort_values(["trna_id", "seq_index"]).reset_index(drop=True)
+
+    # Build preferred labels
+    pref = build_pref_label(df)
+
+    # Use type-specific label ordering
+    if trna_type == "type1":
+        uniq_labels, to_ord = build_global_label_order_type1(pref)
+    elif trna_type == "type2":
+        uniq_labels, to_ord = build_global_label_order_type2(pref)
+    else:
+        uniq_labels, to_ord = build_global_label_order(pref)
+
+    df["sprinzl_ordinal"] = pd.to_numeric(pref.map(to_ord), errors="coerce")
+
+    # Continuous coordinate per tRNA
+    ord_series = pref.map(to_ord)
+    cont = []
+    for _, sub in df.groupby("trna_id", sort=False):
+        cont.append(make_continuous_for_trna(sub, ord_series))
+    df["sprinzl_continuous"] = pd.concat(cont).sort_index().astype("float64")
+
+    # Global equal-spaced index
+    cont_round = df["sprinzl_continuous"].round(PRECISION)
+    uniq_cont = sorted(cont_round.dropna().unique().tolist())
+    cont_to_global = {v: i + 1 for i, v in enumerate(uniq_cont)}
+    df["global_index"] = cont_round.map(cont_to_global).astype("Int64")
+
+    # Validate no collisions (unless allowing them)
+    if allow_collisions:
+        print(f"    Collision validation bypassed")
+    else:
+        validate_no_global_index_collisions(df)
+
+    # Region annotation
+    df["region"] = compute_region_column(df)
+
+    # Write output
+    cols = [
+        "trna_id",
+        "source_file",
+        "seq_index",
+        "sprinzl_index",
+        "sprinzl_label",
+        "residue",
+        "sprinzl_ordinal",
+        "sprinzl_continuous",
+        "global_index",
+        "region",
+    ]
+    df.to_csv(output_file, sep="\t", index=False, columns=cols)
+
+    # Stats
+    print(f"    Wrote {output_file}")
+    print(f"    Rows: {len(df)}  |  tRNAs: {df['trna_id'].nunique()}")
+    print(f"    Unique positions (K): {len(uniq_cont)}")
+
+
 def main():
     ap = argparse.ArgumentParser(
         description="Build global equal-spaced tRNA coordinates + regions from R2DT JSON."
@@ -583,6 +795,11 @@ def main():
         "--type",
         choices=["type1", "type2"],
         help="Generate coordinates for specific tRNA type only (overrides --dual-system).",
+    )
+    ap.add_argument(
+        "--split-by-offset-and-type",
+        action="store_true",
+        help="Generate separate coordinate files for each offset+type combination.",
     )
     args = ap.parse_args()
 
@@ -623,6 +840,12 @@ def main():
 
         generate_coordinates_for_type(all_rows, "type1", type1_file, args.allow_collisions)
         generate_coordinates_for_type(all_rows, "type2", type2_file, args.allow_collisions)
+
+    elif args.split_by_offset_and_type:
+        # Generate separate coordinate files for each offset+type combination
+        print("[info] Generating offset+type coordinate system:")
+        strategy = OffsetTypeStrategy()
+        generate_grouped_coordinates(all_rows, args.out_tsv, strategy, args.allow_collisions)
 
     else:
         # Legacy unified system (original behavior) - for backwards compatibility

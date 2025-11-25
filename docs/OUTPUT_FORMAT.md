@@ -27,16 +27,16 @@ Understanding where each column comes from helps interpret the data correctly:
 
 ### Direct R2DT Outputs
 
-**`sprinzl_index`** (from `templateResidueIndex`)
+**`sprinzl_label`** (from `templateNumberingLabel`)
 - Canonical Sprinzl position (1-76 numbering, Sprinzl et al. 1998)
 - Functionally consistent across tRNAs: position 34 is always the first anticodon base
 - R2DT assigns these based on structural covariance models
+- Example: Label '18' is always canonical position 18, regardless of insertions
 
-**`sprinzl_label`** (from `templateNumberingLabel`)
-- Template alignment position from R2DT's covariance model
-- Adjusts for insertions: a tRNA with insertion "20a" will have offset labels downstream
-- Sequential position count in the alignment template, not functional position
-- Example: In a tRNA with one insertion before position 34, that position may be labeled "33"
+**`sprinzl_index`** (from `templateResidueIndex`)
+- Template-specific sequential position from R2DT's covariance model
+- Adjusts for insertions: a tRNA with insertion "17a" will have shifted indices downstream
+- Example: In Pro tRNA with insertion at 17a, label '18' maps to index 19 (shifted by 1)
 
 **`residue`** (from `residueName`)
 - Nucleotide base at each position
@@ -71,12 +71,12 @@ Understanding where each column comes from helps interpret the data correctly:
 
 ### Why Two Position Systems?
 
-R2DT provides both `sprinzl_index` (canonical/functional) and `sprinzl_label` (alignment-based) because they serve different purposes:
+R2DT provides both `sprinzl_label` (canonical/functional) and `sprinzl_index` (template-specific) because they serve different purposes:
 
-- **`sprinzl_index`**: Use for functional comparisons (e.g., "find all first anticodon bases")
-- **`sprinzl_label`**: Use to identify insertions and alignment-specific features
+- **`sprinzl_label`**: Use for functional comparisons (e.g., "find all first anticodon bases at position 34")
+- **`sprinzl_index`**: Template-specific index that may shift with insertions; useful for template alignment
 
-The derived `global_index` is built from canonical positions to ensure functional equivalence across tRNAs, enabling proper alignment in heatmaps and cross-tRNA analyses.
+The derived `global_index` is built primarily from canonical `sprinzl_label` values to ensure functional equivalence across tRNAs, enabling proper alignment in heatmaps and cross-tRNA analyses.
 
 ## Detailed Column Explanations
 
