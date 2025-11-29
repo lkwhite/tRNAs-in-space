@@ -418,22 +418,17 @@ def sort_key_type2(lbl: str):
 
 def build_pref_label(df: pd.DataFrame) -> pd.Series:
     """
-    Prefer sprinzl_label (templateNumberingLabel = canonical Sprinzl position).
+    Use sprinzl_label (templateNumberingLabel = canonical Sprinzl position).
     This is the correct field for functional alignment as it represents the
     canonical position (e.g., '18' is always position 18 regardless of insertions).
 
-    Falls back to sprinzl_index only when label is empty.
-    Returns strings with '' for unknown.
+    Empty labels stay empty - they represent insertion positions that will be
+    handled by make_continuous_for_trna() which assigns fractional values.
+    Do NOT fall back to sprinzl_index, as this can cause collisions when
+    sprinzl_index matches another position's sprinzl_label.
     """
     lbl = df["sprinzl_label"].astype("string").fillna("").str.strip()
-    num = pd.to_numeric(df["sprinzl_index"], errors="coerce")
-    num_ok = num.where((num >= 1) & (num <= 76))
-    num_ok_str = num_ok.astype("Int64").astype(str).replace({"<NA>": ""})
-
-    # Prefer label (canonical position), fallback to index when label is empty
-    pref = lbl.mask(lbl.eq(""), other=num_ok_str)
-
-    return pref
+    return lbl
 
 
 def build_global_label_order(pref: pd.Series):
