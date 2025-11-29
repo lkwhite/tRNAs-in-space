@@ -508,16 +508,14 @@ def test_no_label_index_mismatch_at_deletion_sites():
 
 
 def test_label_overrides_applied():
-    """Test that known label overrides are being applied correctly."""
-    # Check that the LABEL_OVERRIDES dict exists and has expected entries
+    """Test that the fix_label_index_mismatch function exists and LABEL_OVERRIDES is available."""
+    # Check that the automated fix function exists
+    assert hasattr(trnas_in_space, "fix_label_index_mismatch"), (
+        "fix_label_index_mismatch function should exist"
+    )
+
+    # LABEL_OVERRIDES should exist (may be empty dict for fallback use)
     assert hasattr(trnas_in_space, "LABEL_OVERRIDES"), "LABEL_OVERRIDES should exist"
-
-    overrides = trnas_in_space.LABEL_OVERRIDES
-    assert "nuc-tRNA-Arg-CCU-1-1" in overrides, "Arg-CCU override should exist"
-
-    # Verify the Arg-CCU fix: position 20 should map to label "22" (not "21")
-    arg_ccu_overrides = overrides["nuc-tRNA-Arg-CCU-1-1"]
-    assert arg_ccu_overrides.get(20) == "22", "Arg-CCU position 20 should have label '22'"
 
 
 def test_arg_ccu_alignment_fixed():

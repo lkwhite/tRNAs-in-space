@@ -27,50 +27,63 @@ import pandas as pd
 # ----------------------------- config -----------------------------
 PRECISION = 6  # fixed rounding for sprinzl_continuous before uniquing
 
-# Label overrides for tRNAs with known R2DT labeling errors.
-# Format: {trna_id: {seq_index: corrected_label, ...}}
-# These corrections are applied after loading R2DT data but before coordinate calculation.
-LABEL_OVERRIDES = {
-    # Yeast tRNA-Arg-CCU-1-1: Missing Sprinzl position 21 (D-loop deletion)
-    # R2DT labels positions 20+ incorrectly (off by 1). Fix by shifting labels.
-    # seq_index 20 has sprinzl_index=22 but label="21" - should be "22"
-    "nuc-tRNA-Arg-CCU-1-1": {
-        20: "22", 21: "23", 22: "24", 23: "25", 24: "26", 25: "27",
-        26: "28", 27: "29", 28: "30", 29: "31", 30: "32", 31: "33",
-        32: "34", 33: "35", 34: "36", 35: "37", 36: "38", 37: "39",
-        38: "40", 39: "41", 40: "42", 41: "43", 42: "44", 43: "45",
-        44: "46", 45: "47", 46: "48", 47: "49", 48: "50", 49: "51",
-        50: "52", 51: "53", 52: "54", 53: "55", 54: "56", 55: "57",
-        56: "58", 57: "59", 58: "60", 59: "61", 60: "62", 61: "63",
-        62: "64", 63: "65", 64: "66", 65: "67", 66: "68", 67: "69",
-        68: "70", 69: "71", 70: "72", 71: "73", 72: "74", 73: "75",
-        74: "76", 75: "77",
-    },
-    # Human tRNA-Leu-CAA-6-1: Missing position 44 in variable arm region
-    # R2DT has seq=45 with idx=45 but label="44" - should be "45"
-    # This is a Type II tRNA with extended variable arm (e-positions)
-    "nuc-tRNA-Leu-CAA-6-1": {
-        45: "45",  # was "44" - index jumps 43->45, so label should too
-    },
-    # Human tRNA-His-GUG isodecoders: Missing position 22 in D-loop
-    # seq=22 has idx=23 but label="22" - should be "23"
-    # After D-loop insertion at 20a, position 22 is skipped but labels weren't adjusted
-    # All 9 His-GUG isodecoders have the same issue
-    **{
-        f"nuc-tRNA-His-GUG-1-{i}": {
-            22: "23", 23: "24", 24: "25", 25: "26", 26: "27", 27: "28",
-            28: "29", 29: "30", 30: "31", 31: "32", 32: "33", 33: "34",
-            34: "35", 35: "36", 36: "37", 37: "38", 38: "39", 39: "40",
-            40: "41", 41: "42", 42: "43", 43: "44", 44: "45", 45: "46",
-            46: "47", 47: "48", 48: "49", 49: "50", 50: "51", 51: "52",
-            52: "53", 53: "54", 54: "55", 55: "56", 56: "57", 57: "58",
-            58: "59", 59: "60", 60: "61", 61: "62", 62: "63", 63: "64",
-            64: "65", 65: "66", 66: "67", 67: "68", 68: "69", 69: "70",
-            70: "71", 71: "72", 72: "73", 73: "74", 74: "75", 75: "76",
-        }
-        for i in range(1, 10)
-    },
-}
+# Manual label overrides - kept as fallback for edge cases not handled by
+# fix_label_index_mismatch(). The automated fix now handles the 67 known
+# R2DT label/index mismatch cases. See docs/R2DT_LABEL_INDEX_MISMATCH_BUG.md
+LABEL_OVERRIDES = {}
+
+
+def fix_label_index_mismatch(rows: list) -> list:
+    """
+    Fix R2DT bug where sprinzl_label doesn't skip when sprinzl_index skips.
+
+    When R2DT detects a structural deletion, it correctly skips the
+    templateResidueIndex (sprinzl_index) but sometimes fails to skip the
+    templateNumberingLabel (sprinzl_label). This causes alignment errors.
+
+    Example bug:
+        seq=20, idx=20, label="20"  <- OK
+        seq=21, idx=22, label="21"  <- BUG! label should be "22"
+        seq=22, idx=23, label="22"  <- BUG propagates
+
+    Fix: When we detect index jumps but label doesn't jump correspondingly,
+    correct all subsequent numeric labels by the accumulated offset.
+    """
+    if not rows:
+        return rows
+
+    rows = sorted(rows, key=lambda r: r["seq_index"])
+    cumulative_offset = 0  # How much labels are behind indices
+
+    for i in range(len(rows)):
+        curr_idx = rows[i]["sprinzl_index"]
+        curr_label = str(rows[i]["sprinzl_label"]).strip()
+
+        if i > 0:
+            prev_idx = rows[i - 1]["sprinzl_index"]
+
+            # Check for deletion (gap in index)
+            if prev_idx > 0 and curr_idx > 0 and curr_idx > prev_idx + 1:
+                index_gap = curr_idx - prev_idx  # e.g., 22 - 20 = 2
+
+                # Check if label is numeric and falls in the skipped range
+                if curr_label.isdigit():
+                    label_num = int(curr_label)
+                    skipped_positions = set(range(prev_idx + 1, curr_idx))
+
+                    if label_num in skipped_positions:
+                        # Bug detected: label didn't skip with index
+                        # Increase cumulative offset by the gap minus 1
+                        # (gap of 2 means 1 position skipped, so offset += 1)
+                        cumulative_offset += index_gap - 1
+
+        # Apply cumulative offset to numeric labels
+        if cumulative_offset > 0 and curr_label.isdigit():
+            corrected_label = int(curr_label) + cumulative_offset
+            rows[i]["sprinzl_label"] = str(corrected_label)
+
+    return rows
+
 
 # ------------------------- helpers: files -------------------------
 
@@ -370,7 +383,12 @@ def collect_rows_from_json(fp: str):
         else:
             r["sprinzl_index"] = -1
 
-    # Apply label overrides for known R2DT labeling errors
+    # Fix R2DT label/index mismatch bug: when sprinzl_index skips (deletion),
+    # sprinzl_label should also skip, but R2DT sometimes fails to do this.
+    # Detect and correct by tracking cumulative offset between index and label.
+    rows = fix_label_index_mismatch(rows)
+
+    # Apply label overrides for known R2DT labeling errors (manual fallback)
     if trna_id in LABEL_OVERRIDES:
         overrides = LABEL_OVERRIDES[trna_id]
         for row in rows:
@@ -474,13 +492,23 @@ def build_pref_label(df: pd.DataFrame) -> pd.Series:
     This is the correct field for functional alignment as it represents the
     canonical position (e.g., '18' is always position 18 regardless of insertions).
 
-    Empty labels stay empty - they represent insertion positions that will be
-    handled by make_continuous_for_trna() which assigns fractional values.
-    Do NOT fall back to sprinzl_index, as this can cause collisions when
-    sprinzl_index matches another position's sprinzl_label.
+    When sprinzl_label is empty but sprinzl_index is a valid positive integer,
+    fall back to sprinzl_index. This handles cases where R2DT couldn't assign
+    labels to a region (e.g., variable arms) but did assign structural indices.
+    Without this fallback, such positions get placed in the wrong coordinate space.
     """
     lbl = df["sprinzl_label"].astype("string").fillna("").str.strip()
-    return lbl
+    idx = df["sprinzl_index"]
+
+    # Fall back to sprinzl_index when label is empty but index is valid
+    empty_label = (lbl == "") | (lbl == "nan") | (lbl == "<NA>")
+    valid_index = idx.notna() & (idx > 0)
+    fallback_mask = empty_label & valid_index
+
+    result = lbl.copy()
+    result.loc[fallback_mask] = idx.loc[fallback_mask].astype(int).astype(str)
+
+    return result
 
 
 def build_global_label_order(pref: pd.Series):
