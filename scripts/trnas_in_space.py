@@ -27,6 +27,51 @@ import pandas as pd
 # ----------------------------- config -----------------------------
 PRECISION = 6  # fixed rounding for sprinzl_continuous before uniquing
 
+# Label overrides for tRNAs with known R2DT labeling errors.
+# Format: {trna_id: {seq_index: corrected_label, ...}}
+# These corrections are applied after loading R2DT data but before coordinate calculation.
+LABEL_OVERRIDES = {
+    # Yeast tRNA-Arg-CCU-1-1: Missing Sprinzl position 21 (D-loop deletion)
+    # R2DT labels positions 20+ incorrectly (off by 1). Fix by shifting labels.
+    # seq_index 20 has sprinzl_index=22 but label="21" - should be "22"
+    "nuc-tRNA-Arg-CCU-1-1": {
+        20: "22", 21: "23", 22: "24", 23: "25", 24: "26", 25: "27",
+        26: "28", 27: "29", 28: "30", 29: "31", 30: "32", 31: "33",
+        32: "34", 33: "35", 34: "36", 35: "37", 36: "38", 37: "39",
+        38: "40", 39: "41", 40: "42", 41: "43", 42: "44", 43: "45",
+        44: "46", 45: "47", 46: "48", 47: "49", 48: "50", 49: "51",
+        50: "52", 51: "53", 52: "54", 53: "55", 54: "56", 55: "57",
+        56: "58", 57: "59", 58: "60", 59: "61", 60: "62", 61: "63",
+        62: "64", 63: "65", 64: "66", 65: "67", 66: "68", 67: "69",
+        68: "70", 69: "71", 70: "72", 71: "73", 72: "74", 73: "75",
+        74: "76", 75: "77",
+    },
+    # Human tRNA-Leu-CAA-6-1: Missing position 44 in variable arm region
+    # R2DT has seq=45 with idx=45 but label="44" - should be "45"
+    # This is a Type II tRNA with extended variable arm (e-positions)
+    "nuc-tRNA-Leu-CAA-6-1": {
+        45: "45",  # was "44" - index jumps 43->45, so label should too
+    },
+    # Human tRNA-His-GUG isodecoders: Missing position 22 in D-loop
+    # seq=22 has idx=23 but label="22" - should be "23"
+    # After D-loop insertion at 20a, position 22 is skipped but labels weren't adjusted
+    # All 9 His-GUG isodecoders have the same issue
+    **{
+        f"nuc-tRNA-His-GUG-1-{i}": {
+            22: "23", 23: "24", 24: "25", 25: "26", 26: "27", 27: "28",
+            28: "29", 29: "30", 30: "31", 31: "32", 32: "33", 33: "34",
+            34: "35", 35: "36", 36: "37", 37: "38", 38: "39", 39: "40",
+            40: "41", 41: "42", 42: "43", 43: "44", 44: "45", 45: "46",
+            46: "47", 47: "48", 48: "49", 49: "50", 50: "51", 51: "52",
+            52: "53", 53: "54", 54: "55", 55: "56", 56: "57", 57: "58",
+            58: "59", 59: "60", 60: "61", 61: "62", 62: "63", 63: "64",
+            64: "65", 65: "66", 66: "67", 67: "68", 68: "69", 69: "70",
+            70: "71", 71: "72", 72: "73", 73: "74", 74: "75", 75: "76",
+        }
+        for i in range(1, 10)
+    },
+}
+
 # ------------------------- helpers: files -------------------------
 
 
@@ -324,6 +369,13 @@ def collect_rows_from_json(fp: str):
             r["sprinzl_index"] = bwd[i]
         else:
             r["sprinzl_index"] = -1
+
+    # Apply label overrides for known R2DT labeling errors
+    if trna_id in LABEL_OVERRIDES:
+        overrides = LABEL_OVERRIDES[trna_id]
+        for row in rows:
+            if row["seq_index"] in overrides:
+                row["sprinzl_label"] = overrides[row["seq_index"]]
 
     return rows
 
