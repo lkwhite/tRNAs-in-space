@@ -6,18 +6,41 @@
 
 Currently: E. coli K12, S. cerevisiae, and H. sapiens. See `outputs/` directory.
 
+### Which coordinate file should I use?
+
+Coordinate files are organized by **offset** (labeling variation) and **type** (structural type):
+
+- **offset0_type1** — Start here. Contains most tRNAs with standard structure.
+- **offset0_type2** — Use for Leucine, Serine, and Tyrosine (extended variable arm tRNAs).
+- **Other offsets** (-3, -1, +1) — Use when your tRNA of interest isn't in the offset0 files.
+
+The offset reflects structural variation in the D-loop region. Most tRNAs have offset 0.
+
+### What do "offset" and "type" mean in the filenames?
+
+**Offset** (-3 to +1): Indicates variation in how Sprinzl positions are assigned to sequence positions, based on D-loop structure. Offset 0 is the most common.
+
+**Type**:
+- **Type I**: Standard tRNAs with short variable loops (Ala, Arg, Asn, Asp, Cys, Gln, Glu, Gly, His, Ile, Lys, Met, Phe, Pro, Thr, Trp, Val)
+- **Type II**: tRNAs with extended variable arms (Leu, Ser, Tyr)
+
+### Why are there multiple files per organism?
+
+tRNAs with different structural characteristics cannot share the same coordinate space without **position collisions** — where the same global index would map to different structural positions in different tRNAs. Grouping by offset and type ensures that all tRNAs within a file are properly aligned.
+
 ### How do I load the data?
 
 **Python:**
 ```python
 import pandas as pd
-df = pd.read_csv('outputs/ecoliK12_global_coords.tsv', sep='\t')
+# Load Type I tRNAs with standard labeling (most common)
+df = pd.read_csv('outputs/ecoliK12_global_coords_offset0_type1.tsv', sep='\t')
 ```
 
 **R:**
 ```r
 library(readr)
-df <- read_tsv('outputs/ecoliK12_global_coords.tsv')
+df <- read_tsv('outputs/ecoliK12_global_coords_offset0_type1.tsv')
 ```
 
 ### What do the columns mean?
@@ -45,8 +68,9 @@ Phenylalanine GAA. Obviously.
 
 2. Generate coordinates:
    ```bash
-   python scripts/trnas_in_space.py outputs/my_jsons outputs/my_coords.tsv
+   python scripts/trnas_in_space.py outputs/my_jsons outputs/my_coords.tsv --split-by-offset-and-type
    ```
+   This generates multiple files grouped by offset and type (e.g., `my_coords_offset0_type1.tsv`).
 
 ### R2DT fails on my sequences. What should I do?
 
@@ -66,7 +90,7 @@ R2DT requires Docker. If you can't use Docker, you can:
 
 ### What is `global_index`?
 
-The standardized position number (1, 2, 3...) that's consistent across all tRNAs. Use this as your X-axis for alignments and heatmaps.
+The standardized position number (1, 2, 3...) that's consistent across all tRNAs within the same coordinate file. Use this as your X-axis for alignments and heatmaps.
 
 ### Why are some `global_index` values missing for certain tRNAs?
 
@@ -97,7 +121,7 @@ This is normal for the variable loop region (around positions 44-48). Different 
 
 ### How do I extract the anticodon positions?
 
-The anticodon is always at **Sprinzl positions 34-36** and should map to the same `global_index` for all tRNAs (this ensures proper alignment across tRNAs).
+The anticodon is always at **Sprinzl positions 34-36** and maps to the same `global_index` for all tRNAs within a coordinate file.
 
 To extract anticodons:
 ```python

@@ -2,6 +2,18 @@
 
 This guide provides practical recommendations for researchers using the tRNAs-in-space global coordinate system. Different analysis types have varying levels of confidence and validation requirements.
 
+## Choosing Coordinate Files
+
+Coordinate files are grouped by **offset** (D-loop labeling variation) and **type** (structural type):
+
+| Analysis Type | Recommended Files |
+|---------------|-------------------|
+| Most standard analyses | `offset0_type1` (contains majority of tRNAs) |
+| Leu, Ser, Tyr tRNAs | `offset0_type2` (extended variable arm) |
+| Cross-type comparisons | Load both `_type1` and `_type2` files separately |
+
+See [README.md](README.md#coordinate-file-organization) for details on file organization.
+
 ## Analysis Confidence Levels
 
 ### ✅ High-Confidence Analyses
@@ -71,18 +83,20 @@ anticodon_data = domain_patterns[domain_patterns['region'] == 'anticodon-loop']
 - Structural compensation mechanisms
 - Evolution of tRNA complexity
 
+**File Selection**: Type I and Type II tRNAs are in separate coordinate files (`_type1.tsv` vs `_type2.tsv`). Load the appropriate file for each type.
+
 **Code Example**:
 ```python
-# Type I vs Type II comparison
-type1_trnas = df[df['amino_acid'].isin(['Ala', 'Phe', 'Gly', 'Val'])]  # Type I
-type2_trnas = df[df['amino_acid'].isin(['Leu', 'Ser', 'Tyr'])]         # Type II
+# Load Type I and Type II coordinate files separately
+import pandas as pd
 
-# Compare T-loop regions (should be equivalent)
-t_loop_comparison = pd.merge(
-    type1_trnas[type1_trnas['region'] == 'T-loop'].groupby('global_index')['signal'].mean(),
-    type2_trnas[type2_trnas['region'] == 'T-loop'].groupby('global_index')['signal'].mean(),
-    left_index=True, right_index=True, suffixes=('_type1', '_type2')
-)
+type1_df = pd.read_csv('outputs/ecoliK12_global_coords_offset0_type1.tsv', sep='\t')
+type2_df = pd.read_csv('outputs/ecoliK12_global_coords_offset0_type2.tsv', sep='\t')
+
+# Compare T-loop regions
+# Note: global_index values are comparable between files for conserved regions
+t_loop_type1 = type1_df[type1_df['region'] == 'T-loop'].groupby('sprinzl_index')['residue'].value_counts()
+t_loop_type2 = type2_df[type2_df['region'] == 'T-loop'].groupby('sprinzl_index')['residue'].value_counts()
 ```
 
 ### ⚠️ Moderate-Confidence Analyses
@@ -325,6 +339,6 @@ was applied using the Benjamini-Hochberg method."
 
 ---
 
-For detailed system scope and limitations, see [COORDINATE_SYSTEM_SCOPE.md](COORDINATE_SYSTEM_SCOPE.md).
+For detailed system scope and limitations, see [docs/archive/coordinate-fixes/COORDINATE_SYSTEM_SCOPE.md](docs/archive/coordinate-fixes/COORDINATE_SYSTEM_SCOPE.md).
 
-For validation methods and quality assessment, see [COORDINATE_SYSTEM_VALIDATION.md](COORDINATE_SYSTEM_VALIDATION.md).
+For validation methods and quality assessment, see [docs/archive/coordinate-fixes/COORDINATE_SYSTEM_VALIDATION.md](docs/archive/coordinate-fixes/COORDINATE_SYSTEM_VALIDATION.md).

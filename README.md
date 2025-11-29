@@ -14,8 +14,8 @@
 ```python
 import pandas as pd
 
-# Load E. coli tRNA coordinates
-df = pd.read_csv('outputs/ecoliK12_global_coords.tsv', sep='\t')
+# Load E. coli Type I tRNAs with standard labeling (most common)
+df = pd.read_csv('outputs/ecoliK12_global_coords_offset0_type1.tsv', sep='\t')
 
 # Create alignment matrix
 alignment = df.pivot_table(
@@ -24,6 +24,8 @@ alignment = df.pivot_table(
     values='residue'
 )
 ```
+
+> **Note:** Coordinate files are grouped by structural characteristics (offset and type) to ensure proper position alignment. See [Coordinate File Organization](#coordinate-file-organization) for details on choosing the right file.
 
 **Installation:**
 ```bash
@@ -41,8 +43,10 @@ pip install -e ".[viz]"
 **Generate coordinates from your own data:**
 ```bash
 # After running R2DT on your FASTA files
-python scripts/trnas_in_space.py ./r2dt_output_dir/ my_output.tsv
+python scripts/trnas_in_space.py ./r2dt_output_dir/ my_output.tsv --split-by-offset-and-type
 ```
+
+This generates multiple coordinate files grouped by offset and type (e.g., `my_output_offset0_type1.tsv`).
 
 See [examples/01_basic_visualization.ipynb](examples/01_basic_visualization.ipynb) for detailed usage examples.
 
@@ -62,8 +66,8 @@ import pandas as pd
 # Load Modomics annotations
 mods = pd.read_csv('outputs/modomics/modomics_to_sprinzl_mapping.tsv', sep='\t')
 
-# Join with your global coordinates
-coords = pd.read_csv('outputs/ecoliK12_global_coords.tsv', sep='\t')
+# Join with your global coordinates (using offset0/type1 as example)
+coords = pd.read_csv('outputs/ecoliK12_global_coords_offset0_type1.tsv', sep='\t')
 annotated = coords.merge(
     mods[['gtRNAdb_trna_id', 'position_gtRNAdb', 'modification_short_name']],
     left_on=['trna_id', 'seq_index'],
@@ -126,13 +130,52 @@ This project provides a **standardized coordinate system for nuclear elongator t
 
 For detailed analysis guidelines, see [ANALYSIS_GUIDELINES.md](ANALYSIS_GUIDELINES.md). For technical implementation details, see [docs/archive/coordinate-fixes/COORDINATE_SYSTEM_SCOPE.md](docs/archive/coordinate-fixes/COORDINATE_SYSTEM_SCOPE.md).
 
+## Coordinate File Organization
+
+tRNAs are grouped into separate coordinate files based on two structural characteristics to ensure that positions align correctly across all tRNAs within each file.
+
+### Why Grouping?
+
+Different tRNAs have structural variations that affect how Sprinzl positions map to sequence positions. When combined into a single coordinate space, these variations cause **position collisions**—where the same global index maps to different structural positions in different tRNAs. Grouping by offset and type eliminates these collisions.
+
+### Grouping Dimensions
+
+**Offset** (labeling offset from -3 to +1): Reflects variation in how the D-loop region is annotated. Most tRNAs have offset 0 (standard labeling), but some have insertions or deletions that shift the numbering.
+
+**Type** (Type I or Type II):
+- **Type I**: Standard tRNAs with short variable loops (most amino acids)
+- **Type II**: tRNAs with extended variable arms (Leucine, Serine, Tyrosine)
+
+### Available Coordinate Files
+
+| Organism | Files | Offset Range |
+|----------|-------|--------------|
+| E. coli K12 | 5 | -1, 0, +1 |
+| S. cerevisiae | 4 | -1, 0, +1 |
+| H. sapiens | 7 | -3, -1, 0, +1 |
+
+**File naming:** `{species}_global_coords_offset{N}_type{1|2}.tsv`
+
+**Examples:**
+- `ecoliK12_global_coords_offset0_type1.tsv` — Standard E. coli Type I tRNAs (most common)
+- `hg38_global_coords_offset0_type2.tsv` — Human Leu/Ser/Tyr tRNAs with standard labeling
+- `sacCer_global_coords_offset+1_type1.tsv` — Yeast Type I tRNAs with +1 labeling offset
+
+### Choosing a File
+
+For most analyses, start with `offset0_type1` files—these contain the majority of tRNAs with standard structure. If you're studying Leucine, Serine, or Tyrosine tRNAs (which have extended variable arms), use the corresponding `type2` files.
+
+To find which file contains a specific tRNA, check the tRNA's amino acid:
+- **Type I** (short variable loop): Ala, Arg, Asn, Asp, Cys, Gln, Glu, Gly, His, Ile, Lys, Met, Phe, Pro, Thr, Trp, Val
+- **Type II** (extended variable arm): Leu, Ser, Tyr
+
 ---
 
-This README documents how to go from tRNA reference sequences → a single shared, equal‑spaced coordinate axis for plotting and cross‑isodecoder comparisons.
+This README documents how to go from tRNA reference sequences → grouped coordinate files for plotting and cross‑isodecoder comparisons.
 
-In this repository, you can also find pre-computed tables containing these indexed coordinates (`outputs/$SPECIES_global_coords.tsv`) for tRNAs from common model organisms. Production-ready outputs are available for *E. coli*, *S. cerevisiae*, and *H. sapiens* nuclear elongator tRNAs. Note that *S. cerevisiae* mitochondrial tRNAs may need additional hand-curation for accurate alignment due to [the unavailability of models specific to fungal mitochondria](https://github.com/r2dt-bio/R2DT/issues/197#issuecomment-3201887161). If this is relevant to your work we recommend the alignments in Reinsch and Garcia 2025 (see References).
+Pre-computed coordinate files are available in the `outputs/` directory for *E. coli* K12, *S. cerevisiae*, and *H. sapiens* nuclear elongator tRNAs. Note that *S. cerevisiae* mitochondrial tRNAs may need additional hand-curation for accurate alignment due to [the unavailability of models specific to fungal mitochondria](https://github.com/r2dt-bio/R2DT/issues/197#issuecomment-3201887161). If this is relevant to your work we recommend the alignments in Reinsch and Garcia 2025 (see References).
 
-The documentation and code in this repository can be further used to build such tables from scratch.
+The documentation and code in this repository can be used to generate coordinate files for your own tRNA sequences.
 
 ## The Problem
 
@@ -188,7 +231,7 @@ By introducing a global index, we eliminate spacing irregularities and enable cr
 
 **Outputs**:
 
--   A single TSV with per-base fields:
+-   Multiple TSV files (grouped by offset and type) with per-base fields:
 
     -   `trna_id`, `seq_index`, `sprinzl_index`, `sprinzl_label`, `residue`
 
@@ -227,11 +270,11 @@ This runs R2DT in `gtrnadb draw` mode, using covariance models and tRNAscan-SE o
 
 You can then extract information from the above by running the following script on your R2DT output directory:
 
-```         
-python trnas_in_space.py ./output ecoliK12_global_coords.tsv
+```
+python trnas_in_space.py ./output ecoliK12_global_coords.tsv --split-by-offset-and-type
 ```
 
-Note that this script overwrites the values of `sprinzl_index` with a best-effort fill based on neighboring positions, and assigns regions such as `anticodon-loop`, `acceptor-stem`, etc. Unresolvable cases retain `sprinzl_index` of `-1` and a `region` value of `unknown`.
+This generates multiple coordinate files grouped by offset and type (e.g., `ecoliK12_global_coords_offset0_type1.tsv`). The script fills missing `sprinzl_index` values using neighboring positions, and assigns structural regions such as `anticodon-loop`, `acceptor-stem`, etc. Unresolvable cases retain `sprinzl_index` of `-1` and a `region` value of `unknown`.
 
 ## Documentation
 
@@ -286,6 +329,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 -   Isodecoders: tRNAs that share the same anticodon
 
 -   Isoacceptors: tRNAs charged by the same amino acid
+
+## Implementation History
+
+- **Previous**: Single unified coordinate file per organism (`{species}_global_coords.tsv`). This approach had position collisions when combining tRNAs with different structural characteristics.
+- **Current (November 2025)**: Grouped files by offset and type (`{species}_global_coords_offset{N}_type{1|2}.tsv`). Separating tRNAs by structural characteristics eliminates collisions and ensures proper position alignment. Unified files may be supported in future versions with a different approach.
 
 ## References
 
