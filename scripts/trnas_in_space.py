@@ -38,7 +38,15 @@ def infer_trna_id_from_filename(path: str) -> str:
             name = name[: -len(suf)]
             break
     m = re.match(r"^(.*?)-[A-Z]_[A-Za-z0-9]+$", name)  # strip "-B_His" style suffixes if present
-    return m.group(1) if m else name
+    trna_id = m.group(1) if m else name
+    # Convert DNA notation (T) to RNA notation (U) in anticodon portion
+    # Anticodon is after amino acid: nuc-tRNA-Ala-TGC-1-1 -> nuc-tRNA-Ala-UGC-1-1
+    # Also handles: tRNA-Ile2-CAT-1-1, tRNA-fMet-CAT-1-1, etc.
+    # Pattern: tRNA-<amino>-<anticodon>- where amino can include digits (Ile2) or lowercase (fMet, iMet)
+    def replace_anticodon_t_with_u(match):
+        return match.group(1) + match.group(2).replace("T", "U") + match.group(3)
+    trna_id = re.sub(r"(tRNA-[A-Za-z0-9]+-)([ACGTU]{3})(-)", replace_anticodon_t_with_u, trna_id, flags=re.IGNORECASE)
+    return trna_id
 
 
 def should_exclude_trna(trna_id: str) -> bool:
