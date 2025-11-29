@@ -66,11 +66,36 @@ outputs/modomics/             # For output files
 
 **Files created:**
 - `scripts/modomics/align_to_sprinzl.py` - Main alignment pipeline
+- `scripts/modomics/add_global_coords.py` - Enriches mappings with offset×type coordinates
 - `outputs/modomics/modomics_modifications.json` - Parsed Modomics data (963 tRNAs, 82 species)
 - `outputs/modomics/modomics_to_sprinzl_mapping.tsv` - Combined multi-species mappings
 - `outputs/modomics/ecoli_modomics_to_sprinzl.tsv` - E. coli mappings (261)
 - `outputs/modomics/sacCer_modomics_to_sprinzl.tsv` - Yeast mappings (131)
 - `outputs/modomics/hg38_modomics_to_sprinzl.tsv` - Human mappings (43)
+
+**Columns in mapping files:**
+| Column | Description |
+|--------|-------------|
+| modomics_id | MODOMICS database identifier |
+| modomics_name | MODOMICS entry name |
+| species | Species name (MODOMICS format) |
+| trna_type | Amino acid type (Ala, Arg, etc.) |
+| anticodon | Anticodon sequence |
+| gtRNAdb_trna_id | Matched gtRNAdb tRNA identifier |
+| alignment_score | BioPython alignment score |
+| alignment_identity | Percent identity (0-100) |
+| modification_position_modomics | Position in MODOMICS sequence |
+| modification_char | Single-character modification code |
+| modification_name | Full modification name |
+| modification_short_name | Abbreviated name |
+| unmodified_char | Original unmodified base |
+| position_gtRNAdb | Position in gtRNAdb sequence |
+| sprinzl_index | Numeric Sprinzl index |
+| sprinzl_label | Canonical Sprinzl label (e.g., 20a, 37) |
+| region | tRNA structural region |
+| offset | Labeling offset for tRNA group (-1, 0, +1) |
+| structural_type | Structural type (type1 or type2) |
+| global_index | Position in unified coordinate space |
 
 **Multi-Species Results (E. coli, Yeast, Human):**
 - **435 total mappings** across 3 species
@@ -351,4 +376,4 @@ Will need to map between formats:
 
 ---
 
-**Last Updated:** Session 2 - Phase 2 Complete (3 species: E. coli, yeast, human)
+**Last Updated:** 2025-11-28 - Added global coordinate columns (offset, structural_type, global_index)
