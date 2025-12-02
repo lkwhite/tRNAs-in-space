@@ -36,6 +36,7 @@ LABEL_OVERRIDES = {}
 # These cannot be reliably aligned because key positions lack sprinzl_labels
 # or have incorrect T-loop sequences (indicating shifted annotations).
 EXCLUDED_POORLY_ANNOTATED = {
+    # ===== Nuclear tRNAs =====
     # Missing anticodon labels (positions 34-36) - can't verify tRNA identity
     "nuc-tRNA-Leu-CAA-5-1",   # human, 59.5% empty labels
     "nuc-tRNA-Arg-CCG-1-1",   # yeast, 20.8% empty labels
@@ -46,6 +47,36 @@ EXCLUDED_POORLY_ANNOTATED = {
     "nuc-tRNA-Gln-UUG-4-1",   # human, T-loop=CGA (not *TC pattern)
     "nuc-tRNA-Trp-CCA-4-1",   # human, T-loop=GCG (not *TC pattern)
     "nuc-tRNA-Trp-CCA-5-1",   # human, T-loop=GCG (not *TC pattern)
+    # ===== Mitochondrial tRNAs =====
+    # Large gaps in R2DT annotation - positions 13-22 have no sprinzl_labels
+    "mito-tRNA-Asn-GUU",      # yeast, 40% empty labels (30/75 positions unlabeled)
+}
+
+# R2DT label offset corrections for mito tRNAs with shifted Sprinzl labels.
+# These tRNAs have correctly sequenced bases but the R2DT template alignment
+# assigned incorrect Sprinzl position labels. The offset is added to numeric
+# sprinzl_labels to correct the alignment.
+# Positive correction = R2DT labels are too low (add to shift up)
+# Negative correction = R2DT labels are too high (subtract to shift down)
+# Keys must match the trna_id as returned by infer_trna_id_from_filename()
+# Human mito tRNAs have -1-1 suffix, yeast mito tRNAs have no copy number suffix
+MITO_LABEL_OFFSET_CORRECTIONS = {
+    # ===== Human Mito tRNAs (hg38) =====
+    # Anticodon found at labels 35-36-37 instead of 34-35-36 (need to subtract 1)
+    "mito-tRNA-Leu-UAA-1-1": -1,
+    "mito-tRNA-Leu-UAG-1-1": -1,
+    "mito-tRNA-Ser-GCU-1-1": -1,
+    # Anticodon found at labels 33-34-35 instead of 34-35-36 (need to add 1)
+    "mito-tRNA-Lys-UUU-1-1": +1,
+    # ===== Yeast Mito tRNAs (sacCer, no -1-1 suffix) =====
+    # Anticodon found at labels 36-37-38 instead of 34-35-36 (need to subtract 2)
+    # Note: Human Glu-UUC-1-1 is NOT in this dict because it doesn't need correction
+    "mito-tRNA-Glu-UUC": -2,
+    # Anticodon found at labels 35-36-37 instead of 34-35-36 (need to subtract 1)
+    # Note: Human Leu-UAA-1-1 IS in this dict (different key due to -1-1 suffix)
+    "mito-tRNA-Leu-UAA": -1,
+    # Anticodon found at labels 33-34-35 instead of 34-35-36 (need to add 1)
+    "mito-tRNA-Lys-UUU": +1,
 }
 
 # Biological order for variable loop hairpin (Type II tRNAs)
@@ -95,6 +126,54 @@ def is_mitochondrial_trna(trna_id: str) -> bool:
     return "MITO-TRNA" in trna_id_upper or trna_id_upper.startswith("MITO-")
 
 
+def get_label_offset_correction(trna_id: str) -> int:
+    """
+    Get the Sprinzl label offset correction for a tRNA.
+
+    Some mito tRNAs have R2DT template labels that are shifted relative to
+    standard Sprinzl numbering. This function returns the correction to apply
+    to numeric labels to fix the alignment.
+
+    Args:
+        trna_id: The tRNA identifier (as returned by infer_trna_id_from_filename)
+
+    Returns:
+        Integer offset to add to numeric sprinzl_labels (0 if no correction needed)
+    """
+    if trna_id is None:
+        return 0
+
+    # Exact match only - keys in MITO_LABEL_OFFSET_CORRECTIONS must match
+    # the trna_id exactly as returned by infer_trna_id_from_filename()
+    return MITO_LABEL_OFFSET_CORRECTIONS.get(trna_id, 0)
+
+
+def apply_label_offset(label: str, offset: int) -> str:
+    """
+    Apply an offset correction to a Sprinzl label.
+
+    Only adjusts purely numeric labels (e.g., "34" -> "33" with offset -1).
+    Non-numeric labels (e.g., "e5", "17a") are returned unchanged.
+
+    Args:
+        label: The original Sprinzl label
+        offset: The offset to apply
+
+    Returns:
+        Corrected label string
+    """
+    if not label or offset == 0:
+        return label
+
+    # Only adjust purely numeric labels
+    if label.isdigit():
+        new_val = int(label) + offset
+        if new_val >= 1:
+            return str(new_val)
+
+    return label
+
+
 def should_exclude_trna(trna_id: str, include_mito: bool = False) -> bool:
     """
     Filter out structurally incompatible tRNAs that cannot be meaningfully aligned.
@@ -124,7 +203,9 @@ def should_exclude_trna(trna_id: str, include_mito: bool = False) -> bool:
         # Generating mitochondrial coordinates - only include mito tRNAs
         if not is_mito:
             return True  # Exclude non-mito tRNAs
-        # Don't check EXCLUDED_POORLY_ANNOTATED for mito (those are nuclear tRNAs)
+        # Check poorly annotated exclusion list (includes some mito tRNAs)
+        if trna_id in EXCLUDED_POORLY_ANNOTATED:
+            return True
         return False
     else:
         # Generating nuclear coordinates - exclude mito tRNAs
@@ -262,6 +343,11 @@ def collect_rows_from_json(fp: str, include_mito: bool = False):
             print(f"Excluding incompatible tRNA: {trna_id}")
         return []
 
+    # Check if this tRNA needs label offset correction
+    label_offset = get_label_offset_correction(trna_id)
+    if label_offset != 0:
+        print(f"Applying label offset correction of {label_offset:+d} to {trna_id}")
+
     rows = []
     for s in seq:
         rname = s.get("residueName")
@@ -272,6 +358,16 @@ def collect_rows_from_json(fp: str, include_mito: bool = False):
         sprinzl_idx = info.get("templateResidueIndex", None)
         sprinzl_idx = int(sprinzl_idx) if isinstance(sprinzl_idx, int) else -1
         sprinzl_lbl = (info.get("templateNumberingLabel", "") or "").strip()
+
+        # Apply label offset correction for mito tRNAs with shifted R2DT labels
+        if label_offset != 0:
+            sprinzl_lbl = apply_label_offset(sprinzl_lbl, label_offset)
+            # Also adjust the sprinzl_index if it's valid
+            if sprinzl_idx >= 1:
+                sprinzl_idx = sprinzl_idx + label_offset
+                if sprinzl_idx < 1:
+                    sprinzl_idx = -1
+
         rows.append(
             {
                 "trna_id": trna_id,

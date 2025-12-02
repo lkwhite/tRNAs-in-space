@@ -652,7 +652,7 @@ def viz_06_text_alignment(df: pd.DataFrame, output_dir: Path,
 
     # Dynamic filename based on suffix
     if suffix:
-        output_filename = f'sacCer_{suffix}_alignment.png'
+        output_filename = f'{suffix}_alignment.png'
     else:
         output_filename = '06_text_alignment.png'
 
@@ -704,6 +704,41 @@ def generate_all_yeast_alignments(output_dir: Path, outputs_dir: Path):
     print("All yeast alignment visualizations complete.")
 
 
+def generate_mito_alignments(output_dir: Path, outputs_dir: Path):
+    """
+    Generate alignment visualizations for mitochondrial tRNAs.
+
+    Parameters:
+        output_dir: Directory to save figures
+        outputs_dir: Directory containing the mito global_coords TSV files
+    """
+    MITO_FILES = [
+        ('hg38_mito_global_coords.tsv', 'hg38_mito',
+         'H. sapiens Mitochondrial tRNAs: Full Coordinate Alignment', 22),
+        ('sacCer_mito_global_coords.tsv', 'sacCer_mito',
+         'S. cerevisiae Mitochondrial tRNAs: Full Coordinate Alignment', 19),
+    ]
+
+    print("Generating alignment visualizations for mitochondrial tRNAs...")
+    print()
+
+    for filename, suffix, title, max_trnas in MITO_FILES:
+        filepath = outputs_dir / filename
+        if not filepath.exists():
+            print(f"  Skipping {filename} (file not found)")
+            continue
+
+        print(f"Processing: {filename}")
+        df = load_data(filepath)
+        n_trnas = df['trna_id'].nunique()
+        print(f"  Loaded {len(df)} rows, {n_trnas} tRNAs")
+
+        viz_06_text_alignment(df, output_dir, suffix=suffix, title=title, max_trnas=max_trnas)
+        print()
+
+    print("All mitochondrial tRNA alignment visualizations complete.")
+
+
 def main():
     """Generate all visualizations."""
     import argparse
@@ -711,6 +746,8 @@ def main():
     parser = argparse.ArgumentParser(description='Generate tRNA alignment visualizations')
     parser.add_argument('--yeast-all', action='store_true',
                         help='Generate alignment visualizations for all yeast offset groups')
+    parser.add_argument('--mito', action='store_true',
+                        help='Generate alignment visualizations for mitochondrial tRNAs')
     args = parser.parse_args()
 
     # Paths
@@ -722,7 +759,10 @@ def main():
     # Create output directory
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    if args.yeast_all:
+    if args.mito:
+        # Generate alignment visualizations for mitochondrial tRNAs
+        generate_mito_alignments(output_dir, outputs_dir)
+    elif args.yeast_all:
         # Generate only the alignment visualizations for all yeast offset groups
         generate_all_yeast_alignments(output_dir, outputs_dir)
     else:

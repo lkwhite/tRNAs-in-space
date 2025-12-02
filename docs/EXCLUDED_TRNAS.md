@@ -61,6 +61,8 @@ These are excluded due to R2DT annotation issues. They are listed in `EXCLUDED_P
 
 ### Current Exclusion List
 
+#### Nuclear tRNAs
+
 | tRNA | Organism | Issue | Details |
 |------|----------|-------|---------|
 | nuc-tRNA-Leu-CAA-5-1 | Human | Missing labels | 59.5% empty sprinzl_labels, anticodon positions (34-36) unlabeled |
@@ -69,6 +71,12 @@ These are excluded due to R2DT annotation issues. They are listed in `EXCLUDED_P
 | nuc-tRNA-Gln-UUG-4-1 | Human | Invalid T-loop | T-loop sequence is CGA (not *TC pattern) |
 | nuc-tRNA-Trp-CCA-4-1 | Human | Invalid T-loop | T-loop sequence is GCG (not *TC pattern) |
 | nuc-tRNA-Trp-CCA-5-1 | Human | Invalid T-loop | T-loop sequence is GCG (not *TC pattern) |
+
+#### Mitochondrial tRNAs
+
+| tRNA | Organism | Issue | Details |
+|------|----------|-------|---------|
+| mito-tRNA-Asn-GUU | Yeast | Large annotation gaps | 40% empty sprinzl_labels (30/75 positions). Two gaps: positions 13-22 (D-loop) and 45-65 (variable/T-loop region). The second gap has 20 positions for 21 expected labels, indicating a deletion that cannot be resolved without structural analysis. |
 
 ### Exclusion Categories
 
@@ -158,6 +166,63 @@ Add the new exclusion to the table above with:
 - Organism
 - Issue category
 - Specific details
+
+---
+
+## Mito tRNAs with Label Offset Corrections
+
+Some mitochondrial tRNAs have R2DT templates that assign shifted Sprinzl labels.
+These tRNAs are **NOT excluded** - instead, a label offset correction is applied
+during coordinate generation to fix the alignment.
+
+| tRNA | Organism | Offset | Issue |
+|------|----------|--------|-------|
+| mito-tRNA-Leu-UAA-1-1 | Human | -1 | Anticodon at labels 35-36-37 |
+| mito-tRNA-Leu-UAG-1-1 | Human | -1 | Anticodon at labels 35-36-37 |
+| mito-tRNA-Ser-GCU-1-1 | Human | -1 | Anticodon at labels 35-36-37 |
+| mito-tRNA-Lys-UUU-1-1 | Human | +1 | Anticodon at labels 33-34-35 |
+| mito-tRNA-Glu-UUC | Yeast | -2 | Anticodon at labels 36-37-38 |
+| mito-tRNA-Leu-UAA | Yeast | -1 | Anticodon at labels 35-36-37 |
+| mito-tRNA-Lys-UUU | Yeast | +1 | Anticodon at labels 33-34-35 |
+
+These corrections are defined in `MITO_LABEL_OFFSET_CORRECTIONS` in `scripts/trnas_in_space.py`.
+
+### How to add a new label offset correction
+
+1. Identify the mismatch using anticodon validation:
+   ```bash
+   python -m pytest test_trnas_in_space.py::test_anticodon_matches_trna_name -v
+   ```
+
+2. Determine the offset by checking which label positions contain the correct anticodon:
+   ```python
+   import json
+   with open("outputs/hg38_jsons/mito-tRNA-XXX.enriched.json") as f:
+       data = json.load(f)
+   mol = data["rnaComplexes"][0]["rnaMolecules"][0]
+   for item in mol["sequence"]:
+       label = item["info"].get("templateNumberingLabel", "")
+       if label in ["32", "33", "34", "35", "36", "37", "38"]:
+           print(f"label={label}: {item['residueName']}")
+   ```
+
+3. Add to `MITO_LABEL_OFFSET_CORRECTIONS` in `scripts/trnas_in_space.py`:
+   ```python
+   MITO_LABEL_OFFSET_CORRECTIONS = {
+       # ... existing entries ...
+       "mito-tRNA-XXX": -1,  # Anticodon at labels 35-36-37
+   }
+   ```
+
+4. Regenerate mito coordinates:
+   ```bash
+   python scripts/trnas_in_space.py outputs/hg38_jsons outputs/hg38_mito_global_coords.tsv --mito
+   ```
+
+5. Verify the fix:
+   ```bash
+   python -m pytest test_trnas_in_space.py::test_anticodon_matches_trna_name -v
+   ```
 
 ---
 

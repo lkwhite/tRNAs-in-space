@@ -9,11 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - **Mitochondrial tRNA Coordinate Support**: New `--mito` flag for separate mito coordinate files
-  - Human mito: 22 tRNAs, 111 unique positions, no collisions
-  - Yeast mito: 19 tRNAs, 167 unique positions, no collisions
+  - Human mito: 22 tRNAs, 112 unique positions, no collisions
+  - Yeast mito: 18 tRNAs, 141 unique positions, no collisions (excludes mito-tRNA-Asn-GUU)
   - Separate files: `{species}_mito_global_coords.tsv`
-  - T-loop and anticodon validation skipped for mito (different biology)
-  - Documentation updated: `docs/OUTPUT_FORMAT.md`
+  - Label offset corrections for mito tRNAs with shifted R2DT annotations
+  - Anticodon validation now covers both nuclear and mito tRNAs
+  - Alignment visualizations: `--mito` flag in `visualize_alignment_system.py`
+  - Documentation updated: `docs/OUTPUT_FORMAT.md`, `docs/EXCLUDED_TRNAS.md`
+- **Annotation Quality Validation Script**: `scripts/validate_annotation_quality.py`
+  - Detects poorly-annotated tRNAs before coordinate generation
+  - Checks: empty label percentage, missing anticodon labels, large gaps
+  - Usage: `python scripts/validate_annotation_quality.py outputs/hg38_jsons`
 - **Biological Validation Tests**: Strict quality checks for coordinate accuracy
   - Anticodon validation: positions 34-35-36 must match tRNA name
   - T-loop validation: positions 54-55-56 must be TTC/TTT or *TC variant
@@ -56,6 +62,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - R2DT labels were actually correct; the pattern was misdiagnosed
   - The function was shifting anticodons by +1, breaking 21 yeast tRNAs
   - Anticodon validation tests now catch this class of bug
+- **Mito tRNA label offset corrections**: Fixed R2DT label shifts in 7 mito tRNAs
+  - Human: Leu-UAA, Leu-UAG, Ser-GCU (-1), Lys-UUU (+1)
+  - Yeast: Glu-UUC (-2), Leu-UAA (-1), Lys-UUU (+1)
+  - Corrections applied via `MITO_LABEL_OFFSET_CORRECTIONS` dictionary
+  - All mito tRNAs now pass anticodon validation
 
 ### Removed
 - Archived `docs/R2DT_LABEL_INDEX_MISMATCH_BUG.md` - documented a misdiagnosed issue

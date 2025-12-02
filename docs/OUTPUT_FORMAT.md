@@ -308,8 +308,10 @@ print(pos34[['trna_id', 'residue']].to_string(index=False))
 
 | Organism | File | tRNAs | Unique Positions | Approximate Size |
 |----------|------|-------|------------------|------------------|
-| S. cerevisiae | `sacCer_mito_global_coords.tsv` | 19 | 167 | ~100 KB |
+| S. cerevisiae | `sacCer_mito_global_coords.tsv` | 18 | 137 | ~95 KB |
 | H. sapiens | `hg38_mito_global_coords.tsv` | 22 | 111 | ~100 KB |
+
+**Note**: Yeast mito excludes mito-tRNA-Asn-GUU (40% empty labels). See [EXCLUDED_TRNAS.md](EXCLUDED_TRNAS.md).
 
 **Note**: Mitochondrial tRNA counts vary by organism. E. coli does not have mitochondria.
 

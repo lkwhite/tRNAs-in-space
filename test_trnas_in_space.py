@@ -523,10 +523,9 @@ def test_anticodon_matches_trna_name():
     This test catches bugs where sprinzl_labels are shifted, such as the
     fix_label_index_mismatch bug that shifted labels by +1.
 
-    NOTE: Mitochondrial tRNAs are excluded from this validation because:
-    1. Mitochondrial genetic code differs from standard code
-    2. Mito tRNA naming conventions may not match actual anticodon sequence
-    3. Some mito tRNAs have superwobble decoding (e.g., Leu-UAA decodes UUN)
+    This test covers BOTH nuclear and mitochondrial tRNAs. Mito tRNAs with
+    shifted R2DT labels are corrected by MITO_LABEL_OFFSET_CORRECTIONS in
+    trnas_in_space.py.
     """
     outputs_dir = Path(__file__).parent / "outputs"
     mismatches = []
@@ -540,18 +539,12 @@ def test_anticodon_matches_trna_name():
     for f in outputs_dir.glob("*_global_coords.tsv"):
         if "offset" in f.name:
             continue  # Skip legacy files
-        if "mito" in f.name.lower():
-            continue  # Skip mito files - different genetic code, naming conventions
 
         df = pd.read_csv(f, sep="\t")
 
         for trna_id in df["trna_id"].unique():
             # Skip known R2DT annotation issues
             if trna_id in known_r2dt_issues:
-                continue
-
-            # Skip mitochondrial tRNAs - different genetic code
-            if trnas_in_space.is_mitochondrial_trna(trna_id):
                 continue
 
             # Extract expected anticodon from tRNA name
