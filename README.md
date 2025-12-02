@@ -231,6 +231,9 @@ By introducing a global index, we eliminate spacing irregularities and enable cr
 
     -   `sprinzl_ordinal`, `sprinzl_continuous`, `global_index`, `region`
 
+
+> **Anticodon alphabet convention:** tRNA IDs use **RNA alphabet (U)** in anticodons (e.g., `tRNA-Ala-UGC-1-1`). This is biologically correct since tRNA is RNA. Consumers using DNA-based pipelines may need to convert U→T for joins (e.g., `tRNA-Ala-TGC-1-1`).
+
 ## Prerequisites
 
 -   [Docker](https://www.docker.com) (For [R2DT](https://github.com/r2dt-bio/r2dt))
