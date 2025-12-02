@@ -27,10 +27,26 @@ import pandas as pd
 # ----------------------------- config -----------------------------
 PRECISION = 6  # fixed rounding for sprinzl_continuous before uniquing
 
-# Manual label overrides - kept as fallback for edge cases not handled by
-# fix_label_index_mismatch(). The automated fix now handles the 67 known
-# R2DT label/index mismatch cases. See docs/R2DT_LABEL_INDEX_MISMATCH_BUG.md
+# Manual label overrides - kept as fallback for any edge cases where R2DT
+# provides incorrect sprinzl_labels that need manual correction.
+# Format: {"trna_id": {seq_index: "correct_label", ...}, ...}
 LABEL_OVERRIDES = {}
+
+# tRNAs excluded due to poor R2DT annotation quality.
+# These cannot be reliably aligned because key positions lack sprinzl_labels
+# or have incorrect T-loop sequences (indicating shifted annotations).
+EXCLUDED_POORLY_ANNOTATED = {
+    # Missing anticodon labels (positions 34-36) - can't verify tRNA identity
+    "nuc-tRNA-Leu-CAA-5-1",   # human, 59.5% empty labels
+    "nuc-tRNA-Arg-CCG-1-1",   # yeast, 20.8% empty labels
+    # Known R2DT annotation error - anticodon annotated as GGT instead of ATA
+    "nuc-tRNA-Tyr-AUA-1-1",   # human
+    # Non-standard T-loop sequences that are NOT *TC variants (R2DT errors)
+    # Note: *TC variants (CTC, ATC, GTC) are valid biological variants, not errors
+    "nuc-tRNA-Gln-UUG-4-1",   # human, T-loop=CGA (not *TC pattern)
+    "nuc-tRNA-Trp-CCA-4-1",   # human, T-loop=GCG (not *TC pattern)
+    "nuc-tRNA-Trp-CCA-5-1",   # human, T-loop=GCG (not *TC pattern)
+}
 
 # Biological order for variable loop hairpin (Type II tRNAs)
 # Complete set e1-e27 in 5'→3' order along the RNA backbone:
@@ -47,58 +63,6 @@ E_POSITION_BIOLOGICAL_ORDER = [
     'e27', 'e26', 'e25', 'e24', 'e23', 'e22', 'e21',  # descending stem
 ]
 E_POSITION_ORDER_MAP = {label: idx for idx, label in enumerate(E_POSITION_BIOLOGICAL_ORDER)}
-
-
-def fix_label_index_mismatch(rows: list) -> list:
-    """
-    Fix R2DT bug where sprinzl_label doesn't skip when sprinzl_index skips.
-
-    When R2DT detects a structural deletion, it correctly skips the
-    templateResidueIndex (sprinzl_index) but sometimes fails to skip the
-    templateNumberingLabel (sprinzl_label). This causes alignment errors.
-
-    Example bug:
-        seq=20, idx=20, label="20"  <- OK
-        seq=21, idx=22, label="21"  <- BUG! label should be "22"
-        seq=22, idx=23, label="22"  <- BUG propagates
-
-    Fix: When we detect index jumps but label doesn't jump correspondingly,
-    correct all subsequent numeric labels by the accumulated offset.
-    """
-    if not rows:
-        return rows
-
-    rows = sorted(rows, key=lambda r: r["seq_index"])
-    cumulative_offset = 0  # How much labels are behind indices
-
-    for i in range(len(rows)):
-        curr_idx = rows[i]["sprinzl_index"]
-        curr_label = str(rows[i]["sprinzl_label"]).strip()
-
-        if i > 0:
-            prev_idx = rows[i - 1]["sprinzl_index"]
-
-            # Check for deletion (gap in index)
-            if prev_idx > 0 and curr_idx > 0 and curr_idx > prev_idx + 1:
-                index_gap = curr_idx - prev_idx  # e.g., 22 - 20 = 2
-
-                # Check if label is numeric and falls in the skipped range
-                if curr_label.isdigit():
-                    label_num = int(curr_label)
-                    skipped_positions = set(range(prev_idx + 1, curr_idx))
-
-                    if label_num in skipped_positions:
-                        # Bug detected: label didn't skip with index
-                        # Increase cumulative offset by the gap minus 1
-                        # (gap of 2 means 1 position skipped, so offset += 1)
-                        cumulative_offset += index_gap - 1
-
-        # Apply cumulative offset to numeric labels
-        if cumulative_offset > 0 and curr_label.isdigit():
-            corrected_label = int(curr_label) + cumulative_offset
-            rows[i]["sprinzl_label"] = str(corrected_label)
-
-    return rows
 
 
 # ------------------------- helpers: files -------------------------
@@ -143,10 +107,18 @@ def should_exclude_trna(trna_id: str) -> bool:
        - Designed for mitochondrial translation system, not cytoplasmic
        - Cannot be meaningfully aligned with nuclear tRNA coordinates
 
+    3. Poorly annotated tRNAs: Missing critical sprinzl_labels from R2DT
+       - Cannot reliably align without anticodon or T-loop positions
+       - Listed in EXCLUDED_POORLY_ANNOTATED constant
+
     Focus on nuclear tRNAs (nuc-tRNA-*) which have standardized Type I/II structures.
     """
     if trna_id is None:
         return False
+
+    # Check poorly annotated exclusion list first
+    if trna_id in EXCLUDED_POORLY_ANNOTATED:
+        return True
 
     trna_id_upper = trna_id.upper()
 
@@ -325,11 +297,6 @@ def collect_rows_from_json(fp: str):
             r["sprinzl_index"] = bwd[i]
         else:
             r["sprinzl_index"] = -1
-
-    # Fix R2DT label/index mismatch bug: when sprinzl_index skips (deletion),
-    # sprinzl_label should also skip, but R2DT sometimes fails to do this.
-    # Detect and correct by tracking cumulative offset between index and label.
-    rows = fix_label_index_mismatch(rows)
 
     # Apply label overrides for known R2DT labeling errors (manual fallback)
     if trna_id in LABEL_OVERRIDES:

@@ -102,16 +102,34 @@ Continuous   global_index
 ## Excluded tRNA Types
 
 Some tRNAs are excluded from the unified coordinate system:
-- **Mitochondrial tRNAs**: Non-standard structures
-- **Selenocysteine (SeC)**: Unusual structure
+
+### Structurally Incompatible
+- **Mitochondrial tRNAs**: Non-standard structures (60-75 nt vs 76)
+- **Selenocysteine (SeC)**: Unusual structure (~95 nt, extended variable arm)
 - **Initiator Met (iMet)**: Special initiator tRNA with structural differences
+
+### Poorly Annotated (R2DT Issues)
+- **Missing anticodon labels**: Can't verify tRNA identity
+- **Wrong anticodon**: R2DT annotation doesn't match tRNA name
+- **Invalid T-loop**: Non-*TC pattern indicates shifted annotations
+
+See [EXCLUDED_TRNAS.md](EXCLUDED_TRNAS.md) for the complete list with reasons.
 
 ## Validation
 
-The coordinate system is validated to ensure no **collisions** occur:
+The coordinate system is validated at two levels:
+
+### Collision Detection
 - A collision is when two different Sprinzl labels map to the same global_index
 - This would indicate a bug in the ordering or interpolation logic
 - The script exits with an error if collisions are detected
+
+### Biological Validation
+Every tRNA must pass two biological checks:
+- **Anticodon match**: Positions 34-35-36 must match the anticodon in the tRNA name
+- **T-loop validity**: Positions 54-55-56 must contain TTC, TTT, or a *TC variant
+
+tRNAs failing these checks are excluded. See [BIOLOGICAL_VALIDATION.md](BIOLOGICAL_VALIDATION.md) for details.
 
 ## Example Usage
 

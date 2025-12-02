@@ -282,9 +282,11 @@ Approximate sizes for unified coordinate files:
 
 | Organism | File | tRNAs | Unique Positions | Approximate Size |
 |----------|------|-------|------------------|------------------|
-| E. coli K12 | `ecoliK12_global_coords.tsv` | ~82 | ~136 | ~500 KB |
-| S. cerevisiae | `sacCer_global_coords.tsv` | ~268 | ~145 | ~1.6 MB |
-| H. sapiens | `hg38_global_coords.tsv` | ~422 | ~253 | ~2.5 MB |
+| E. coli K12 | `ecoliK12_global_coords.tsv` | 82 | 136 | ~550 KB |
+| S. cerevisiae | `sacCer_global_coords.tsv` | 267 | 129 | ~1.9 MB |
+| H. sapiens | `hg38_global_coords.tsv` | 416 | 155 | ~3.0 MB |
+
+**Note**: tRNA counts exclude mitochondrial tRNAs, selenocysteine, initiator Met, and tRNAs with R2DT annotation issues. See [EXCLUDED_TRNAS.md](EXCLUDED_TRNAS.md) for details.
 
 ## Edge Cases and Special Situations
 

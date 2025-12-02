@@ -404,19 +404,54 @@ def viz_05_arrow_schematic(df: pd.DataFrame, output_dir: Path):
     print(f"Saved: {output_dir / '05_arrow_schematic.png'}")
 
 
-def viz_06_text_alignment(df: pd.DataFrame, output_dir: Path):
+def viz_06_text_alignment(df: pd.DataFrame, output_dir: Path,
+                          suffix: str = None, title: str = None,
+                          max_trnas: int = 5):
     """
     Visualization 6: Full Coordinate Path Alignment View
     Shows all 4 columns: global_index, sprinzl_label (shared), seq_index, residue (per-tRNA).
+
+    Parameters:
+        df: DataFrame with tRNA alignment data
+        output_dir: Directory to save output
+        suffix: Optional suffix for filename (e.g., 'offset0_type2')
+        title: Optional custom title
+        max_trnas: Maximum number of tRNAs to show (default 5)
     """
-    # Select a few tRNAs - get variety (Leu, Ser, Tyr)
+    # Select a sample of tRNAs - auto-detect what amino acids are present
     trna_ids = df['trna_id'].unique()
+
+    # Extract amino acid from tRNA IDs and find representative samples
+    aa_to_trnas = {}
+    for trna_id in trna_ids:
+        # Extract amino acid from tRNA ID (e.g., 'nuc-tRNA-Leu-CAA-1-1' -> 'Leu')
+        parts = trna_id.replace('nuc-tRNA-', '').split('-')
+        if parts:
+            aa = parts[0]
+            if aa not in aa_to_trnas:
+                aa_to_trnas[aa] = []
+            aa_to_trnas[aa].append(trna_id)
+
+    # Select diverse samples: prioritize variety across amino acids
     sample_trnas = []
-    for aa in ['Leu-CAA', 'Leu-UAA', 'Ser-AGA', 'Ser-GCU', 'Tyr-GUA']:
-        matches = [t for t in trna_ids if aa in t]
-        if matches:
-            sample_trnas.append(matches[0])
-    sample_trnas = sample_trnas[:5]
+    for aa in sorted(aa_to_trnas.keys()):
+        if len(sample_trnas) >= max_trnas:
+            break
+        # Take first tRNA of each amino acid type
+        sample_trnas.append(aa_to_trnas[aa][0])
+
+    # If we have fewer amino acids than max, add more from same aa
+    if len(sample_trnas) < max_trnas:
+        for aa in sorted(aa_to_trnas.keys()):
+            for trna in aa_to_trnas[aa][1:]:
+                if len(sample_trnas) >= max_trnas:
+                    break
+                if trna not in sample_trnas:
+                    sample_trnas.append(trna)
+            if len(sample_trnas) >= max_trnas:
+                break
+
+    sample_trnas = sample_trnas[:max_trnas]
 
     df_sample = df[df['trna_id'].isin(sample_trnas)]
 
@@ -473,9 +508,12 @@ def viz_06_text_alignment(df: pd.DataFrame, output_dir: Path):
     for i, col in enumerate(cols):
         x = x_start + i * col_width
         raw_label = label_map.get(col, None)
-        # Convert None/NaN to '-'
+        # Convert None/NaN to '-', and format numeric labels as integers
         if raw_label is None or pd.isna(raw_label) or str(raw_label) in ('None', 'nan', ''):
             label = '-'
+        elif isinstance(raw_label, float) and raw_label == int(raw_label):
+            # Numeric label stored as float - convert to int string
+            label = str(int(raw_label))
         else:
             label = str(raw_label)
         # Color by label type (Okabe-Ito)
@@ -599,42 +637,114 @@ def viz_06_text_alignment(df: pd.DataFrame, output_dir: Path):
     ax.set_ylim(final_bottom, y_start + row_height * 1.5)
     ax.axis('off')
 
-    ax.set_title('S. cerevisiae Type II tRNAs: Full Coordinate Alignment Path',
-                 fontsize=12, fontweight='bold', pad=10)
+    # Dynamic title based on suffix or custom title
+    if title:
+        fig_title = title
+    elif suffix:
+        # Parse suffix for readable title
+        fig_title = f'S. cerevisiae tRNAs ({suffix}): Full Coordinate Alignment Path'
+    else:
+        fig_title = 'S. cerevisiae Type II tRNAs: Full Coordinate Alignment Path'
+
+    ax.set_title(fig_title, fontsize=12, fontweight='bold', pad=10)
 
     plt.tight_layout()
-    plt.savefig(output_dir / '06_text_alignment.png', dpi=150, bbox_inches='tight')
+
+    # Dynamic filename based on suffix
+    if suffix:
+        output_filename = f'sacCer_{suffix}_alignment.png'
+    else:
+        output_filename = '06_text_alignment.png'
+
+    plt.savefig(output_dir / output_filename, dpi=150, bbox_inches='tight')
     plt.close()
-    print(f"Saved: {output_dir / '06_text_alignment.png'}")
+    print(f"Saved: {output_dir / output_filename}")
+
+
+def generate_all_yeast_alignments(output_dir: Path, outputs_dir: Path):
+    """
+    Generate alignment visualizations for all yeast offset groups.
+
+    Parameters:
+        output_dir: Directory to save figures
+        outputs_dir: Directory containing the global_coords TSV files
+    """
+    # All yeast data files with their suffixes and descriptive titles
+    YEAST_FILES = [
+        ('sacCer_global_coords_offset-1_type2.tsv', 'offset-1_type2',
+         'S. cerevisiae Type II tRNAs (offset -1): Full Coordinate Alignment Path'),
+        ('sacCer_global_coords_offset+1_type1.tsv', 'offset+1_type1',
+         'S. cerevisiae Type I tRNAs (offset +1): Full Coordinate Alignment Path'),
+        ('sacCer_global_coords_offset0_type1.tsv', 'offset0_type1',
+         'S. cerevisiae Type I tRNAs (offset 0): Full Coordinate Alignment Path'),
+        ('sacCer_global_coords_offset0_type2.tsv', 'offset0_type2',
+         'S. cerevisiae Type II tRNAs (offset 0): Full Coordinate Alignment Path'),
+    ]
+
+    print("Generating alignment visualizations for all yeast offset groups...")
+    print()
+
+    for filename, suffix, title in YEAST_FILES:
+        filepath = outputs_dir / filename
+        if not filepath.exists():
+            print(f"  Skipping {filename} (file not found)")
+            continue
+
+        print(f"Processing: {filename}")
+        df = load_data(filepath)
+        n_trnas = df['trna_id'].nunique()
+        print(f"  Loaded {len(df)} rows, {n_trnas} tRNAs")
+
+        # Determine max_trnas based on group size
+        max_trnas = min(5, n_trnas)
+
+        viz_06_text_alignment(df, output_dir, suffix=suffix, title=title, max_trnas=max_trnas)
+        print()
+
+    print("All yeast alignment visualizations complete.")
 
 
 def main():
     """Generate all visualizations."""
+    import argparse
+
+    parser = argparse.ArgumentParser(description='Generate tRNA alignment visualizations')
+    parser.add_argument('--yeast-all', action='store_true',
+                        help='Generate alignment visualizations for all yeast offset groups')
+    args = parser.parse_args()
+
     # Paths
     script_dir = Path(__file__).parent
     project_dir = script_dir.parent
-    input_file = project_dir / 'outputs' / 'sacCer_global_coords_offset0_type2.tsv'
-    output_dir = project_dir / 'outputs' / 'figures'
+    outputs_dir = project_dir / 'outputs'
+    output_dir = outputs_dir / 'figures'
 
     # Create output directory
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    print(f"Loading data from: {input_file}")
-    df = load_data(input_file)
-    print(f"Loaded {len(df)} rows, {df['trna_id'].nunique()} tRNAs")
-    print()
+    if args.yeast_all:
+        # Generate only the alignment visualizations for all yeast offset groups
+        generate_all_yeast_alignments(output_dir, outputs_dir)
+    else:
+        # Default: generate all visualizations for offset0_type2
+        input_file = outputs_dir / 'sacCer_global_coords_offset0_type2.tsv'
 
-    # Generate all visualizations
-    print("Generating visualizations...")
-    viz_01_label_mapping(df, output_dir)
-    viz_02_heatmap(df, output_dir)
-    viz_03_coverage(df, output_dir)
-    viz_04_ruler_tracks(df, output_dir)
-    viz_05_arrow_schematic(df, output_dir)
-    viz_06_text_alignment(df, output_dir)
+        print(f"Loading data from: {input_file}")
+        df = load_data(input_file)
+        print(f"Loaded {len(df)} rows, {df['trna_id'].nunique()} tRNAs")
+        print()
 
-    print()
-    print(f"All visualizations saved to: {output_dir}")
+        # Generate all visualizations
+        print("Generating visualizations...")
+        viz_01_label_mapping(df, output_dir)
+        viz_02_heatmap(df, output_dir)
+        viz_03_coverage(df, output_dir)
+        viz_04_ruler_tracks(df, output_dir)
+        viz_05_arrow_schematic(df, output_dir)
+        viz_06_text_alignment(df, output_dir)
+
+        print()
+        print(f"All visualizations saved to: {output_dir}")
 
 
 if __name__ == '__main__':

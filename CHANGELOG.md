@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Biological Validation Tests**: Strict quality checks for coordinate accuracy
+  - Anticodon validation: positions 34-35-36 must match tRNA name
+  - T-loop validation: positions 54-55-56 must be TTC/TTT or *TC variant
+  - 100% pass rate required (no threshold-based testing)
+  - Documentation: `docs/BIOLOGICAL_VALIDATION.md`
+- **T-loop Variant Discovery**: Identified 7 human tRNAs with valid *TC T-loop variants
+  - CTC: Ile-GAU (3 copies), Gly-UCC, Lys-CUU
+  - ATC: Val-AAC
+  - GTC: Val-UAC
+- **Excluded tRNAs Documentation**: Comprehensive list of excluded tRNAs with reasons
+  - Documentation: `docs/EXCLUDED_TRNAS.md`
 - **Modomics Integration**: Pre-computed modification annotations from MODOMICS database
   - 435 modification positions mapped across E. coli, S. cerevisiae, and H. sapiens
   - 100% mapping success to global coordinate system
@@ -23,12 +34,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Support for 14 Tier 1 model organisms (11 new: mouse, fly, worm, zebrafish, arabidopsis, etc.)
 
 ### Changed
+- **tRNA Counts Updated**: Reflect exclusions for annotation quality
+  - E. coli K12: 82 tRNAs (unchanged)
+  - S. cerevisiae: 267 tRNAs (was 268, excluded 1)
+  - H. sapiens: 416 tRNAs (was 422, excluded 6)
 - **Documentation Organization**: Reorganized documentation structure
   - Created `docs/archive/` for historical planning documents
   - Moved completed planning docs to `docs/archive/planning/`
   - Moved completed PR summaries to `docs/archive/completed-prs/`
   - Added archive README explaining historical context
   - Keeps `docs/development/` focused on active reference documentation
+
+### Fixed
+- **Removed fix_label_index_mismatch() function**: Was incorrectly "fixing" R2DT labels
+  - R2DT labels were actually correct; the pattern was misdiagnosed
+  - The function was shifting anticodons by +1, breaking 21 yeast tRNAs
+  - Anticodon validation tests now catch this class of bug
+
+### Removed
+- Archived `docs/R2DT_LABEL_INDEX_MISMATCH_BUG.md` - documented a misdiagnosed issue
+- Archived `docs/SESSION_HANDOFF_ARG_CCU_BUG.md` - related to same misdiagnosis
 
 ## [1.0.0] - 2025-01-15
 
