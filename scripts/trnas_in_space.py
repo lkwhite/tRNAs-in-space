@@ -87,61 +87,73 @@ def infer_trna_id_from_filename(path: str) -> str:
     return trna_id
 
 
-def should_exclude_trna(trna_id: str) -> bool:
+def is_mitochondrial_trna(trna_id: str) -> bool:
+    """Check if a tRNA is mitochondrial based on its ID."""
+    if trna_id is None:
+        return False
+    trna_id_upper = trna_id.upper()
+    return "MITO-TRNA" in trna_id_upper or trna_id_upper.startswith("MITO-")
+
+
+def should_exclude_trna(trna_id: str, include_mito: bool = False) -> bool:
     """
-    Filter out structurally incompatible tRNAs that cannot be meaningfully aligned
-    with standard nuclear tRNA coordinate systems.
+    Filter out structurally incompatible tRNAs that cannot be meaningfully aligned.
 
-    Exclusions:
-    1. SeC tRNAs: Structurally distinctive due to unique biological requirements:
-       - Avoid normal stop codon recognition (would terminate translation)
-       - Recruit specialized factors (SelA/SelB complex)
-       - Coordinate with SECIS elements (distant mRNA signals)
-       - Results in ~95 nucleotides vs. standard 76, with 17+ nucleotide extended
-         variable arms that cannot be aligned with Type I/II tRNAs.
+    Args:
+        trna_id: The tRNA identifier
+        include_mito: If True, include mitochondrial tRNAs (for mito-only coordinate generation)
 
-    2. Mitochondrial tRNAs: Fundamentally different architecture:
-       - Often 60-75 nucleotides vs. 76 for nuclear tRNAs
-       - Can lack certain structural features (e.g., D-loop)
-       - Different Sprinzl numbering patterns
-       - Designed for mitochondrial translation system, not cytoplasmic
-       - Cannot be meaningfully aligned with nuclear tRNA coordinates
+    Exclusions for nuclear coordinates:
+    1. SeC tRNAs: Structurally distinctive (~95 nt, extended variable arm)
+    2. Mitochondrial tRNAs: Different architecture (60-75 nt, variable structure)
+    3. Initiator Met (iMet/fMet): Special structures for ribosome binding
+    4. Poorly annotated tRNAs: Missing critical sprinzl_labels from R2DT
 
-    3. Poorly annotated tRNAs: Missing critical sprinzl_labels from R2DT
-       - Cannot reliably align without anticodon or T-loop positions
-       - Listed in EXCLUDED_POORLY_ANNOTATED constant
-
-    Focus on nuclear tRNAs (nuc-tRNA-*) which have standardized Type I/II structures.
+    Exclusions for mitochondrial coordinates:
+    1. Nuclear tRNAs: Different coordinate system
+    2. SeC tRNAs: Not found in mitochondria
+    3. Poorly annotated tRNAs: Missing critical labels
     """
     if trna_id is None:
         return False
 
-    # Check poorly annotated exclusion list first
-    if trna_id in EXCLUDED_POORLY_ANNOTATED:
-        return True
-
     trna_id_upper = trna_id.upper()
+    is_mito = is_mitochondrial_trna(trna_id)
 
-    # Exclude selenocysteine - incompatible structure
-    if "SEC" in trna_id_upper or "SELENOCYSTEINE" in trna_id_upper:
-        return True
+    if include_mito:
+        # Generating mitochondrial coordinates - only include mito tRNAs
+        if not is_mito:
+            return True  # Exclude non-mito tRNAs
+        # Don't check EXCLUDED_POORLY_ANNOTATED for mito (those are nuclear tRNAs)
+        return False
+    else:
+        # Generating nuclear coordinates - exclude mito tRNAs
+        # Check poorly annotated exclusion list first
+        if trna_id in EXCLUDED_POORLY_ANNOTATED:
+            return True
 
-    # Exclude mitochondrial tRNAs - different structural architecture
-    if "MITO-TRNA" in trna_id_upper or trna_id_upper.startswith("MITO-"):
-        return True
+        # Exclude selenocysteine - incompatible structure
+        if "SEC" in trna_id_upper or "SELENOCYSTEINE" in trna_id_upper:
+            return True
 
-    # Exclude initiator methionine tRNAs - different structural features
-    # Initiator tRNAs have modified structures for ribosome binding
-    if "IMET" in trna_id_upper or "INITIAT" in trna_id_upper or "FMET" in trna_id_upper:
-        return True
+        # Exclude mitochondrial tRNAs - different structural architecture
+        if is_mito:
+            return True
 
-    # Add other exclusions as needed
-    return False
+        # Exclude initiator methionine tRNAs - different structural features
+        if "IMET" in trna_id_upper or "INITIAT" in trna_id_upper or "FMET" in trna_id_upper:
+            return True
+
+        return False
 
 
-def classify_trna_type(trna_id: str) -> str:
+def classify_trna_type(trna_id: str, include_mito: bool = False) -> str:
     """
     Classify tRNAs into structural types for dual coordinate system approach.
+
+    Args:
+        trna_id: The tRNA identifier
+        include_mito: If True, classifying for mito coordinate generation
 
     Returns:
         'type1': Standard tRNAs with simple variable arm (most amino acids)
@@ -149,7 +161,7 @@ def classify_trna_type(trna_id: str) -> str:
         'exclude': Structurally incompatible tRNAs (SeC, mito, iMet)
     """
     # First check if this tRNA should be excluded entirely
-    if should_exclude_trna(trna_id):
+    if should_exclude_trna(trna_id, include_mito=include_mito):
         return "exclude"
 
     if trna_id is None:
@@ -222,7 +234,15 @@ def validate_no_global_index_collisions(df: pd.DataFrame):
 # --------------------- phase 1: JSON -> rows ----------------------
 
 
-def collect_rows_from_json(fp: str):
+def collect_rows_from_json(fp: str, include_mito: bool = False):
+    """
+    Collect tRNA data rows from an R2DT enriched JSON file.
+
+    Args:
+        fp: Path to the enriched JSON file
+        include_mito: If True, collecting for mito coordinates (include mito, exclude nuclear)
+                      If False, collecting for nuclear coordinates (include nuclear, exclude mito)
+    """
     with open(fp, "r") as f:
         J = json.load(f)
     mol = J["rnaComplexes"][0]["rnaMolecules"][0]
@@ -230,9 +250,16 @@ def collect_rows_from_json(fp: str):
 
     trna_id = infer_trna_id_from_filename(fp)
 
-    # Filter out structurally incompatible tRNAs (e.g., SeC)
-    if should_exclude_trna(trna_id):
-        print(f"Excluding incompatible tRNA: {trna_id}")
+    # Filter based on tRNA type and mode
+    if should_exclude_trna(trna_id, include_mito=include_mito):
+        # Only print for significant exclusions, not mode-based filtering
+        is_mito = is_mitochondrial_trna(trna_id)
+        if include_mito and not is_mito:
+            pass  # Don't log nuclear tRNAs excluded in mito mode
+        elif not include_mito and is_mito:
+            pass  # Don't log mito tRNAs excluded in nuclear mode
+        else:
+            print(f"Excluding incompatible tRNA: {trna_id}")
         return []
 
     rows = []
@@ -699,6 +726,11 @@ def main():
         choices=["type1", "type2"],
         help="Generate coordinates for specific tRNA type only (overrides --dual-system).",
     )
+    ap.add_argument(
+        "--mito",
+        action="store_true",
+        help="Generate coordinates for mitochondrial tRNAs only (separate from nuclear).",
+    )
     args = ap.parse_args()
 
     paths = glob(os.path.join(args.json_dir, "**", "*.enriched.json"), recursive=True)
@@ -706,11 +738,11 @@ def main():
         print(f"[error] No *.enriched.json files found under: {args.json_dir}")
         sys.exit(2)
 
-    # Collect all tRNA data
+    # Collect tRNA data - pass include_mito to filter appropriately
     all_rows, skipped = [], 0
     for fp in sorted(paths):
         try:
-            all_rows.extend(collect_rows_from_json(fp))
+            all_rows.extend(collect_rows_from_json(fp, include_mito=args.mito))
         except Exception as e:
             skipped += 1
             print(f"[warn] Skipping {fp} due to error: {e}")
@@ -718,7 +750,60 @@ def main():
     print(f"[info] JSON files parsed: {len(paths)}  |  skipped: {skipped}")
 
     # Determine which coordinate systems to generate
-    if args.type:
+    if args.mito:
+        # Generate coordinates for mitochondrial tRNAs only
+        # (filtering already done during collection via include_mito=True)
+        print("[info] Generating mitochondrial tRNA coordinate system")
+
+        if not all_rows:
+            print("[error] No mitochondrial tRNAs found in dataset")
+            sys.exit(2)
+
+        unique_trnas = len(set(r['trna_id'] for r in all_rows))
+        print(f"[info] Found {unique_trnas} mitochondrial tRNAs")
+
+        df = (
+            pd.DataFrame(all_rows).sort_values(["trna_id", "seq_index"]).reset_index(drop=True)
+        )
+
+        # Build global label order
+        pref = build_pref_label(df)
+        uniq_labels, to_ord = build_global_label_order(pref)
+        df["sprinzl_ordinal"] = pd.to_numeric(pref.map(to_ord), errors="coerce")
+
+        # Generate continuous coordinates per-tRNA
+        ord_series = pref.map(to_ord)
+        cont = []
+        for _, sub in df.groupby("trna_id", sort=False):
+            cont.append(make_continuous_for_trna(sub, ord_series))
+        df["sprinzl_continuous"] = pd.concat(cont).sort_index().astype("float64")
+
+        # Map to integer global_index
+        cont_round = df["sprinzl_continuous"].round(PRECISION)
+        uniq_cont = sorted(cont_round.dropna().unique().tolist())
+        cont_to_global = {v: i + 1 for i, v in enumerate(uniq_cont)}
+        df["global_index"] = cont_round.map(cont_to_global).astype("Int64")
+
+        # Validate (collisions less likely in mito due to simpler structure)
+        if args.allow_collisions:
+            print("[info] Collision validation bypassed due to --allow-collisions flag")
+        else:
+            validate_no_global_index_collisions(df)
+
+        df["region"] = compute_region_column(df)
+
+        cols = [
+            "trna_id", "source_file", "seq_index", "sprinzl_index", "sprinzl_label",
+            "residue", "sprinzl_ordinal", "sprinzl_continuous", "global_index", "region",
+        ]
+        df.to_csv(args.out_tsv, sep="\t", index=False, columns=cols)
+
+        print(f"[ok] Wrote {args.out_tsv}")
+        print(f"  Rows: {len(df)}  |  tRNAs: {df['trna_id'].nunique()}")
+        print(f"  Unique labeled bins: {len(uniq_labels)}")
+        print(f"  Unique global positions (K): {len(uniq_cont)}  |  rounding={PRECISION} d.p.")
+
+    elif args.type:
         # Generate coordinates for specific type only
         output_file = args.out_tsv
         generate_coordinates_for_type(all_rows, args.type, output_file, args.allow_collisions)

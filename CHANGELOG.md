@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Mitochondrial tRNA Coordinate Support**: New `--mito` flag for separate mito coordinate files
+  - Human mito: 22 tRNAs, 111 unique positions, no collisions
+  - Yeast mito: 19 tRNAs, 167 unique positions, no collisions
+  - Separate files: `{species}_mito_global_coords.tsv`
+  - T-loop and anticodon validation skipped for mito (different biology)
+  - Documentation updated: `docs/OUTPUT_FORMAT.md`
 - **Biological Validation Tests**: Strict quality checks for coordinate accuracy
   - Anticodon validation: positions 34-35-36 must match tRNA name
   - T-loop validation: positions 54-55-56 must be TTC/TTT or *TC variant

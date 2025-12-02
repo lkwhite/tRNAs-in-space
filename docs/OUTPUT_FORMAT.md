@@ -4,16 +4,32 @@ This document describes the structure and contents of the TSV files produced by 
 
 ## File Organization
 
-The script generates a **single unified coordinate file** per organism containing all tRNA types:
+The script generates **separate coordinate files** for nuclear and mitochondrial tRNAs:
+
+### Nuclear tRNA Coordinates (default)
 
 **File naming:** `{species}_global_coords.tsv`
 
 **Examples:**
-- `ecoliK12_global_coords.tsv` — All E. coli tRNAs (Type I and Type II)
-- `hg38_global_coords.tsv` — All human tRNAs (Type I and Type II)
-- `sacCer_global_coords.tsv` — All yeast tRNAs (Type I and Type II)
+- `ecoliK12_global_coords.tsv` — All E. coli nuclear tRNAs (Type I and Type II)
+- `hg38_global_coords.tsv` — All human nuclear tRNAs (Type I and Type II)
+- `sacCer_global_coords.tsv` — All yeast nuclear tRNAs (Type I and Type II)
 
 The unified coordinate system handles both Type I (standard) and Type II (extended variable arm) tRNAs in the same file, with e-positions (e1-e27) sorted in biological hairpin order after position 45.
+
+### Mitochondrial tRNA Coordinates (--mito flag)
+
+**File naming:** `{species}_mito_global_coords.tsv`
+
+**Examples:**
+- `hg38_mito_global_coords.tsv` — Human mitochondrial tRNAs (22 tRNAs)
+- `sacCer_mito_global_coords.tsv` — Yeast mitochondrial tRNAs (19 tRNAs)
+
+Mitochondrial tRNAs are processed separately because they have:
+- Different structural architecture (60-77 nt vs. standard 76 nt)
+- Non-conserved T-loop sequences (14+ different patterns in human mito)
+- Different genetic code (anticodon naming may not match sequence)
+- Highly variable D-loop and variable arm structures
 
 ## File Format
 
@@ -278,7 +294,7 @@ print(pos34[['trna_id', 'residue']].to_string(index=False))
 
 ## File Size Expectations
 
-Approximate sizes for unified coordinate files:
+### Nuclear tRNA Coordinate Files
 
 | Organism | File | tRNAs | Unique Positions | Approximate Size |
 |----------|------|-------|------------------|------------------|
@@ -288,10 +304,22 @@ Approximate sizes for unified coordinate files:
 
 **Note**: tRNA counts exclude mitochondrial tRNAs, selenocysteine, initiator Met, and tRNAs with R2DT annotation issues. See [EXCLUDED_TRNAS.md](EXCLUDED_TRNAS.md) for details.
 
+### Mitochondrial tRNA Coordinate Files
+
+| Organism | File | tRNAs | Unique Positions | Approximate Size |
+|----------|------|-------|------------------|------------------|
+| S. cerevisiae | `sacCer_mito_global_coords.tsv` | 19 | 167 | ~100 KB |
+| H. sapiens | `hg38_mito_global_coords.tsv` | 22 | 111 | ~100 KB |
+
+**Note**: Mitochondrial tRNA counts vary by organism. E. coli does not have mitochondria.
+
 ## Edge Cases and Special Situations
 
 ### Mitochondrial tRNAs
-- May have non-standard structures
+- Have separate coordinate files (generated with `--mito` flag)
+- Non-standard structures (60-77 nt vs. standard 76 nt)
+- T-loop sequences are NOT conserved (14+ patterns in human)
+- Anticodon naming may differ from sequence (mitochondrial genetic code)
 - Variable loop can be very short or absent
 - D-loop may be reduced or missing
 - Region annotations may be less accurate

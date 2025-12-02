@@ -18,11 +18,25 @@ These are excluded automatically based on tRNA type:
 
 ### Mitochondrial tRNAs (`mito-tRNA-*`)
 
+Mitochondrial tRNAs are **excluded from nuclear coordinate files** but can be processed separately using the `--mito` flag:
+
+```bash
+python scripts/trnas_in_space.py outputs/hg38_jsons outputs/hg38_mito_global_coords.tsv --mito
+```
+
 Mitochondrial tRNAs have fundamentally different architecture:
-- Often 60-75 nucleotides vs. 76 for nuclear tRNAs
+- Often 60-77 nucleotides vs. 76 for nuclear tRNAs
 - Can lack certain structural features (e.g., D-loop)
 - Different Sprinzl numbering patterns
+- T-loop is NOT conserved (14+ different patterns in human mito)
+- Different genetic code (anticodon naming may not match sequence)
 - Designed for mitochondrial translation system
+
+**Mito coordinate file statistics:**
+- Human: 22 tRNAs, 111 unique positions
+- Yeast: 19 tRNAs, 167 unique positions
+
+See [OUTPUT_FORMAT.md](OUTPUT_FORMAT.md) for details on mito coordinate files.
 
 ### Selenocysteine tRNAs (`*SeC*`)
 

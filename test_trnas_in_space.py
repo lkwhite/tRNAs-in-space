@@ -127,13 +127,15 @@ def test_infer_trna_id_from_filename():
 
 def test_should_exclude_trna():
     """Test SeC and mitochondrial tRNA filtering function."""
+    # ======== Default mode: nuclear tRNA coordinates ========
+
     # Should exclude SeC tRNAs
     assert trnas_in_space.should_exclude_trna("nuc-tRNA-SeC-TCA-1-1")
     assert trnas_in_space.should_exclude_trna("tRNA-Sec-TCA-1-1")
     assert trnas_in_space.should_exclude_trna("Selenocysteine-tRNA-1")
     assert trnas_in_space.should_exclude_trna("SEC_tRNA")
 
-    # Should exclude mitochondrial tRNAs
+    # Should exclude mitochondrial tRNAs (when generating nuclear coords)
     assert trnas_in_space.should_exclude_trna("mito-tRNA-Ala-UGC")
     assert trnas_in_space.should_exclude_trna("mito-tRNA-Leu-UAA")
     assert trnas_in_space.should_exclude_trna("MITO-tRNA-Phe-GAA")
@@ -151,6 +153,16 @@ def test_should_exclude_trna():
     # Handle edge cases
     assert not trnas_in_space.should_exclude_trna(None)
     assert not trnas_in_space.should_exclude_trna("")
+
+    # ======== Mito mode: mitochondrial tRNA coordinates ========
+
+    # With include_mito=True, should INCLUDE mitochondrial tRNAs
+    assert not trnas_in_space.should_exclude_trna("mito-tRNA-Ala-UGC", include_mito=True)
+    assert not trnas_in_space.should_exclude_trna("mito-tRNA-Leu-UAA", include_mito=True)
+
+    # With include_mito=True, should EXCLUDE nuclear tRNAs
+    assert trnas_in_space.should_exclude_trna("nuc-tRNA-Ala-GGC-1-1", include_mito=True)
+    assert trnas_in_space.should_exclude_trna("nuc-tRNA-Leu-CAA-1-1", include_mito=True)
 
 
 def test_validate_no_global_index_collisions():
@@ -511,8 +523,10 @@ def test_anticodon_matches_trna_name():
     This test catches bugs where sprinzl_labels are shifted, such as the
     fix_label_index_mismatch bug that shifted labels by +1.
 
-    Note: Some R2DT source files have incorrect anticodon annotations that don't
-    match the filename. These are excluded from this test as they're upstream issues.
+    NOTE: Mitochondrial tRNAs are excluded from this validation because:
+    1. Mitochondrial genetic code differs from standard code
+    2. Mito tRNA naming conventions may not match actual anticodon sequence
+    3. Some mito tRNAs have superwobble decoding (e.g., Leu-UAA decodes UUN)
     """
     outputs_dir = Path(__file__).parent / "outputs"
     mismatches = []
@@ -526,12 +540,18 @@ def test_anticodon_matches_trna_name():
     for f in outputs_dir.glob("*_global_coords.tsv"):
         if "offset" in f.name:
             continue  # Skip legacy files
+        if "mito" in f.name.lower():
+            continue  # Skip mito files - different genetic code, naming conventions
 
         df = pd.read_csv(f, sep="\t")
 
         for trna_id in df["trna_id"].unique():
             # Skip known R2DT annotation issues
             if trna_id in known_r2dt_issues:
+                continue
+
+            # Skip mitochondrial tRNAs - different genetic code
+            if trnas_in_space.is_mitochondrial_trna(trna_id):
                 continue
 
             # Extract expected anticodon from tRNA name
@@ -594,6 +614,9 @@ def test_tloop_contains_ttc():
     This is a sanity check that validates the coordinate system is correctly
     aligning the T-loop region. We allow exceptions since some tRNAs have
     variations in this sequence.
+
+    NOTE: Mitochondrial tRNAs are excluded from this validation because their
+    T-loops are NOT conserved - they show 14+ different patterns in human mito tRNAs.
     """
     outputs_dir = Path(__file__).parent / "outputs"
     non_ttc_trnas = []
@@ -602,10 +625,16 @@ def test_tloop_contains_ttc():
     for f in outputs_dir.glob("*_global_coords.tsv"):
         if "offset" in f.name:
             continue  # Skip legacy files
+        if "mito" in f.name.lower():
+            continue  # Skip mito files - T-loop not conserved in mito tRNAs
 
         df = pd.read_csv(f, sep="\t")
 
         for trna_id in df["trna_id"].unique():
+            # Skip mitochondrial tRNAs - T-loop is NOT conserved in mito
+            if trnas_in_space.is_mitochondrial_trna(trna_id):
+                continue
+
             # Get positions 54-55-56
             subset = df[(df["trna_id"] == trna_id) & (df["sprinzl_label"].isin(["54", "55", "56"]))]
 
@@ -633,8 +662,8 @@ def test_tloop_contains_ttc():
                     "tloop": tloop,
                 })
 
-    # Strict check: ALL tRNAs must have valid T-loop sequence
-    # Acceptable: TTC/UUC (canonical) or TTT/UUU (variant)
+    # Strict check: ALL nuclear tRNAs must have valid T-loop sequence
+    # Acceptable: TTC/UUC (canonical) or TTT/UUU (variant) or *TC patterns
     if non_ttc_trnas:
         msg_lines = [f"Found {len(non_ttc_trnas)} tRNAs without valid T-loop (TTC/TTT) at positions 54-55-56:"]
         for m in non_ttc_trnas[:20]:
