@@ -4,19 +4,16 @@ This document describes the structure and contents of the TSV files produced by 
 
 ## File Organization
 
-Coordinate files are grouped by **offset** and **type** to ensure proper position alignment:
+The script generates a **single unified coordinate file** per organism containing all tRNA types:
 
-**File naming:** `{species}_global_coords_offset{N}_type{1|2}.tsv`
-
-- **Offset** (-3 to +1): Reflects variation in D-loop labeling. Most tRNAs have offset 0.
-- **Type 1**: Standard tRNAs with short variable loops
-- **Type 2**: tRNAs with extended variable arms (Leu, Ser, Tyr)
+**File naming:** `{species}_global_coords.tsv`
 
 **Examples:**
-- `ecoliK12_global_coords_offset0_type1.tsv` — Standard E. coli Type I tRNAs
-- `hg38_global_coords_offset0_type2.tsv` — Human Leu/Ser/Tyr tRNAs
+- `ecoliK12_global_coords.tsv` — All E. coli tRNAs (Type I and Type II)
+- `hg38_global_coords.tsv` — All human tRNAs (Type I and Type II)
+- `sacCer_global_coords.tsv` — All yeast tRNAs (Type I and Type II)
 
-This grouping prevents position collisions that would occur when combining tRNAs with different structural characteristics.
+The unified coordinate system handles both Type I (standard) and Type II (extended variable arm) tRNAs in the same file, with e-positions (e1-e27) sorted in biological hairpin order after position 45.
 
 ## File Format
 
@@ -233,15 +230,15 @@ tRNA-Ala-GGC-1-1	tRNA-Ala-GGC-1-1-B_Ala.enriched.json	36	36	36	C	73.0	73.0	125	a
 ```python
 import pandas as pd
 
-# Load Type I tRNAs with standard labeling (most common)
-df = pd.read_csv("ecoliK12_global_coords_offset0_type1.tsv", sep="\t")
+# Load all tRNAs for an organism
+df = pd.read_csv("ecoliK12_global_coords.tsv", sep="\t")
 print(f"Loaded {len(df)} positions from {df['trna_id'].nunique()} tRNAs")
 ```
 
 **R:**
 ```r
 library(readr)
-df <- read_tsv("ecoliK12_global_coords_offset0_type1.tsv")
+df <- read_tsv("ecoliK12_global_coords.tsv")
 cat(sprintf("Loaded %d positions from %d tRNAs\n",
     nrow(df), n_distinct(df$trna_id)))
 ```
@@ -281,18 +278,13 @@ print(pos34[['trna_id', 'residue']].to_string(index=False))
 
 ## File Size Expectations
 
-Coordinate files are grouped by offset and type. Approximate sizes for the most common files (offset0):
+Approximate sizes for unified coordinate files:
 
-| Organism | File | tRNAs | File Size |
-|----------|------|-------|-----------|
-| E. coli K12 | offset0_type1 | ~50 | ~350 KB |
-| E. coli K12 | offset0_type2 | ~8 | ~60 KB |
-| S. cerevisiae | offset0_type1 | ~165 | ~1.2 MB |
-| S. cerevisiae | offset0_type2 | ~48 | ~360 KB |
-| H. sapiens | offset0_type1 | ~250 | ~1.9 MB |
-| H. sapiens | offset0_type2 | ~40 | ~290 KB |
-
-Each organism has additional files for non-zero offsets (see `outputs/` directory for complete list).
+| Organism | File | tRNAs | Unique Positions | Approximate Size |
+|----------|------|-------|------------------|------------------|
+| E. coli K12 | `ecoliK12_global_coords.tsv` | ~82 | ~136 | ~500 KB |
+| S. cerevisiae | `sacCer_global_coords.tsv` | ~268 | ~145 | ~1.6 MB |
+| H. sapiens | `hg38_global_coords.tsv` | ~422 | ~253 | ~2.5 MB |
 
 ## Edge Cases and Special Situations
 
@@ -302,11 +294,12 @@ Each organism has additional files for non-zero offsets (see `outputs/` director
 - D-loop may be reduced or missing
 - Region annotations may be less accurate
 
-### Type II tRNAs
-- Long variable arms (positions 47-48 extended)
+### Type II tRNAs (Leu, Ser, Tyr)
+- Long variable arms with e-positions (e1-e27)
+- E-positions are sorted in biological hairpin order: e11→e12→...→e17→e1→...→e5→e27→...→e21
 - Extra insertions in variable region
 - More positions in `variable-arm` region
-- Located in separate `_type2` coordinate files
+- Integrated into unified coordinate file alongside Type I tRNAs
 
 ### Missing Positions
 - `sprinzl_index` of `-1` indicates unresolvable position

@@ -32,6 +32,22 @@ PRECISION = 6  # fixed rounding for sprinzl_continuous before uniquing
 # R2DT label/index mismatch cases. See docs/R2DT_LABEL_INDEX_MISMATCH_BUG.md
 LABEL_OVERRIDES = {}
 
+# Biological order for variable loop hairpin (Type II tRNAs)
+# Complete set e1-e27 in 5'→3' order along the RNA backbone:
+# - Enter hairpin after position 45
+# - Ascend one stem (e11→e17)
+# - Cross loop apex (e1→e5)
+# - Descend other stem (e27→e21)
+# - Additional positions e6-e10 and e18-e20 placed in logical positions
+E_POSITION_BIOLOGICAL_ORDER = [
+    'e11', 'e12', 'e13', 'e14', 'e15', 'e16', 'e17',  # ascending stem
+    'e18', 'e19', 'e20',                               # upper ascending (if present)
+    'e1', 'e2', 'e3', 'e4', 'e5',                      # loop apex
+    'e6', 'e7', 'e8', 'e9', 'e10',                     # lower descending (if present)
+    'e27', 'e26', 'e25', 'e24', 'e23', 'e22', 'e21',  # descending stem
+]
+E_POSITION_ORDER_MAP = {label: idx for idx, label in enumerate(E_POSITION_BIOLOGICAL_ORDER)}
+
 
 def fix_label_index_mismatch(rows: list) -> list:
     """
@@ -179,82 +195,9 @@ def classify_trna_type(trna_id: str) -> str:
     return "type1"
 
 
-# --------------------- grouping strategy classes ---------------------
+# --------------------- validation ---------------------
 
-from collections import Counter
-from dataclasses import dataclass
-from typing import Dict, List, Optional
-
-
-@dataclass
-class GroupKey:
-    """Represents a unique combination of grouping dimensions."""
-
-    dimensions: Dict[str, str]
-
-    def __hash__(self):
-        return hash(tuple(sorted(self.dimensions.items())))
-
-    def __eq__(self, other):
-        if not isinstance(other, GroupKey):
-            return False
-        return self.dimensions == other.dimensions
-
-    def to_filename_suffix(self) -> str:
-        """Generate filename suffix like '_offset-1_type1'."""
-        parts = []
-        for k, v in sorted(self.dimensions.items()):
-            # Avoid duplication like "typetype1" - just use the value if it starts with the key
-            if v.startswith(k):
-                parts.append(v)
-            else:
-                parts.append(f"{k}{v}")
-        return "_" + "_".join(parts)
-
-
-class GroupingStrategy:
-    """Base class for tRNA grouping strategies."""
-
-    def classify(self, trna_id: str, trna_rows: List[dict]) -> Optional[GroupKey]:
-        """Classify a tRNA into a group. Returns None to exclude."""
-        raise NotImplementedError
-
-
-class OffsetTypeStrategy(GroupingStrategy):
-    """Groups tRNAs by labeling offset AND structural type."""
-
-    def classify(self, trna_id: str, trna_rows: List[dict]) -> Optional[GroupKey]:
-        # Check exclusions first
-        trna_type = classify_trna_type(trna_id)
-        if trna_type == "exclude":
-            return None
-
-        # Calculate offset
-        offset = self._calculate_offset(trna_rows)
-        if offset is None:
-            return None
-
-        offset_str = f"+{offset}" if offset > 0 else str(offset)
-        return GroupKey({"offset": offset_str, "type": trna_type})
-
-    def _calculate_offset(self, trna_rows: List[dict]) -> Optional[int]:
-        """
-        Calculate offset using positions 15-25 (conserved D-loop region).
-        Offset = sprinzl_label (canonical) - sprinzl_index (template-specific)
-        """
-        offsets = []
-        for row in trna_rows:
-            label = row.get("sprinzl_label", "")
-            idx = row.get("sprinzl_index", -1)
-
-            if label and label.isdigit() and idx > 0:
-                label_num = int(label)
-                if 15 <= label_num <= 25:
-                    offsets.append(label_num - idx)
-
-        if not offsets:
-            return None
-        return Counter(offsets).most_common(1)[0][0]
+from typing import List, Optional
 
 
 def validate_no_global_index_collisions(df: pd.DataFrame):
@@ -401,36 +344,53 @@ def collect_rows_from_json(fp: str):
 # --------------- phase 2: label order & continuous ----------------
 
 
+def normalize_label(lbl: str) -> str:
+    """
+    Normalize a Sprinzl label for consistent processing.
+
+    - Strips whitespace
+    - Converts float-formatted labels: "1.0" -> "1"
+    - Handles None/empty/nan values
+
+    Returns: Normalized label string, or empty string for invalid inputs.
+    """
+    if lbl is None or lbl == "nan":
+        return ""
+    s = str(lbl).strip()
+    if s == "" or s == "nan":
+        return ""
+
+    # Normalize float-formatted labels: "1.0" -> "1"
+    float_match = re.fullmatch(r"(\d+)\.0", s)
+    if float_match:
+        return float_match.group(1)
+
+    return s
+
+
 def sort_key(lbl: str):
-    """Order labels: 20 < 20A < 20B; allow dotted like 9.1; Type II extended arms (e1-e24) map to reserved space; unknowns at end."""
-    if lbl is None or lbl == "" or lbl == "nan":
+    """
+    Order labels for unified coordinate system.
+
+    Sort order: 20 < 20A < 20B; dotted like 9.1; e-positions in biological hairpin order.
+
+    Returns tuples where ALL third elements are strings to ensure type consistency
+    in Python 3 comparisons. Uses zero-padding for numeric values.
+    """
+    s = normalize_label(lbl)
+    if s == "":
         return (10**9, 2, "")
-    s = str(lbl)
-    # Type II extended variable arm positions (e1-e24) map to reserved coordinate space
+
+    # Type II extended variable arm positions (e1-e27) - biological hairpin ordering
     m = re.fullmatch(r"e(\d+)", s)
     if m:
-        e_num = int(m.group(1))
-        # Map to reserved space: after position 46, before regular 48
-        return (46, 2, e_num)
-    m = re.fullmatch(r"(\d+)([A-Za-z]+)?", s)
-    if m:
-        base = int(m.group(1))
-        suf = (m.group(2) or "").upper()
-        return (base, 1 if suf else 0, suf)
-    m = re.fullmatch(r"(\d+)\.(\d+)", s)
-    if m:
-        return (int(m.group(1)), 1, int(m.group(2)))
-    return (10**9 - 1, 2, s)
-
-
-def sort_key_type1(lbl: str):
-    """
-    Sort key for Type I tRNAs: Standard 76nt tRNAs with simple variable arm.
-    No e-positions expected, simpler coordinate space.
-    """
-    if lbl is None or lbl == "" or lbl == "nan":
-        return (10**9, 2, "")
-    s = str(lbl)
+        e_label = s
+        if e_label in E_POSITION_ORDER_MAP:
+            bio_order = E_POSITION_ORDER_MAP[e_label]
+            # Zero-pad to 3 digits for string comparison
+            return (45, 2, f"{bio_order:03d}")
+        else:
+            return (45, 3, s)
 
     # Standard numeric positions with optional letter suffixes
     m = re.fullmatch(r"(\d+)([A-Za-z]+)?", s)
@@ -439,16 +399,42 @@ def sort_key_type1(lbl: str):
         suf = (m.group(2) or "").upper()
         return (base, 1 if suf else 0, suf)
 
-    # Allow dotted positions like 9.1
+    # Dotted positions like 9.1 - convert to zero-padded string
     m = re.fullmatch(r"(\d+)\.(\d+)", s)
     if m:
-        return (int(m.group(1)), 1, int(m.group(2)))
+        return (int(m.group(1)), 1, f"{int(m.group(2)):03d}")
+
+    return (10**9 - 1, 2, s)
+
+
+def sort_key_type1(lbl: str):
+    """
+    Sort key for Type I tRNAs: Standard 76nt tRNAs with simple variable arm.
+    No e-positions expected, simpler coordinate space.
+
+    Returns tuples where ALL third elements are strings for type consistency.
+    """
+    s = normalize_label(lbl)
+    if s == "":
+        return (10**9, 2, "")
+
+    # Standard numeric positions with optional letter suffixes
+    m = re.fullmatch(r"(\d+)([A-Za-z]+)?", s)
+    if m:
+        base = int(m.group(1))
+        suf = (m.group(2) or "").upper()
+        return (base, 1 if suf else 0, suf)
+
+    # Allow dotted positions like 9.1 - zero-pad for string comparison
+    m = re.fullmatch(r"(\d+)\.(\d+)", s)
+    if m:
+        return (int(m.group(1)), 1, f"{int(m.group(2)):03d}")
 
     # e-positions should not occur in Type I, but handle gracefully
     m = re.fullmatch(r"e(\d+)", s)
     if m:
         print(f"Warning: e-position {s} found in Type I tRNA (unexpected)")
-        return (10**8, 2, int(m.group(1)))
+        return (10**8, 2, f"{int(m.group(1)):03d}")
 
     # Unknown labels at end
     return (10**9 - 1, 2, s)
@@ -457,18 +443,29 @@ def sort_key_type1(lbl: str):
 def sort_key_type2(lbl: str):
     """
     Sort key for Type II tRNAs: Extended variable arm tRNAs (Leu, Ser, Tyr).
-    Optimized for e-position handling without collision concerns.
-    """
-    if lbl is None or lbl == "" or lbl == "nan":
-        return (10**9, 2, "")
-    s = str(lbl)
+    Optimized for e-position handling with biological hairpin ordering.
 
-    # Type II extended variable arm positions (e1-e24) - natural ordering
+    Returns tuples where ALL third elements are strings to ensure type consistency
+    in Python 3 comparisons. Uses zero-padding for numeric values.
+    """
+    s = normalize_label(lbl)
+    if s == "":
+        return (10**9, 2, "")
+
+    # Type II extended variable arm positions (e1-e27) - biological hairpin ordering
+    # Uses E_POSITION_ORDER_MAP to sort in 5'→3' order along the RNA backbone
     m = re.fullmatch(r"e(\d+)", s)
     if m:
-        e_num = int(m.group(1))
-        # Place e-positions after position 46, in natural order
-        return (46, 2, e_num)
+        e_label = s  # e.g., "e1", "e12"
+        if e_label in E_POSITION_ORDER_MAP:
+            bio_order = E_POSITION_ORDER_MAP[e_label]
+            # Place e-positions after position 45, in biological order
+            # Zero-pad to 3 digits for string comparison
+            return (45, 2, f"{bio_order:03d}")
+        else:
+            # Unknown e-position - place at end of e-region
+            print(f"Warning: Unknown e-position {e_label} not in biological order map")
+            return (45, 3, s)
 
     # Standard numeric positions with optional letter suffixes
     m = re.fullmatch(r"(\d+)([A-Za-z]+)?", s)
@@ -477,10 +474,10 @@ def sort_key_type2(lbl: str):
         suf = (m.group(2) or "").upper()
         return (base, 1 if suf else 0, suf)
 
-    # Allow dotted positions like 9.1
+    # Allow dotted positions like 9.1 - convert to zero-padded string
     m = re.fullmatch(r"(\d+)\.(\d+)", s)
     if m:
-        return (int(m.group(1)), 1, int(m.group(2)))
+        return (int(m.group(1)), 1, f"{int(m.group(2)):03d}")
 
     # Unknown labels at end
     return (10**9 - 1, 2, s)
@@ -488,27 +485,22 @@ def sort_key_type2(lbl: str):
 
 def build_pref_label(df: pd.DataFrame) -> pd.Series:
     """
-    Use sprinzl_label (templateNumberingLabel = canonical Sprinzl position).
+    Use sprinzl_label only (templateNumberingLabel = canonical Sprinzl position).
+
     This is the correct field for functional alignment as it represents the
     canonical position (e.g., '18' is always position 18 regardless of insertions).
 
-    When sprinzl_label is empty but sprinzl_index is a valid positive integer,
-    fall back to sprinzl_index. This handles cases where R2DT couldn't assign
-    labels to a region (e.g., variable arms) but did assign structural indices.
-    Without this fallback, such positions get placed in the wrong coordinate space.
+    Empty labels (insertions without canonical positions) are NOT filled with
+    sprinzl_index values. Instead, they remain empty and get interpolated
+    fractional coordinates in make_continuous_for_trna(). This preserves
+    sequence order - insertions get coordinates between their labeled neighbors.
+
+    Previous versions fell back to sprinzl_index for empty labels, but this
+    caused ordering violations because inferred indices (e.g., "60") sorted
+    incorrectly relative to actual Sprinzl labels (e.g., "52").
     """
     lbl = df["sprinzl_label"].astype("string").fillna("").str.strip()
-    idx = df["sprinzl_index"]
-
-    # Fall back to sprinzl_index when label is empty but index is valid
-    empty_label = (lbl == "") | (lbl == "nan") | (lbl == "<NA>")
-    valid_index = idx.notna() & (idx > 0)
-    fallback_mask = empty_label & valid_index
-
-    result = lbl.copy()
-    result.loc[fallback_mask] = idx.loc[fallback_mask].astype(int).astype(str)
-
-    return result
+    return lbl
 
 
 def build_global_label_order(pref: pd.Series):
@@ -717,145 +709,6 @@ def generate_coordinates_for_type(all_rows, trna_type, output_file, allow_collis
     print(f"  Unique global positions (K): {len(uniq_cont)}  |  rounding={PRECISION} d.p.")
 
 
-def generate_grouped_coordinates(
-    all_rows: list,
-    base_output: str,
-    strategy: GroupingStrategy,
-    allow_collisions: bool = False,
-) -> dict:
-    """
-    Generate separate coordinate files for each group defined by the strategy.
-
-    Args:
-        all_rows: List of all tRNA data rows
-        base_output: Base output path (suffix will be added for each group)
-        strategy: GroupingStrategy instance to classify tRNAs
-        allow_collisions: Whether to allow coordinate collisions
-
-    Returns:
-        Dict mapping group key strings to output file paths
-    """
-    from itertools import groupby
-    from operator import itemgetter
-
-    # Group rows by tRNA
-    sorted_rows = sorted(all_rows, key=itemgetter("trna_id"))
-    groups: Dict[GroupKey, list] = {}
-    excluded = []
-    undetermined_offset = []
-
-    for trna_id, trna_rows_iter in groupby(sorted_rows, key=itemgetter("trna_id")):
-        trna_rows_list = list(trna_rows_iter)
-        group_key = strategy.classify(trna_id, trna_rows_list)
-
-        if group_key is None:
-            # Check if it was excluded vs undetermined offset
-            trna_type = classify_trna_type(trna_id)
-            if trna_type == "exclude":
-                excluded.append(trna_id)
-            else:
-                undetermined_offset.append(trna_id)
-            continue
-
-        if group_key not in groups:
-            groups[group_key] = []
-        groups[group_key].extend(trna_rows_list)
-
-    print(f"[info] Classified tRNAs into {len(groups)} groups")
-    print(f"  Excluded (SeC/mito/iMet): {len(excluded)}")
-    if undetermined_offset:
-        print(f"  Undetermined offset: {len(undetermined_offset)}")
-        if len(undetermined_offset) <= 10:
-            print(f"    {undetermined_offset}")
-
-    # Generate file for each group
-    output_files = {}
-    base = base_output[:-4] if base_output.endswith(".tsv") else base_output
-
-    for group_key in sorted(groups.keys(), key=lambda k: str(k.dimensions)):
-        group_rows = groups[group_key]
-        trna_type = group_key.dimensions.get("type", "type1")
-        output_file = f"{base}{group_key.to_filename_suffix()}.tsv"
-
-        n_trnas = len(set(r["trna_id"] for r in group_rows))
-        print(f"\n  {group_key.to_filename_suffix()[1:]}: {n_trnas} tRNAs")
-
-        # Use existing coordinate generation logic for this group
-        # Filter all_rows to just this group's rows and generate coordinates
-        _generate_coordinates_for_group(group_rows, trna_type, output_file, allow_collisions)
-        output_files[str(group_key.dimensions)] = output_file
-
-    return output_files
-
-
-def _generate_coordinates_for_group(rows, trna_type, output_file, allow_collisions=False):
-    """
-    Generate coordinates for a pre-filtered group of tRNA rows.
-    Internal helper for generate_grouped_coordinates().
-    """
-    if not rows:
-        print(f"[warn] No rows for {output_file}, skipping")
-        return
-
-    # Convert to DataFrame
-    df = pd.DataFrame(rows).sort_values(["trna_id", "seq_index"]).reset_index(drop=True)
-
-    # Build preferred labels
-    pref = build_pref_label(df)
-
-    # Use type-specific label ordering
-    if trna_type == "type1":
-        uniq_labels, to_ord = build_global_label_order_type1(pref)
-    elif trna_type == "type2":
-        uniq_labels, to_ord = build_global_label_order_type2(pref)
-    else:
-        uniq_labels, to_ord = build_global_label_order(pref)
-
-    df["sprinzl_ordinal"] = pd.to_numeric(pref.map(to_ord), errors="coerce")
-
-    # Continuous coordinate per tRNA
-    ord_series = pref.map(to_ord)
-    cont = []
-    for _, sub in df.groupby("trna_id", sort=False):
-        cont.append(make_continuous_for_trna(sub, ord_series))
-    df["sprinzl_continuous"] = pd.concat(cont).sort_index().astype("float64")
-
-    # Global equal-spaced index
-    cont_round = df["sprinzl_continuous"].round(PRECISION)
-    uniq_cont = sorted(cont_round.dropna().unique().tolist())
-    cont_to_global = {v: i + 1 for i, v in enumerate(uniq_cont)}
-    df["global_index"] = cont_round.map(cont_to_global).astype("Int64")
-
-    # Validate no collisions (unless allowing them)
-    if allow_collisions:
-        print(f"    Collision validation bypassed")
-    else:
-        validate_no_global_index_collisions(df)
-
-    # Region annotation
-    df["region"] = compute_region_column(df)
-
-    # Write output
-    cols = [
-        "trna_id",
-        "source_file",
-        "seq_index",
-        "sprinzl_index",
-        "sprinzl_label",
-        "residue",
-        "sprinzl_ordinal",
-        "sprinzl_continuous",
-        "global_index",
-        "region",
-    ]
-    df.to_csv(output_file, sep="\t", index=False, columns=cols)
-
-    # Stats
-    print(f"    Wrote {output_file}")
-    print(f"    Rows: {len(df)}  |  tRNAs: {df['trna_id'].nunique()}")
-    print(f"    Unique positions (K): {len(uniq_cont)}")
-
-
 def main():
     ap = argparse.ArgumentParser(
         description="Build global equal-spaced tRNA coordinates + regions from R2DT JSON."
@@ -878,11 +731,6 @@ def main():
         "--type",
         choices=["type1", "type2"],
         help="Generate coordinates for specific tRNA type only (overrides --dual-system).",
-    )
-    ap.add_argument(
-        "--split-by-offset-and-type",
-        action="store_true",
-        help="Generate separate coordinate files for each offset+type combination.",
     )
     args = ap.parse_args()
 
@@ -924,19 +772,15 @@ def main():
         generate_coordinates_for_type(all_rows, "type1", type1_file, args.allow_collisions)
         generate_coordinates_for_type(all_rows, "type2", type2_file, args.allow_collisions)
 
-    elif args.split_by_offset_and_type:
-        # Generate separate coordinate files for each offset+type combination
-        print("[info] Generating offset+type coordinate system:")
-        strategy = OffsetTypeStrategy()
-        generate_grouped_coordinates(all_rows, args.out_tsv, strategy, args.allow_collisions)
-
     else:
-        # Legacy unified system (original behavior) - for backwards compatibility
-        print(
-            "[warn] Using legacy unified coordinate system. Consider using --dual-system for better results."
-        )
+        # Unified coordinate system - single global_index for all tRNAs
+        # This works because:
+        # 1. Empty labels no longer get filled with wrong index values
+        # 2. Sort keys return consistent types (all strings in third element)
+        # 3. E-positions sort in biological (hairpin) order
+        print("[info] Generating unified coordinate system")
 
-        # Filter out excluded tRNAs for unified system
+        # Filter out excluded tRNAs (only process type1 and type2)
         filtered_rows = []
         for row in all_rows:
             classification = classify_trna_type(row["trna_id"])
@@ -947,22 +791,25 @@ def main():
             pd.DataFrame(filtered_rows).sort_values(["trna_id", "seq_index"]).reset_index(drop=True)
         )
 
-        # Use original unified processing (this will likely have collisions)
+        # Build global label order using unified sort_key
         pref = build_pref_label(df)
         uniq_labels, to_ord = build_global_label_order(pref)
         df["sprinzl_ordinal"] = pd.to_numeric(pref.map(to_ord), errors="coerce")
 
+        # Generate continuous coordinates per-tRNA (handles empty labels)
         ord_series = pref.map(to_ord)
         cont = []
         for _, sub in df.groupby("trna_id", sort=False):
             cont.append(make_continuous_for_trna(sub, ord_series))
         df["sprinzl_continuous"] = pd.concat(cont).sort_index().astype("float64")
 
+        # Map continuous values to integer global_index
         cont_round = df["sprinzl_continuous"].round(PRECISION)
         uniq_cont = sorted(cont_round.dropna().unique().tolist())
         cont_to_global = {v: i + 1 for i, v in enumerate(uniq_cont)}
         df["global_index"] = cont_round.map(cont_to_global).astype("Int64")
 
+        # Validate no collisions (same global_index with different residues)
         if args.allow_collisions:
             print("[info] Collision validation bypassed due to --allow-collisions flag")
         else:
