@@ -6,41 +6,39 @@
 
 Currently: E. coli K12, S. cerevisiae, and H. sapiens. See `outputs/` directory.
 
+Each organism has:
+- One unified coordinate file for nuclear tRNAs (`{species}_global_coords.tsv`)
+- Optionally, a separate file for mitochondrial tRNAs (`{species}_mito_global_coords.tsv`)
+
 ### Which coordinate file should I use?
 
-Coordinate files are organized by **offset** (labeling variation) and **type** (structural type):
+For nuclear tRNAs, use the unified file (e.g., `ecoliK12_global_coords.tsv`). This includes both Type I (standard) and Type II (extended variable arm) tRNAs in a single coordinate space.
 
-- **offset0_type1** — Start here. Contains most tRNAs with standard structure.
-- **offset0_type2** — Use for Leucine, Serine, and Tyrosine (extended variable arm tRNAs).
-- **Other offsets** (-3, -1, +1) — Use when your tRNA of interest isn't in the offset0 files.
+For mitochondrial tRNAs, use the mito file (e.g., `hg38_mito_global_coords.tsv`). Mito tRNAs have different structural architecture and require a separate coordinate system.
 
-The offset reflects structural variation in the D-loop region. Most tRNAs have offset 0.
+### What are Type I and Type II tRNAs?
 
-### What do "offset" and "type" mean in the filenames?
-
-**Offset** (-3 to +1): Indicates variation in how Sprinzl positions are assigned to sequence positions, based on D-loop structure. Offset 0 is the most common.
-
-**Type**:
 - **Type I**: Standard tRNAs with short variable loops (Ala, Arg, Asn, Asp, Cys, Gln, Glu, Gly, His, Ile, Lys, Met, Phe, Pro, Thr, Trp, Val)
-- **Type II**: tRNAs with extended variable arms (Leu, Ser, Tyr)
+- **Type II**: tRNAs with extended variable arms (Leu, Ser, Tyr) — these have additional e1-e24 positions
 
-### Why are there multiple files per organism?
-
-tRNAs with different structural characteristics cannot share the same coordinate space without **position collisions** — where the same global index would map to different structural positions in different tRNAs. Grouping by offset and type ensures that all tRNAs within a file are properly aligned.
+Both types are included in the unified coordinate files.
 
 ### How do I load the data?
 
 **Python:**
 ```python
 import pandas as pd
-# Load Type I tRNAs with standard labeling (most common)
-df = pd.read_csv('outputs/ecoliK12_global_coords_offset0_type1.tsv', sep='\t')
+# Load nuclear tRNAs
+df = pd.read_csv('outputs/ecoliK12_global_coords.tsv', sep='\t')
+
+# Load mitochondrial tRNAs (if available)
+df_mito = pd.read_csv('outputs/hg38_mito_global_coords.tsv', sep='\t')
 ```
 
 **R:**
 ```r
 library(readr)
-df <- read_tsv('outputs/ecoliK12_global_coords_offset0_type1.tsv')
+df <- read_tsv('outputs/ecoliK12_global_coords.tsv')
 ```
 
 ### What do the columns mean?
@@ -68,9 +66,12 @@ Phenylalanine GAA. Obviously.
 
 2. Generate coordinates:
    ```bash
-   python scripts/trnas_in_space.py outputs/my_jsons outputs/my_coords.tsv --split-by-offset-and-type
+   # Nuclear tRNAs
+   python scripts/trnas_in_space.py outputs/my_jsons outputs/my_coords.tsv
+
+   # Mitochondrial tRNAs (separate coordinate file)
+   python scripts/trnas_in_space.py outputs/my_jsons outputs/my_mito_coords.tsv --mito
    ```
-   This generates multiple files grouped by offset and type (e.g., `my_coords_offset0_type1.tsv`).
 
 ### R2DT fails on my sequences. What should I do?
 
@@ -103,15 +104,24 @@ tRNAs vary in length, especially in the variable loop. Missing values mean that 
 
 ## Mitochondrial tRNAs
 
+### How do I generate mito tRNA coordinates?
+
+Use the `--mito` flag:
+```bash
+python scripts/trnas_in_space.py outputs/hg38_jsons outputs/hg38_mito_global_coords.tsv --mito
+```
+
+Mito tRNAs have separate coordinate files because they have different structural architecture (60-75 nt vs 76 nt for nuclear).
+
 ### Are mitochondrial tRNAs accurate?
 
-For yeast mitochondrial tRNAs: **use with caution**. R2DT lacks fungal mitochondrial-specific models, so alignments may be inaccurate. See README note about Reinsch & Garcia 2025.
+For yeast mitochondrial tRNAs: **use with caution**. R2DT lacks fungal mitochondrial-specific models, so alignments may need verification. See Reinsch & Garcia 2025 for curated yeast mito alignments.
 
-For human mitochondrial tRNAs: Generally good quality.
+For human mitochondrial tRNAs: Generally good quality. Some tRNAs have R2DT label shifts that are automatically corrected.
 
 ### How can I tell which are mitochondrial?
 
-Check the `trna_id` - mitochondrial tRNAs typically have "mito" or "MT-" in their identifier.
+Check the `trna_id` - mitochondrial tRNAs have "mito-" prefix in the unified output (e.g., `mito-tRNA-Leu-UAA-1-1`).
 
 ## Common Issues
 
