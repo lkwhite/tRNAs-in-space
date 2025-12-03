@@ -66,7 +66,6 @@ These are excluded due to R2DT annotation issues. They are listed in `EXCLUDED_P
 | tRNA | Organism | Issue | Details |
 |------|----------|-------|---------|
 | nuc-tRNA-Leu-CAA-5-1 | Human | Missing labels | 59.5% empty sprinzl_labels, anticodon positions (34-36) unlabeled |
-| nuc-tRNA-Arg-CCG-1-1 | Yeast | Missing labels | 20.8% empty sprinzl_labels, anticodon positions (34-36) unlabeled |
 | nuc-tRNA-Asp-GUC-2-1 | Yeast | Broken alignment | 14.9% empty sprinzl_labels. Missing positions 1-8 (5' acceptor stem) and 65-72 (3' acceptor stem). Has unique insertions at global_index 106-114 not shared by other tRNAs. |
 | nuc-tRNA-Tyr-AUA-1-1 | Human | Wrong anticodon | R2DT annotated anticodon as GGT instead of ATA |
 | nuc-tRNA-Gln-UUG-4-1 | Human | Invalid T-loop | T-loop sequence is CGA (not *TC pattern) |
@@ -85,7 +84,7 @@ These are excluded due to R2DT annotation issues. They are listed in `EXCLUDED_P
 
 tRNAs where positions 34-35-36 lack sprinzl_labels cannot have their identity verified. Without knowing where the anticodon is, we can't confirm the alignment is correct.
 
-**Affected**: Leu-CAA-5-1 (human), Arg-CCG-1-1 (yeast)
+**Affected**: Leu-CAA-5-1 (human)
 
 #### Wrong Anticodon Annotation
 

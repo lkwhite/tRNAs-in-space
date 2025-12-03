@@ -39,7 +39,6 @@ EXCLUDED_POORLY_ANNOTATED = {
     # ===== Nuclear tRNAs =====
     # Missing anticodon labels (positions 34-36) - can't verify tRNA identity
     "nuc-tRNA-Leu-CAA-5-1",   # human, 59.5% empty labels
-    "nuc-tRNA-Arg-CCG-1-1",   # yeast, 20.8% empty labels
     # Known R2DT annotation error - anticodon annotated as GGT instead of ATA
     "nuc-tRNA-Tyr-AUA-1-1",   # human
     # Non-standard T-loop sequences that are NOT *TC variants (R2DT errors)
