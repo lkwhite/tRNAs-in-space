@@ -47,6 +47,8 @@ EXCLUDED_POORLY_ANNOTATED = {
     "nuc-tRNA-Gln-UUG-4-1",   # human, T-loop=CGA (not *TC pattern)
     "nuc-tRNA-Trp-CCA-4-1",   # human, T-loop=GCG (not *TC pattern)
     "nuc-tRNA-Trp-CCA-5-1",   # human, T-loop=GCG (not *TC pattern)
+    # Broken R2DT alignment - missing sprinzl 1-8 and 65-72, has unique insertions
+    "nuc-tRNA-Asp-GUC-2-1",   # yeast, 14.9% empty labels, missing acceptor stem
     # ===== Mitochondrial tRNAs =====
     # Large gaps in R2DT annotation - positions 13-22 have no sprinzl_labels
     "mito-tRNA-Asn-GUU",      # yeast, 40% empty labels (30/75 positions unlabeled)
