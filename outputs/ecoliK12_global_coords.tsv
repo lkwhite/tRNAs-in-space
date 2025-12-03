@@ -1834,7 +1834,7 @@ tRNA-Glu-UUC-1-1	tRNA-Glu-TTC-1-1-B_Glu.enriched.json	18	18	19	G	20.0	20.0	34	D-
 tRNA-Glu-UUC-1-1	tRNA-Glu-TTC-1-1-B_Glu.enriched.json	19	19	20	C	21.0	21.0	35	D-loop
 tRNA-Glu-UUC-1-1	tRNA-Glu-TTC-1-1-B_Glu.enriched.json	20	20	20a	C	22.0	22.0	37	D-loop
 tRNA-Glu-UUC-1-1	tRNA-Glu-TTC-1-1-B_Glu.enriched.json	21	21	21	C	24.0	24.0	39	D-loop
-tRNA-Glu-UUC-1-1	tRNA-Glu-TTC-1-1-B_Glu.enriched.json	22	-1		A		24.5	41	unknown
+tRNA-Glu-UUC-1-1	tRNA-Glu-TTC-1-1-B_Glu.enriched.json	22	-1		A		24.333333333333332	40	unknown
 tRNA-Glu-UUC-1-1	tRNA-Glu-TTC-1-1-B_Glu.enriched.json	23	22	22	G	25.0	25.0	43	D-stem
 tRNA-Glu-UUC-1-1	tRNA-Glu-TTC-1-1-B_Glu.enriched.json	24	23	23	G	26.0	26.0	44	D-stem
 tRNA-Glu-UUC-1-1	tRNA-Glu-TTC-1-1-B_Glu.enriched.json	25	24	24	A	27.0	27.0	45	D-stem
@@ -1910,7 +1910,7 @@ tRNA-Glu-UUC-1-2	tRNA-Glu-TTC-1-2-B_Glu.enriched.json	18	18	19	G	20.0	20.0	34	D-
 tRNA-Glu-UUC-1-2	tRNA-Glu-TTC-1-2-B_Glu.enriched.json	19	19	20	C	21.0	21.0	35	D-loop
 tRNA-Glu-UUC-1-2	tRNA-Glu-TTC-1-2-B_Glu.enriched.json	20	20	20a	C	22.0	22.0	37	D-loop
 tRNA-Glu-UUC-1-2	tRNA-Glu-TTC-1-2-B_Glu.enriched.json	21	21	21	C	24.0	24.0	39	D-loop
-tRNA-Glu-UUC-1-2	tRNA-Glu-TTC-1-2-B_Glu.enriched.json	22	-1		A		24.5	41	unknown
+tRNA-Glu-UUC-1-2	tRNA-Glu-TTC-1-2-B_Glu.enriched.json	22	-1		A		24.333333333333332	40	unknown
 tRNA-Glu-UUC-1-2	tRNA-Glu-TTC-1-2-B_Glu.enriched.json	23	22	22	G	25.0	25.0	43	D-stem
 tRNA-Glu-UUC-1-2	tRNA-Glu-TTC-1-2-B_Glu.enriched.json	24	23	23	G	26.0	26.0	44	D-stem
 tRNA-Glu-UUC-1-2	tRNA-Glu-TTC-1-2-B_Glu.enriched.json	25	24	24	A	27.0	27.0	45	D-stem
@@ -1986,7 +1986,7 @@ tRNA-Glu-UUC-1-3	tRNA-Glu-TTC-1-3-B_Glu.enriched.json	18	18	19	G	20.0	20.0	34	D-
 tRNA-Glu-UUC-1-3	tRNA-Glu-TTC-1-3-B_Glu.enriched.json	19	19	20	C	21.0	21.0	35	D-loop
 tRNA-Glu-UUC-1-3	tRNA-Glu-TTC-1-3-B_Glu.enriched.json	20	20	20a	C	22.0	22.0	37	D-loop
 tRNA-Glu-UUC-1-3	tRNA-Glu-TTC-1-3-B_Glu.enriched.json	21	21	21	C	24.0	24.0	39	D-loop
-tRNA-Glu-UUC-1-3	tRNA-Glu-TTC-1-3-B_Glu.enriched.json	22	-1		A		24.5	41	unknown
+tRNA-Glu-UUC-1-3	tRNA-Glu-TTC-1-3-B_Glu.enriched.json	22	-1		A		24.333333333333332	40	unknown
 tRNA-Glu-UUC-1-3	tRNA-Glu-TTC-1-3-B_Glu.enriched.json	23	22	22	G	25.0	25.0	43	D-stem
 tRNA-Glu-UUC-1-3	tRNA-Glu-TTC-1-3-B_Glu.enriched.json	24	23	23	G	26.0	26.0	44	D-stem
 tRNA-Glu-UUC-1-3	tRNA-Glu-TTC-1-3-B_Glu.enriched.json	25	24	24	A	27.0	27.0	45	D-stem
@@ -2062,7 +2062,7 @@ tRNA-Glu-UUC-1-4	tRNA-Glu-TTC-1-4-B_Glu.enriched.json	18	18	19	G	20.0	20.0	34	D-
 tRNA-Glu-UUC-1-4	tRNA-Glu-TTC-1-4-B_Glu.enriched.json	19	19	20	C	21.0	21.0	35	D-loop
 tRNA-Glu-UUC-1-4	tRNA-Glu-TTC-1-4-B_Glu.enriched.json	20	20	20a	C	22.0	22.0	37	D-loop
 tRNA-Glu-UUC-1-4	tRNA-Glu-TTC-1-4-B_Glu.enriched.json	21	21	21	C	24.0	24.0	39	D-loop
-tRNA-Glu-UUC-1-4	tRNA-Glu-TTC-1-4-B_Glu.enriched.json	22	-1		A		24.5	41	unknown
+tRNA-Glu-UUC-1-4	tRNA-Glu-TTC-1-4-B_Glu.enriched.json	22	-1		A		24.333333333333332	40	unknown
 tRNA-Glu-UUC-1-4	tRNA-Glu-TTC-1-4-B_Glu.enriched.json	23	22	22	G	25.0	25.0	43	D-stem
 tRNA-Glu-UUC-1-4	tRNA-Glu-TTC-1-4-B_Glu.enriched.json	24	23	23	G	26.0	26.0	44	D-stem
 tRNA-Glu-UUC-1-4	tRNA-Glu-TTC-1-4-B_Glu.enriched.json	25	24	24	A	27.0	27.0	45	D-stem

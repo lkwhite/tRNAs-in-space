@@ -600,15 +600,56 @@ def build_global_label_order(pref: pd.Series):
     return uniq, to_ord
 
 
-def make_continuous_for_trna(sub: pd.DataFrame, ord_series: pd.Series) -> pd.Series:
+def compute_max_insertions_per_gap(df: pd.DataFrame) -> dict:
+    """
+    For each pair of consecutive canonical Sprinzl positions,
+    find the maximum number of unlabeled insertions across all tRNAs.
+
+    This enables fixed-slot alignment: all tRNAs with insertions at the same
+    site will map to the same global_index columns (left-aligned).
+
+    Returns: dict mapping (prev_label, next_label) -> max_insertions
+    """
+    max_insertions = {}
+
+    for trna_id, group in df.groupby('trna_id'):
+        group = group.sort_values('seq_index').reset_index(drop=True)
+        labels = group['sprinzl_label'].tolist()
+
+        prev_label = None
+        insertion_count = 0
+
+        for i, label in enumerate(labels):
+            is_empty = pd.isna(label) or str(label).strip() == ''
+
+            if is_empty:
+                insertion_count += 1
+            else:
+                if insertion_count > 0 and prev_label is not None:
+                    key = (prev_label, str(label).strip())
+                    max_insertions[key] = max(max_insertions.get(key, 0), insertion_count)
+                insertion_count = 0
+                prev_label = str(label).strip()
+
+    return max_insertions
+
+
+def make_continuous_for_trna(sub: pd.DataFrame, ord_series: pd.Series,
+                              max_insertions: dict = None) -> pd.Series:
     """
     For one tRNA (sorted by seq_index):
       - labeled sites -> integer ordinals
       - unlabeled internal runs -> fractions between adjacent ordinals
       - leading/trailing runs -> fractions near edge bins
+
+    If max_insertions is provided, uses fixed-slot alignment:
+      - All tRNAs with insertions between the same pair of canonical positions
+        map to the same fractional slots (left-aligned)
+      - This ensures consistent global_index columns across all tRNAs
     """
     sub = sub.sort_values("seq_index").copy()
     ords = ord_series.loc[sub.index].astype("Float64").to_numpy()
+    labels = sub['sprinzl_label'].tolist()
     n = len(sub)
     vals = [np.nan] * n
     i = 0
@@ -617,21 +658,46 @@ def make_continuous_for_trna(sub: pd.DataFrame, ord_series: pd.Series) -> pd.Ser
             vals[i] = float(int(ords[i]))
             i += 1
             continue
+        # Found start of unlabeled run
         j = i
         while j < n and pd.isna(ords[j]):
             j += 1
-        k = j - i
-        left = int(ords[i - 1]) if i - 1 >= 0 and not pd.isna(ords[i - 1]) else None
-        right = int(ords[j]) if j < n and not pd.isna(ords[j]) else None
-        if left is not None and right is not None and right >= left + 1:
+        k = j - i  # number of insertions in this run
+
+        left_ord = int(ords[i - 1]) if i - 1 >= 0 and not pd.isna(ords[i - 1]) else None
+        right_ord = int(ords[j]) if j < n and not pd.isna(ords[j]) else None
+
+        # Get flanking labels for fixed-slot lookup
+        left_label = None
+        if i - 1 >= 0:
+            lbl = labels[i - 1]
+            if pd.notna(lbl) and str(lbl).strip():
+                left_label = str(lbl).strip()
+        right_label = None
+        if j < n:
+            lbl = labels[j]
+            if pd.notna(lbl) and str(lbl).strip():
+                right_label = str(lbl).strip()
+
+        # Determine max slots for this gap
+        max_slots = k  # default: use actual count
+        if max_insertions is not None and left_label and right_label:
+            key = (left_label, right_label)
+            if key in max_insertions:
+                max_slots = max_insertions[key]
+
+        if left_ord is not None and right_ord is not None and right_ord >= left_ord + 1:
+            # Internal run - use fixed slots, left-aligned
             for t in range(k):
-                vals[i + t] = left + (t + 1) / (k + 1)
-        elif left is None and right is not None:
+                vals[i + t] = left_ord + (t + 1) / (max_slots + 1)
+        elif left_ord is None and right_ord is not None:
+            # Leading run (before first labeled position)
             for t in range(k):
-                vals[i + t] = right - (k - t) / (k + 1)
-        elif left is not None and right is None:
+                vals[i + t] = right_ord - (k - t) / (k + 1)
+        elif left_ord is not None and right_ord is None:
+            # Trailing run (after last labeled position)
             for t in range(k):
-                vals[i + t] = left + (t + 1) / (k + 1)
+                vals[i + t] = left_ord + (t + 1) / (k + 1)
         else:
             for t in range(k):
                 vals[i + t] = np.nan
@@ -754,11 +820,14 @@ def generate_coordinates_for_type(all_rows, trna_type, output_file, allow_collis
 
     df["sprinzl_ordinal"] = pd.to_numeric(pref.map(to_ord), errors="coerce")
 
-    # Continuous coordinate per tRNA
+    # Compute max insertions per gap for fixed-slot alignment
+    max_insertions = compute_max_insertions_per_gap(df)
+
+    # Continuous coordinate per tRNA (with fixed-slot alignment)
     ord_series = pref.map(to_ord)
     cont = []
     for _, sub in df.groupby("trna_id", sort=False):
-        cont.append(make_continuous_for_trna(sub, ord_series))
+        cont.append(make_continuous_for_trna(sub, ord_series, max_insertions))
     df["sprinzl_continuous"] = pd.concat(cont).sort_index().astype("float64")
 
     # Global equal-spaced index
@@ -868,11 +937,14 @@ def main():
         uniq_labels, to_ord = build_global_label_order(pref)
         df["sprinzl_ordinal"] = pd.to_numeric(pref.map(to_ord), errors="coerce")
 
-        # Generate continuous coordinates per-tRNA
+        # Compute max insertions per gap for fixed-slot alignment
+        max_insertions = compute_max_insertions_per_gap(df)
+
+        # Generate continuous coordinates per-tRNA (with fixed-slot alignment)
         ord_series = pref.map(to_ord)
         cont = []
         for _, sub in df.groupby("trna_id", sort=False):
-            cont.append(make_continuous_for_trna(sub, ord_series))
+            cont.append(make_continuous_for_trna(sub, ord_series, max_insertions))
         df["sprinzl_continuous"] = pd.concat(cont).sort_index().astype("float64")
 
         # Map to integer global_index
@@ -945,11 +1017,14 @@ def main():
         uniq_labels, to_ord = build_global_label_order(pref)
         df["sprinzl_ordinal"] = pd.to_numeric(pref.map(to_ord), errors="coerce")
 
-        # Generate continuous coordinates per-tRNA (handles empty labels)
+        # Compute max insertions per gap for fixed-slot alignment
+        max_insertions = compute_max_insertions_per_gap(df)
+
+        # Generate continuous coordinates per-tRNA (with fixed-slot alignment)
         ord_series = pref.map(to_ord)
         cont = []
         for _, sub in df.groupby("trna_id", sort=False):
-            cont.append(make_continuous_for_trna(sub, ord_series))
+            cont.append(make_continuous_for_trna(sub, ord_series, max_insertions))
         df["sprinzl_continuous"] = pd.concat(cont).sort_index().astype("float64")
 
         # Map continuous values to integer global_index
