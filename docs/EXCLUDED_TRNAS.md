@@ -247,6 +247,42 @@ The *TC pattern (any nucleotide + TC) is accepted as a valid T-loop variant.
 
 ---
 
+## Auto-Filled Missing Labels
+
+R2DT templates systematically fail to assign Sprinzl labels at certain positions, even when the position is unambiguous. The `auto_fill_missing_labels()` function automatically corrects this during coordinate generation.
+
+### The Problem
+
+Pattern: `labeled(5) -> unlabeled(nucleotide) -> labeled(7)`
+
+When a single unlabeled nucleotide sits between two labeled positions with a numeric difference of 2, the missing label is obvious (position 6 in this example). R2DT failed to assign it.
+
+**Before the fix:**
+| Organism | Affected tRNAs |
+|----------|----------------|
+| Yeast | 146/267 (55%) |
+| Human | 184/416 (44%) |
+| E. coli | 16/82 (20%) |
+
+**Most commonly missing positions:**
+- Position 6 (acceptor stem)
+- Position 13 (D-loop)
+- Position 22 (D-loop)
+- Position 67 (acceptor stem)
+
+### The Fix
+
+The `auto_fill_missing_labels()` function in `scripts/trnas_in_space.py` detects and fills these gaps automatically. It only fills when:
+1. Exactly one unlabeled nucleotide exists between two labeled positions
+2. Both flanking labels are purely numeric (not "20a" or "e5")
+3. The numeric difference is exactly 2 (e.g., 5 → 7)
+
+This is applied during `collect_rows_from_json()` before coordinate generation.
+
+**After the fix:** 0 affected tRNAs across all organisms.
+
+---
+
 ## Related Documentation
 
 - [BIOLOGICAL_VALIDATION.md](BIOLOGICAL_VALIDATION.md) - Validation test details

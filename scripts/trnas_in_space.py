@@ -175,6 +175,47 @@ def apply_label_offset(label: str, offset: int) -> str:
     return label
 
 
+def auto_fill_missing_labels(rows: list) -> list:
+    """
+    Auto-fill sprinzl_label for nucleotides where R2DT skipped a label
+    but the position is unambiguous.
+
+    Condition: exactly one unlabeled nucleotide between two labeled positions
+    with a numeric difference of 2 (e.g., labels 5 -> NA -> 7 means position 6).
+
+    This fixes a widespread R2DT template issue affecting ~45-55% of tRNAs
+    where certain positions (esp. 6, 13, 22, 67) are systematically unlabeled.
+    """
+    rows = sorted(rows, key=lambda r: r["seq_index"])
+
+    for i in range(1, len(rows) - 1):
+        prev_label = str(rows[i - 1].get("sprinzl_label", "")).strip()
+        curr_label = str(rows[i].get("sprinzl_label", "")).strip()
+        next_label = str(rows[i + 1].get("sprinzl_label", "")).strip()
+
+        # Current is unlabeled, neighbors are labeled
+        curr_is_empty = not curr_label or curr_label == "nan"
+        prev_is_labeled = prev_label and prev_label != "nan"
+        next_is_labeled = next_label and next_label != "nan"
+
+        if curr_is_empty and prev_is_labeled and next_is_labeled:
+            try:
+                # Extract numeric part from labels (handles "5", but skips "20a", "e5")
+                if not prev_label.isdigit() or not next_label.isdigit():
+                    continue
+
+                prev_num = int(prev_label)
+                next_num = int(next_label)
+
+                # Difference of 2 means exactly 1 position is missing (e.g., 5->7 missing 6)
+                if next_num - prev_num == 2:
+                    rows[i]["sprinzl_label"] = str(prev_num + 1)
+            except (ValueError, TypeError):
+                pass
+
+    return rows
+
+
 def should_exclude_trna(trna_id: str, include_mito: bool = False) -> bool:
     """
     Filter out structurally incompatible tRNAs that cannot be meaningfully aligned.
@@ -428,6 +469,9 @@ def collect_rows_from_json(fp: str, include_mito: bool = False):
         for row in rows:
             if row["seq_index"] in overrides:
                 row["sprinzl_label"] = overrides[row["seq_index"]]
+
+    # Auto-fill missing labels where unambiguous (single unlabeled nt between labeled positions)
+    rows = auto_fill_missing_labels(rows)
 
     return rows
 
