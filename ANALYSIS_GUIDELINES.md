@@ -4,13 +4,15 @@ This guide provides practical recommendations for researchers using the tRNAs-in
 
 ## Choosing Coordinate Files
 
-Coordinate files are grouped by **offset** (D-loop labeling variation) and **type** (structural type):
+Each organism has a **single unified coordinate file** containing all tRNA types:
 
-| Analysis Type | Recommended Files |
-|---------------|-------------------|
-| Most standard analyses | `offset0_type1` (contains majority of tRNAs) |
-| Leu, Ser, Tyr tRNAs | `offset0_type2` (extended variable arm) |
-| Cross-type comparisons | Load both `_type1` and `_type2` files separately |
+| Organism | Coordinate File | tRNAs | Positions |
+|----------|-----------------|-------|-----------|
+| E. coli K12 | `ecoliK12_global_coords.tsv` | 82 | 122 |
+| S. cerevisiae | `sacCer_global_coords.tsv` | 267 | 115 |
+| H. sapiens | `hg38_global_coords.tsv` | 416 | 122 |
+
+Both Type I (standard) and Type II (Leu, Ser, Tyr with extended variable arms) tRNAs are included in the same file. Mitochondrial tRNAs are in separate files generated with `--mito` flag.
 
 See [README.md](README.md#coordinate-file-organization) for details on file organization.
 
@@ -83,20 +85,26 @@ anticodon_data = domain_patterns[domain_patterns['region'] == 'anticodon-loop']
 - Structural compensation mechanisms
 - Evolution of tRNA complexity
 
-**File Selection**: Type I and Type II tRNAs are in separate coordinate files (`_type1.tsv` vs `_type2.tsv`). Load the appropriate file for each type.
+**File Selection**: Type I and Type II tRNAs are in the same unified coordinate file. Filter by amino acid to separate them (Leu, Ser, Tyr are Type II; all others are Type I).
 
 **Code Example**:
 ```python
-# Load Type I and Type II coordinate files separately
+# Load unified coordinate file
 import pandas as pd
 
-type1_df = pd.read_csv('outputs/ecoliK12_global_coords_offset0_type1.tsv', sep='\t')
-type2_df = pd.read_csv('outputs/ecoliK12_global_coords_offset0_type2.tsv', sep='\t')
+df = pd.read_csv('outputs/ecoliK12_global_coords.tsv', sep='\t')
+
+# Extract amino acid from trna_id (e.g., "tRNA-Ala-AGC-1-1" -> "Ala")
+df['amino_acid'] = df['trna_id'].str.extract(r'tRNA-([A-Za-z]+)-')
+
+# Separate Type I and Type II
+type2_aas = ['Leu', 'Ser', 'Tyr']
+type1_df = df[~df['amino_acid'].isin(type2_aas)]
+type2_df = df[df['amino_acid'].isin(type2_aas)]
 
 # Compare T-loop regions
-# Note: global_index values are comparable between files for conserved regions
-t_loop_type1 = type1_df[type1_df['region'] == 'T-loop'].groupby('sprinzl_index')['residue'].value_counts()
-t_loop_type2 = type2_df[type2_df['region'] == 'T-loop'].groupby('sprinzl_index')['residue'].value_counts()
+t_loop_type1 = type1_df[type1_df['region'] == 'T-loop'].groupby('sprinzl_label')['residue'].value_counts()
+t_loop_type2 = type2_df[type2_df['region'] == 'T-loop'].groupby('sprinzl_label')['residue'].value_counts()
 ```
 
 ### ⚠️ Moderate-Confidence Analyses

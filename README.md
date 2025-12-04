@@ -225,7 +225,7 @@ By introducing a global index, we eliminate spacing irregularities and enable cr
 
 **Outputs**:
 
--   Multiple TSV files (grouped by offset and type) with per-base fields:
+-   One unified TSV file per organism with per-base fields:
 
     -   `trna_id`, `seq_index`, `sprinzl_index`, `sprinzl_label`, `residue`
 
@@ -334,8 +334,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Implementation History
 
-- **v1.0 (January 2025)**: Initial release with grouped files by offset and type (`{species}_global_coords_offset{N}_type{1|2}.tsv`).
-- **Current (December 2025)**: Unified coordinate files (`{species}_global_coords.tsv`) with improved sort algorithms that eliminate position collisions. Added mitochondrial tRNA support via `--mito` flag with separate coordinate files (`{species}_mito_global_coords.tsv`).
+- **v1.0 (January 2025)**: Initial release with grouped files by offset and type.
+- **v1.1 (December 2025)**: Unified coordinate files (`{species}_global_coords.tsv`) with improved sort algorithms that eliminate position collisions. Added mitochondrial tRNA support via `--mito` flag.
+- **v1.2 (December 2025)**: Fixed-slot alignment for insertions (tRNAs with different insertion counts now share same global_index columns). Auto-fill missing Sprinzl labels for positions systematically unlabeled by R2DT templates. Yeast coordinates reduced from 133 to 115 unique positions.
 
 ## References
 
