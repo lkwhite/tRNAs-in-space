@@ -1,0 +1,1383 @@
+{
+  "146": {
+    "modomics_id": 146,
+    "name": "tdbR00000164",
+    "so_term": "SO:0000258",
+    "trna_type": "tRNA",
+    "subtype": "Ile",
+    "anticodon": "GAU",
+    "cellular_localization": "mitochondrion",
+    "species": "Saccharomyces cerevisiae",
+    "modified_sequence": "GAAACUAUAAUUCAADDGGDUAGAAUAGUAUPUUGAU6AGGUACAAAUAUAGGTPCAAUCCCUGUUAGUUUCACCA",
+    "unmodified_sequence": "GAAACUAUAAUUCAAUUGGUUAGAAUAGUAUUUUGAUAAGGUACAAAUAUAGGUUCAAUCCCUGUUAGUUUCACCA",
+    "modifications": [
+      {
+        "position": 16,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 17,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 20,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 32,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 38,
+        "modified_char": "6",
+        "unmodified_char": "A",
+        "modification_name": "N6-threonylcarbamoyladenosine-5'-monophosphate",
+        "short_name": "pt6A",
+        "reference_base": "A",
+        "modomics_db_id": "231"
+      },
+      {
+        "position": 54,
+        "modified_char": "T",
+        "unmodified_char": "U",
+        "modification_name": "5-methyluridine-5'-monophosphate",
+        "short_name": "pm5U",
+        "reference_base": "U",
+        "modomics_db_id": "194"
+      },
+      {
+        "position": 55,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      }
+    ]
+  },
+  "147": {
+    "modomics_id": 147,
+    "name": "tdbR00000237",
+    "so_term": "SO:0000264",
+    "trna_type": "tRNA",
+    "subtype": "Leu",
+    "anticodon": "UAA",
+    "cellular_localization": "mitochondrion",
+    "species": "Saccharomyces cerevisiae",
+    "modified_sequence": "GCUAUUUUGGUGGAADUGGDAGACACRAUACPCU!AAKAPGUAUUACUUUACAGUAUGAAGGTPCAAGUCCUUUAAAUAGCACCA",
+    "unmodified_sequence": "GCUAUUUUGGUGGAAUUGGUAGACACGAUACUCUUAAGAUGUAUUACUUUACAGUAUGAAGGUUCAAGUCCUUUAAAUAGCACCA",
+    "modifications": [
+      {
+        "position": 16,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 20,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 27,
+        "modified_char": "R",
+        "unmodified_char": "G",
+        "modification_name": "N2-dimethylguanosine-5'-monophosphate",
+        "short_name": "pm2,2G",
+        "reference_base": "G",
+        "modomics_db_id": "198"
+      },
+      {
+        "position": 32,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 35,
+        "modified_char": "!",
+        "unmodified_char": "U",
+        "modification_name": "5-carboxymethylaminomethyluridine-5'-monophosphate",
+        "short_name": "pcmnm5U",
+        "reference_base": "U",
+        "modomics_db_id": "358"
+      },
+      {
+        "position": 38,
+        "modified_char": "K",
+        "unmodified_char": "G",
+        "modification_name": "1N-methylguanosine-5'-monophosphate",
+        "short_name": "pm1G",
+        "reference_base": "G",
+        "modomics_db_id": "214"
+      },
+      {
+        "position": 40,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 63,
+        "modified_char": "T",
+        "unmodified_char": "U",
+        "modification_name": "5-methyluridine-5'-monophosphate",
+        "short_name": "pm5U",
+        "reference_base": "U",
+        "modomics_db_id": "194"
+      },
+      {
+        "position": 64,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      }
+    ]
+  },
+  "148": {
+    "modomics_id": 148,
+    "name": "tdbR00000183",
+    "so_term": "SO:0000265",
+    "trna_type": "tRNA",
+    "subtype": "Lys",
+    "anticodon": "UUU",
+    "cellular_localization": "mitochondrion",
+    "species": "Saccharomyces cerevisiae",
+    "modified_sequence": "GAGAAUAUUGUUUAADGGDAAAACAGPUGPCU$UU6AGCAACCCAUGCUUGGTPCAACUCCAGCUAUUCUCACCA",
+    "unmodified_sequence": "GAGAAUAUUGUUUAAUGGUAAAACAGUUGUCUUUUAAGCAACCCAUGCUUGGUUCAACUCCAGCUAUUCUCACCA",
+    "modifications": [
+      {
+        "position": 16,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 19,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 27,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 30,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 33,
+        "modified_char": "$",
+        "unmodified_char": "U",
+        "modification_name": "5-carboxymethylaminomethyl-2-thiouridine-5'-monophosphate",
+        "short_name": "pcmnm5s2U",
+        "reference_base": "U",
+        "modomics_db_id": "395"
+      },
+      {
+        "position": 36,
+        "modified_char": "6",
+        "unmodified_char": "A",
+        "modification_name": "N6-threonylcarbamoyladenosine-5'-monophosphate",
+        "short_name": "pt6A",
+        "reference_base": "A",
+        "modomics_db_id": "231"
+      },
+      {
+        "position": 53,
+        "modified_char": "T",
+        "unmodified_char": "U",
+        "modification_name": "5-methyluridine-5'-monophosphate",
+        "short_name": "pm5U",
+        "reference_base": "U",
+        "modomics_db_id": "194"
+      },
+      {
+        "position": 54,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      }
+    ]
+  },
+  "149": {
+    "modomics_id": 149,
+    "name": "tdbR00000280",
+    "so_term": "SO:0000266",
+    "trna_type": "tRNA",
+    "subtype": "Met",
+    "anticodon": "CAU",
+    "cellular_localization": "mitochondrion",
+    "species": "Saccharomyces cerevisiae",
+    "modified_sequence": "GCUUGUAUAGUUUAADDGGDUAAAACAUUUGPCUCAU6AAUAAAUAAUGUAAGGTPCAAUUCCUUCUACAAGUACCA",
+    "unmodified_sequence": "GCUUGUAUAGUUUAAUUGGUUAAAACAUUUGUCUCAUAAAUAAAUAAUGUAAGGUUCAAUUCCUUCUACAAGUACCA",
+    "modifications": [
+      {
+        "position": 16,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 17,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 20,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 32,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 38,
+        "modified_char": "6",
+        "unmodified_char": "A",
+        "modification_name": "N6-threonylcarbamoyladenosine-5'-monophosphate",
+        "short_name": "pt6A",
+        "reference_base": "A",
+        "modomics_db_id": "231"
+      },
+      {
+        "position": 55,
+        "modified_char": "T",
+        "unmodified_char": "U",
+        "modification_name": "5-methyluridine-5'-monophosphate",
+        "short_name": "pm5U",
+        "reference_base": "U",
+        "modomics_db_id": "194"
+      },
+      {
+        "position": 56,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      }
+    ]
+  },
+  "153": {
+    "modomics_id": 153,
+    "name": "tdbR00000395",
+    "so_term": "SO:0000269",
+    "trna_type": "tRNA",
+    "subtype": "Ser",
+    "anticodon": "GCU",
+    "cellular_localization": "mitochondrion",
+    "species": "Saccharomyces cerevisiae",
+    "modified_sequence": "GGAAAAUUAACUADAGGDAAAGUGGAUUAPPUGCUAAGUAAUUGAAUUGUAAAUUCUUAUGAGTPCGAAUCUCAUAUUUUCCGCCA",
+    "unmodified_sequence": "GGAAAAUUAACUAUAGGUAAAGUGGAUUAUUUGCUAAGUAAUUGAAUUGUAAAUUCUUAUGAGUUCGAAUCUCAUAUUUUCCGCCA",
+    "modifications": [
+      {
+        "position": 14,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 18,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 30,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 31,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 64,
+        "modified_char": "T",
+        "unmodified_char": "U",
+        "modification_name": "5-methyluridine-5'-monophosphate",
+        "short_name": "pm5U",
+        "reference_base": "U",
+        "modomics_db_id": "194"
+      },
+      {
+        "position": 65,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      }
+    ]
+  },
+  "157": {
+    "modomics_id": 157,
+    "name": "tdbR00000551",
+    "so_term": "SO:0000272",
+    "trna_type": "tRNA",
+    "subtype": "Tyr",
+    "anticodon": "GUA",
+    "cellular_localization": "mitochondrion",
+    "species": "Saccharomyces cerevisiae",
+    "modified_sequence": "GGAGGGAUUUUCAAUGUDGGDAGUUGGALPUGAGCUGUA\u0427ACUCAAUGACUUAGGUCUUCAUAGGTPCAAUUCCUAUUCCCUUCACCA",
+    "unmodified_sequence": "GGAGGGAUUUUCAAUGUUGGUAGUUGGAGUUGAGCUGUAAACUCAAUGACUUAGGUCUUCAUAGGUUCAAUUCCUAUUCCCUUCACCA",
+    "modifications": [
+      {
+        "position": 18,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 21,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 29,
+        "modified_char": "L",
+        "unmodified_char": "G",
+        "modification_name": "N2-methylguanosine",
+        "short_name": "m2G",
+        "reference_base": "G",
+        "modomics_db_id": "36"
+      },
+      {
+        "position": 30,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 40,
+        "modified_char": "\u0427",
+        "unmodified_char": "A",
+        "modification_name": "N6-isopentenyladenosine",
+        "short_name": "i6A",
+        "reference_base": "A",
+        "modomics_db_id": "56"
+      },
+      {
+        "position": 66,
+        "modified_char": "T",
+        "unmodified_char": "U",
+        "modification_name": "5-methyluridine-5'-monophosphate",
+        "short_name": "pm5U",
+        "reference_base": "U",
+        "modomics_db_id": "194"
+      },
+      {
+        "position": 67,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      }
+    ]
+  },
+  "159": {
+    "modomics_id": 159,
+    "name": "tdbR00000518",
+    "so_term": "SO:0000266",
+    "trna_type": "tRNA",
+    "subtype": "Ini",
+    "anticodon": "CAU",
+    "cellular_localization": "mitochondrion",
+    "species": "Saccharomyces cerevisiae",
+    "modified_sequence": "UGCAAUAUGAUGUAADUGGDUAACAUUUUAGGGUCAUKACCUAAUUAUAUACGTPCAAAUCGUAUUAUUGCPACCA",
+    "unmodified_sequence": "UGCAAUAUGAUGUAAUUGGUUAACAUUUUAGGGUCAUGACCUAAUUAUAUACGUUCAAAUCGUAUUAUUGCUACCA",
+    "modifications": [
+      {
+        "position": 16,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 20,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 38,
+        "modified_char": "K",
+        "unmodified_char": "G",
+        "modification_name": "1N-methylguanosine-5'-monophosphate",
+        "short_name": "pm1G",
+        "reference_base": "G",
+        "modomics_db_id": "214"
+      },
+      {
+        "position": 54,
+        "modified_char": "T",
+        "unmodified_char": "U",
+        "modification_name": "5-methyluridine-5'-monophosphate",
+        "short_name": "pm5U",
+        "reference_base": "U",
+        "modomics_db_id": "194"
+      },
+      {
+        "position": 55,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 72,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      }
+    ]
+  },
+  "727": {
+    "modomics_id": 727,
+    "name": "tdbR00000075",
+    "so_term": "SO:0000267",
+    "trna_type": "tRNA",
+    "subtype": "Phe",
+    "anticodon": "GAA",
+    "cellular_localization": "mitochondrion",
+    "species": "Saccharomyces cerevisiae",
+    "modified_sequence": "GCUUUUAUAGCUUAGDGGDAAAGCRAUAAAPUGAAKAPUUAUUUACAUGUAGUPCGAUUCUCAUUAAGGGCACCA",
+    "unmodified_sequence": "GCUUUUAUAGCUUAGUGGUAAAGCGAUAAAUUGAAGAUUUAUUUACAUGUAGUUCGAUUCUCAUUAAGGGCACCA",
+    "modifications": [
+      {
+        "position": 16,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 19,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 25,
+        "modified_char": "R",
+        "unmodified_char": "G",
+        "modification_name": "N2-dimethylguanosine-5'-monophosphate",
+        "short_name": "pm2,2G",
+        "reference_base": "G",
+        "modomics_db_id": "198"
+      },
+      {
+        "position": 31,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 36,
+        "modified_char": "K",
+        "unmodified_char": "G",
+        "modification_name": "1N-methylguanosine-5'-monophosphate",
+        "short_name": "pm1G",
+        "reference_base": "G",
+        "modomics_db_id": "214"
+      },
+      {
+        "position": 38,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 54,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      }
+    ]
+  },
+  "734": {
+    "modomics_id": 734,
+    "name": "tdbR00000123",
+    "so_term": "SO:0000261",
+    "trna_type": "tRNA",
+    "subtype": "Gly",
+    "anticodon": "UCC",
+    "cellular_localization": "mitochondrion",
+    "species": "Saccharomyces cerevisiae",
+    "modified_sequence": "AUAGAUAUAAGUUAAUDGGDAAACURGAUGPCUNCC\u0427AACAUUGAAUGCGAGTPCGAUUCUCGCUAUCUAUACCA",
+    "unmodified_sequence": "AUAGAUAUAAGUUAAUUGGUAAACUGGAUGUCUGCCAAACAUUGAAUGCGAGUUCGAUUCUCGCUAUCUAUACCA",
+    "modifications": [
+      {
+        "position": 17,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 20,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 26,
+        "modified_char": "R",
+        "unmodified_char": "G",
+        "modification_name": "N2-dimethylguanosine-5'-monophosphate",
+        "short_name": "pm2,2G",
+        "reference_base": "G",
+        "modomics_db_id": "198"
+      },
+      {
+        "position": 31,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 34,
+        "modified_char": "N",
+        "unmodified_char": "U",
+        "modification_name": "unknown modified uridine",
+        "short_name": "xU",
+        "reference_base": "U",
+        "modomics_db_id": "76"
+      },
+      {
+        "position": 37,
+        "modified_char": "\u0427",
+        "unmodified_char": "A",
+        "modification_name": "N6-isopentenyladenosine",
+        "short_name": "i6A",
+        "reference_base": "A",
+        "modomics_db_id": "56"
+      },
+      {
+        "position": 53,
+        "modified_char": "T",
+        "unmodified_char": "U",
+        "modification_name": "5-methyluridine-5'-monophosphate",
+        "short_name": "pm5U",
+        "reference_base": "U",
+        "modomics_db_id": "194"
+      },
+      {
+        "position": 54,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      }
+    ]
+  },
+  "740": {
+    "modomics_id": 740,
+    "name": "tdbR00000142",
+    "so_term": "SO:0000262",
+    "trna_type": "tRNA",
+    "subtype": "His",
+    "anticodon": "GUG",
+    "cellular_localization": "mitochondrion",
+    "species": "Saccharomyces cerevisiae",
+    "modified_sequence": "GGUGAAUAUAUUUCAADGGDAGAAAAPACGCPUGUGKPGCGUUAAAUCUGAGTPCGAUUCUCAGUAUUCACCCCA",
+    "unmodified_sequence": "GGUGAAUAUAUUUCAAUGGUAGAAAAUACGCUUGUGGUGCGUUAAAUCUGAGUUCGAUUCUCAGUAUUCACCCCA",
+    "modifications": [
+      {
+        "position": 17,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 20,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 27,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 32,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 37,
+        "modified_char": "K",
+        "unmodified_char": "G",
+        "modification_name": "1N-methylguanosine-5'-monophosphate",
+        "short_name": "pm1G",
+        "reference_base": "G",
+        "modomics_db_id": "214"
+      },
+      {
+        "position": 38,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 53,
+        "modified_char": "T",
+        "unmodified_char": "U",
+        "modification_name": "5-methyluridine-5'-monophosphate",
+        "short_name": "pm5U",
+        "reference_base": "U",
+        "modomics_db_id": "194"
+      },
+      {
+        "position": 54,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      }
+    ]
+  },
+  "792": {
+    "modomics_id": 792,
+    "name": "tdbR00000321",
+    "so_term": "SO:0000268",
+    "trna_type": "tRNA",
+    "subtype": "Pro",
+    "anticodon": "UGG",
+    "cellular_localization": "mitochondrion",
+    "species": "Saccharomyces cerevisiae",
+    "modified_sequence": "CAGAUAGAAGCCAAAAGGDCAGGCLCUUUCPUUGGKAGAAAGACCUAGUUAGTPCGAGUCUAUCCUAUCUGACCA",
+    "unmodified_sequence": "CAGAUAGAAGCCAAAAGGUCAGGCGCUUUCUUUGGGAGAAAGACCUAGUUAGUUCGAGUCUAUCCUAUCUGACCA",
+    "modifications": [
+      {
+        "position": 19,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 25,
+        "modified_char": "L",
+        "unmodified_char": "G",
+        "modification_name": "N2-methylguanosine",
+        "short_name": "m2G",
+        "reference_base": "G",
+        "modomics_db_id": "36"
+      },
+      {
+        "position": 31,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 36,
+        "modified_char": "K",
+        "unmodified_char": "G",
+        "modification_name": "1N-methylguanosine-5'-monophosphate",
+        "short_name": "pm1G",
+        "reference_base": "G",
+        "modomics_db_id": "214"
+      },
+      {
+        "position": 53,
+        "modified_char": "T",
+        "unmodified_char": "U",
+        "modification_name": "5-methyluridine-5'-monophosphate",
+        "short_name": "pm5U",
+        "reference_base": "U",
+        "modomics_db_id": "194"
+      },
+      {
+        "position": 54,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      }
+    ]
+  },
+  "798": {
+    "modomics_id": 798,
+    "name": "tdbR00000361",
+    "so_term": "SO:0001036",
+    "trna_type": "tRNA",
+    "subtype": "Arg",
+    "anticodon": "ACG",
+    "cellular_localization": "mitochondrion",
+    "species": "Saccharomyces cerevisiae",
+    "modified_sequence": "AUAUCUUUAAUUUAADGGDAAAAUAPUAGAAUACGAAPCUAAUUAUAUAGGTPCAAAUCCUAUAAGAUAUUCCA",
+    "unmodified_sequence": "AUAUCUUUAAUUUAAUGGUAAAAUAUUAGAAUACGAAUCUAAUUAUAUAGGUUCAAAUCCUAUAAGAUAUUCCA",
+    "modifications": [
+      {
+        "position": 16,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 19,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 26,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 38,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 52,
+        "modified_char": "T",
+        "unmodified_char": "U",
+        "modification_name": "5-methyluridine-5'-monophosphate",
+        "short_name": "pm5U",
+        "reference_base": "U",
+        "modomics_db_id": "194"
+      },
+      {
+        "position": 53,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      }
+    ]
+  },
+  "799": {
+    "modomics_id": 799,
+    "name": "tdbR00000362",
+    "so_term": "SO:0001036",
+    "trna_type": "tRNA",
+    "subtype": "Arg",
+    "anticodon": "UCU",
+    "cellular_localization": "mitochondrion",
+    "species": "Saccharomyces cerevisiae",
+    "modified_sequence": "GCUCUCUUAGCUUAADGGDUAAAGCAPAAUACUNCU6APAUUAAUAUUCCAUGTPCAAAUCAUGGAGAGAGUACCA",
+    "unmodified_sequence": "GCUCUCUUAGCUUAAUGGUUAAAGCAUAAUACUGCUAAUAUUAAUAUUCCAUGUUCAAAUCAUGGAGAGAGUACCA",
+    "modifications": [
+      {
+        "position": 16,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 19,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 27,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 34,
+        "modified_char": "N",
+        "unmodified_char": "U",
+        "modification_name": "unknown modified uridine",
+        "short_name": "xU",
+        "reference_base": "U",
+        "modomics_db_id": "76"
+      },
+      {
+        "position": 37,
+        "modified_char": "6",
+        "unmodified_char": "A",
+        "modification_name": "N6-threonylcarbamoyladenosine-5'-monophosphate",
+        "short_name": "pt6A",
+        "reference_base": "A",
+        "modomics_db_id": "231"
+      },
+      {
+        "position": 39,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 54,
+        "modified_char": "T",
+        "unmodified_char": "U",
+        "modification_name": "5-methyluridine-5'-monophosphate",
+        "short_name": "pm5U",
+        "reference_base": "U",
+        "modomics_db_id": "194"
+      },
+      {
+        "position": 55,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      }
+    ]
+  },
+  "806": {
+    "modomics_id": 806,
+    "name": "tdbR00000396",
+    "so_term": "SO:0000269",
+    "trna_type": "tRNA",
+    "subtype": "Ser",
+    "anticodon": "UGA",
+    "cellular_localization": "mitochondrion",
+    "species": "Saccharomyces cerevisiae",
+    "modified_sequence": "GGAUGGUUGACUGAGDGGDUUAAAGULPGAUAPUUGAKCPAUCAUUAGUCUUUAUUGGCUACGUAGGTPCAAAUCCUACAUCAUCCGCCA",
+    "unmodified_sequence": "GGAUGGUUGACUGAGUGGUUUAAAGUGUGAUAUUUGAGCUAUCAUUAGUCUUUAUUGGCUACGUAGGUUCAAAUCCUACAUCAUCCGCCA",
+    "modifications": [
+      {
+        "position": 16,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 19,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 27,
+        "modified_char": "L",
+        "unmodified_char": "G",
+        "modification_name": "N2-methylguanosine",
+        "short_name": "m2G",
+        "reference_base": "G",
+        "modomics_db_id": "36"
+      },
+      {
+        "position": 28,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 33,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 38,
+        "modified_char": "K",
+        "unmodified_char": "G",
+        "modification_name": "1N-methylguanosine-5'-monophosphate",
+        "short_name": "pm1G",
+        "reference_base": "G",
+        "modomics_db_id": "214"
+      },
+      {
+        "position": 40,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 68,
+        "modified_char": "T",
+        "unmodified_char": "U",
+        "modification_name": "5-methyluridine-5'-monophosphate",
+        "short_name": "pm5U",
+        "reference_base": "U",
+        "modomics_db_id": "194"
+      },
+      {
+        "position": 69,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      }
+    ]
+  },
+  "807": {
+    "modomics_id": 807,
+    "name": "tdbR00000397",
+    "so_term": "SO:0000269",
+    "trna_type": "tRNA",
+    "subtype": "Ser",
+    "anticodon": "UGA",
+    "cellular_localization": "mitochondrion",
+    "species": "Saccharomyces cerevisiae",
+    "modified_sequence": "GGAUGGUUGACUGAGDGGDUUAAAGULUGAUAPUUGAKCPAUCAUUAGUCUUUAUUGGCUACGUAGGTPCAAAUCCUACAUCAUCCGCCA",
+    "unmodified_sequence": "GGAUGGUUGACUGAGUGGUUUAAAGUGUGAUAUUUGAGCUAUCAUUAGUCUUUAUUGGCUACGUAGGUUCAAAUCCUACAUCAUCCGCCA",
+    "modifications": [
+      {
+        "position": 16,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 19,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 27,
+        "modified_char": "L",
+        "unmodified_char": "G",
+        "modification_name": "N2-methylguanosine",
+        "short_name": "m2G",
+        "reference_base": "G",
+        "modomics_db_id": "36"
+      },
+      {
+        "position": 33,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 38,
+        "modified_char": "K",
+        "unmodified_char": "G",
+        "modification_name": "1N-methylguanosine-5'-monophosphate",
+        "short_name": "pm1G",
+        "reference_base": "G",
+        "modomics_db_id": "214"
+      },
+      {
+        "position": 40,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 68,
+        "modified_char": "T",
+        "unmodified_char": "U",
+        "modification_name": "5-methyluridine-5'-monophosphate",
+        "short_name": "pm5U",
+        "reference_base": "U",
+        "modomics_db_id": "194"
+      },
+      {
+        "position": 69,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      }
+    ]
+  },
+  "818": {
+    "modomics_id": 818,
+    "name": "tdbR00000441",
+    "so_term": "SO:0000270",
+    "trna_type": "tRNA",
+    "subtype": "Thr",
+    "anticodon": "UAG",
+    "cellular_localization": "mitochondrion",
+    "species": "Saccharomyces cerevisiae",
+    "modified_sequence": "GUAAAUAUAAUUUAADGGDAAAAULPAUGPUUUUAGKPGCAUAUUAUCUAAGTPCAAAUCUUAGUAUUUACACCA",
+    "unmodified_sequence": "GUAAAUAUAAUUUAAUGGUAAAAUGUAUGUUUUUAGGUGCAUAUUAUCUAAGUUCAAAUCUUAGUAUUUACACCA",
+    "modifications": [
+      {
+        "position": 16,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 19,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 25,
+        "modified_char": "L",
+        "unmodified_char": "G",
+        "modification_name": "N2-methylguanosine",
+        "short_name": "m2G",
+        "reference_base": "G",
+        "modomics_db_id": "36"
+      },
+      {
+        "position": 26,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 30,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 37,
+        "modified_char": "K",
+        "unmodified_char": "G",
+        "modification_name": "1N-methylguanosine-5'-monophosphate",
+        "short_name": "pm1G",
+        "reference_base": "G",
+        "modomics_db_id": "214"
+      },
+      {
+        "position": 38,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 53,
+        "modified_char": "T",
+        "unmodified_char": "U",
+        "modification_name": "5-methyluridine-5'-monophosphate",
+        "short_name": "pm5U",
+        "reference_base": "U",
+        "modomics_db_id": "194"
+      },
+      {
+        "position": 54,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      }
+    ]
+  },
+  "831": {
+    "modomics_id": 831,
+    "name": "tdbR00000490",
+    "so_term": "SO:0000271",
+    "trna_type": "tRNA",
+    "subtype": "Trp",
+    "anticodon": "UCA",
+    "cellular_localization": "mitochondrion",
+    "species": "Saccharomyces cerevisiae",
+    "modified_sequence": "AAGGAUAUAGUUUAADGGDAAAACAGUUGAPU!CAHAPCAAUCAUUAGGAGTPCGAAUCUCUUUAUCCUUGCCA",
+    "unmodified_sequence": "AAGGAUAUAGUUUAAUGGUAAAACAGUUGAUUUCAUAUCAAUCAUUAGGAGUUCGAAUCUCUUUAUCCUUGCCA",
+    "modifications": [
+      {
+        "position": 16,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 19,
+        "modified_char": "D",
+        "unmodified_char": "U",
+        "modification_name": "dihydrouridine",
+        "short_name": "D",
+        "reference_base": "U",
+        "modomics_db_id": "14"
+      },
+      {
+        "position": 31,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 33,
+        "modified_char": "!",
+        "unmodified_char": "U",
+        "modification_name": "5-carboxymethylaminomethyluridine-5'-monophosphate",
+        "short_name": "pcmnm5U",
+        "reference_base": "U",
+        "modomics_db_id": "358"
+      },
+      {
+        "position": 36,
+        "modified_char": "H",
+        "unmodified_char": "A",
+        "modification_name": "unknown modified adenosine",
+        "short_name": "xA",
+        "reference_base": "A",
+        "modomics_db_id": "72"
+      },
+      {
+        "position": 38,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      },
+      {
+        "position": 52,
+        "modified_char": "T",
+        "unmodified_char": "U",
+        "modification_name": "5-methyluridine-5'-monophosphate",
+        "short_name": "pm5U",
+        "reference_base": "U",
+        "modomics_db_id": "194"
+      },
+      {
+        "position": 53,
+        "modified_char": "P",
+        "unmodified_char": "U",
+        "modification_name": "pseudouridine-5'-monophosphate",
+        "short_name": "pY",
+        "reference_base": "U",
+        "modomics_db_id": "185"
+      }
+    ]
+  }
+}

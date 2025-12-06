@@ -201,7 +201,9 @@ class GTRNAdbLoader:
 
     def load_global_coords(self, organism_id: str) -> Dict[str, List[dict]]:
         """
-        Load global coordinates TSV file for an organism.
+        Load global coordinates TSV file(s) for an organism.
+
+        Loads both nuclear and mitochondrial coords files if they exist.
 
         Args:
             organism_id: Organism ID (e.g., 'ecoliK12')
@@ -209,28 +211,37 @@ class GTRNAdbLoader:
         Returns:
             Dictionary mapping tRNA ID to list of position records
         """
+        # Try loading nuclear coords file
         coords_file = self.output_dir / f"{organism_id}_global_coords.tsv"
+        mito_coords_file = self.output_dir / f"{organism_id}_mito_global_coords.tsv"
 
-        if not coords_file.exists():
-            raise FileNotFoundError(f"Global coords file not found: {coords_file}")
+        files_to_load = []
+        if coords_file.exists():
+            files_to_load.append(coords_file)
+        if mito_coords_file.exists():
+            files_to_load.append(mito_coords_file)
 
-        logger.info(f"Loading global coords: {coords_file}")
+        if not files_to_load:
+            raise FileNotFoundError(f"No global coords files found for {organism_id}")
+
+        logger.info(f"Loading global coords: {[str(f) for f in files_to_load]}")
 
         coords = defaultdict(list)
 
-        with open(coords_file, "r") as f:
-            reader = csv.DictReader(f, delimiter="\t")
-            for row in reader:
-                trna_id = row["trna_id"]
-                coords[trna_id].append(
-                    {
-                        "seq_index": int(row["seq_index"]),
-                        "sprinzl_index": int(row["sprinzl_index"]),
-                        "sprinzl_label": row["sprinzl_label"],
-                        "residue": row["residue"],
-                        "region": row["region"],
-                    }
-                )
+        for cfile in files_to_load:
+            with open(cfile, "r") as f:
+                reader = csv.DictReader(f, delimiter="\t")
+                for row in reader:
+                    trna_id = row["trna_id"]
+                    coords[trna_id].append(
+                        {
+                            "seq_index": int(row["seq_index"]),
+                            "sprinzl_index": int(row["sprinzl_index"]),
+                            "sprinzl_label": row["sprinzl_label"],
+                            "residue": row["residue"],
+                            "region": row["region"],
+                        }
+                    )
 
         logger.info(f"Loaded coordinates for {len(coords)} tRNAs")
         return dict(coords)
@@ -368,8 +379,8 @@ class ModomicsAligner:
 
             # Handle prefix (nuc-, mito-, or no prefix)
             if parts[0] in ["nuc", "mito"]:
-                # Format: nuc-tRNA-Ala-AGC-1-1
-                if len(parts) >= 5:
+                # Format: nuc-tRNA-Ala-AGC-1-1 or mito-tRNA-Ala-AGC (no copy numbers)
+                if len(parts) >= 4:
                     gtR_subtype = parts[2]
                     gtR_anticodon = parts[3]
                 else:

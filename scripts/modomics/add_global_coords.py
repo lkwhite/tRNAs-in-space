@@ -20,54 +20,54 @@ from pathlib import Path
 from typing import Dict, Optional, Tuple
 
 
-def parse_coord_filename(filename: str) -> Optional[Tuple[str, str, str]]:
+def parse_coord_filename(filename: str) -> Optional[str]:
     """
-    Parse organism, offset, and type from coordinate filename.
+    Parse organism from coordinate filename.
 
-    Example: ecoliK12_global_coords_offset0_type1.tsv
-    Returns: ('ecoliK12', '0', 'type1')
+    Examples:
+        sacCer_global_coords.tsv -> 'sacCer'
+        sacCer_mito_global_coords.tsv -> 'sacCer'
+        hg38_global_coords.tsv -> 'hg38'
     """
-    match = re.match(r'(.+)_global_coords_offset([+-]?\d+)_(type\d+)\.tsv', filename)
+    # Match both nuclear and mito coordinate files
+    match = re.match(r'(.+?)(?:_mito)?_global_coords\.tsv', filename)
     if match:
-        return match.group(1), match.group(2), match.group(3)
+        return match.group(1)
     return None
 
 
-def load_coordinate_files(output_dir: Path) -> Dict[str, Dict[Tuple[str, str], int]]:
+def load_coordinate_files(output_dir: Path) -> Dict[str, Dict[str, Dict[str, int]]]:
     """
-    Load all offset×type coordinate files and build lookup tables.
+    Load unified coordinate files and build lookup tables.
 
     Returns:
-        Dict mapping organism_id -> {(trna_id, sprinzl_label): (offset, type, global_index)}
+        Dict mapping organism_id -> {trna_id -> {sprinzl_label: global_index}}
     """
-    # Structure: organism -> trna_id -> {sprinzl_label: (offset, type, global_index)}
-    coord_lookup: Dict[str, Dict[str, Dict[str, Tuple[str, str, int]]]] = defaultdict(
+    # Structure: organism -> trna_id -> {sprinzl_label: global_index}
+    coord_lookup: Dict[str, Dict[str, Dict[str, int]]] = defaultdict(
         lambda: defaultdict(dict)
     )
 
-    for coord_file in output_dir.glob("*_global_coords_offset*_type*.tsv"):
-        parsed = parse_coord_filename(coord_file.name)
-        if not parsed:
+    # Load both nuclear and mito coord files
+    for coord_file in output_dir.glob("*_global_coords.tsv"):
+        organism = parse_coord_filename(coord_file.name)
+        if not organism:
             continue
-
-        organism, offset, struct_type = parsed
 
         with open(coord_file, 'r') as f:
             reader = csv.DictReader(f, delimiter='\t')
             for row in reader:
                 trna_id = row['trna_id']
-                sprinzl_label = row['sprinzl_label']
+                sprinzl_label = row.get('sprinzl_label', '')
                 global_index_str = row.get('global_index', '')
 
-                # Skip rows with missing global_index
-                if not global_index_str:
+                # Skip rows with missing sprinzl_label or global_index
+                if not sprinzl_label or not global_index_str:
                     continue
 
                 global_index = int(global_index_str)
 
-                coord_lookup[organism][trna_id][sprinzl_label] = (
-                    offset, struct_type, global_index
-                )
+                coord_lookup[organism][trna_id][sprinzl_label] = global_index
 
     return coord_lookup
 
@@ -93,11 +93,12 @@ def enrich_modomics_file(
         input_fieldnames = list(reader.fieldnames)
 
         # Remove existing coordinate columns if present (for idempotent re-runs)
-        new_cols = ['offset', 'structural_type', 'global_index']
-        base_fieldnames = [f for f in input_fieldnames if f not in new_cols]
+        # Note: offset and structural_type are no longer used in unified format
+        old_cols = ['offset', 'structural_type', 'global_index']
+        base_fieldnames = [f for f in input_fieldnames if f not in old_cols]
 
-        # Add new columns
-        output_fieldnames = base_fieldnames + new_cols
+        # Add global_index column (offset/type no longer needed)
+        output_fieldnames = base_fieldnames + ['global_index']
 
         rows = []
         stats = {'matched': 0, 'unmatched': 0, 'unknown_species': 0}
@@ -107,29 +108,27 @@ def enrich_modomics_file(
             trna_id = row['gtRNAdb_trna_id']
             sprinzl_label = row['sprinzl_label']
 
+            # Clean up old columns if present
+            row.pop('offset', None)
+            row.pop('structural_type', None)
+
             # Look up organism
             organism = SPECIES_TO_ORGANISM.get(species)
             if not organism:
-                row['offset'] = ''
-                row['structural_type'] = ''
                 row['global_index'] = ''
                 stats['unknown_species'] += 1
                 rows.append(row)
                 continue
 
-            # Look up coordinates
+            # Look up global_index
             if (organism in coord_lookup and
                 trna_id in coord_lookup[organism] and
                 sprinzl_label in coord_lookup[organism][trna_id]):
 
-                offset, struct_type, global_index = coord_lookup[organism][trna_id][sprinzl_label]
-                row['offset'] = offset
-                row['structural_type'] = struct_type
+                global_index = coord_lookup[organism][trna_id][sprinzl_label]
                 row['global_index'] = str(global_index)
                 stats['matched'] += 1
             else:
-                row['offset'] = ''
-                row['structural_type'] = ''
                 row['global_index'] = ''
                 stats['unmatched'] += 1
 

@@ -1,262 +1,262 @@
-modomics_id	modomics_name	species	trna_type	anticodon	gtRNAdb_trna_id	alignment_score	alignment_identity	modification_position_modomics	modification_char	modification_name	modification_short_name	unmodified_char	position_gtRNAdb	sprinzl_index	sprinzl_label	region	offset	structural_type	global_index
-2	tdbR00000008	Escherichia coli	Ala	GGC	tRNA-Ala-GGC-1-1	152.0	100.0	17	D	dihydrouridine	D	U	17	17	17	D-loop	0	type1	25
-2	tdbR00000008	Escherichia coli	Ala	GGC	tRNA-Ala-GGC-1-1	152.0	100.0	46	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	0	type1	59
-2	tdbR00000008	Escherichia coli	Ala	GGC	tRNA-Ala-GGC-1-1	152.0	100.0	54	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-2	tdbR00000008	Escherichia coli	Ala	GGC	tRNA-Ala-GGC-1-1	152.0	100.0	55	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	0	type1	71
-4	tdbR00000359	Escherichia coli	Arg	CCG	tRNA-Arg-CCG-1-1	154.0	100.0	17	D	dihydrouridine	D	U	17	17	17	D-loop	0	type1	25
-4	tdbR00000359	Escherichia coli	Arg	CCG	tRNA-Arg-CCG-1-1	154.0	100.0	21	D	dihydrouridine	D	U	21	21	20a	D-loop	0	type1	30
-4	tdbR00000359	Escherichia coli	Arg	CCG	tRNA-Arg-CCG-1-1	154.0	100.0	33	ʤ	2-thiocytidine-5'-monophosphate	ps2C	C	33	33	32	anticodon-loop	0	type1	44
-4	tdbR00000359	Escherichia coli	Arg	CCG	tRNA-Arg-CCG-1-1	154.0	100.0	38	K	1N-methylguanosine-5'-monophosphate	pm1G	G	38	38	37	anticodon-loop	0	type1	49
-4	tdbR00000359	Escherichia coli	Arg	CCG	tRNA-Arg-CCG-1-1	154.0	100.0	47	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	47	47	46	variable-region	0	type1	59
-4	tdbR00000359	Escherichia coli	Arg	CCG	tRNA-Arg-CCG-1-1	154.0	100.0	55	T	5-methyluridine-5'-monophosphate	pm5U	U	55	55	54	T-loop	0	type1	70
-4	tdbR00000359	Escherichia coli	Arg	CCG	tRNA-Arg-CCG-1-1	154.0	100.0	56	P	pseudouridine-5'-monophosphate	pY	U	56	56	55	T-loop	0	type1	71
-9	tdbR00000020	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	148.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	+1	type1	11
-9	tdbR00000020	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	148.0	100.0	19	D	dihydrouridine	D	U	19	20	21	D-loop	+1	type1	26
-9	tdbR00000020	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	148.0	100.0	20	D	dihydrouridine	D	U	20	-1		unknown	+1	type1	29
-9	tdbR00000020	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	148.0	100.0	31	P	pseudouridine-5'-monophosphate	pY	U	31	31	32	anticodon-loop	+1	type1	40
-9	tdbR00000020	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	148.0	100.0	36	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	36	36	37	anticodon-loop	+1	type1	45
-9	tdbR00000020	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	148.0	100.0	38	P	pseudouridine-5'-monophosphate	pY	U	38	38	39	anticodon-stem	+1	type1	47
-9	tdbR00000020	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	148.0	100.0	52	T	5-methyluridine-5'-monophosphate	pm5U	U	52	52	54	T-loop	+1	type1	62
-9	tdbR00000020	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	148.0	100.0	53	P	pseudouridine-5'-monophosphate	pY	U	53	53	55	T-loop	+1	type1	63
-13	tdbR00000117	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	148.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	+1	type1	11
-13	tdbR00000117	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	148.0	100.0	19	D	dihydrouridine	D	U	19	19	20	D-loop	+1	type1	24
-13	tdbR00000117	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	148.0	100.0	52	T	5-methyluridine-5'-monophosphate	pm5U	U	52	53	54	T-loop	+1	type1	62
-13	tdbR00000117	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	148.0	100.0	53	P	pseudouridine-5'-monophosphate	pY	U	53	54	55	T-loop	+1	type1	63
-15	tdbR00000118	Escherichia coli	Gly	GCC	tRNA-Gly-GCC-1-1	152.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	+1	type1	11
-15	tdbR00000118	Escherichia coli	Gly	GCC	tRNA-Gly-GCC-1-1	152.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop	+1	type1	20
-15	tdbR00000118	Escherichia coli	Gly	GCC	tRNA-Gly-GCC-1-1	152.0	100.0	17	D	dihydrouridine	D	U	17	-1		unknown	+1	type1	21
-15	tdbR00000118	Escherichia coli	Gly	GCC	tRNA-Gly-GCC-1-1	152.0	100.0	20	D	dihydrouridine	D	U	20	19	20	D-loop	+1	type1	24
-15	tdbR00000118	Escherichia coli	Gly	GCC	tRNA-Gly-GCC-1-1	152.0	100.0	46	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	45	46	variable-region	+1	type1	54
-15	tdbR00000118	Escherichia coli	Gly	GCC	tRNA-Gly-GCC-1-1	152.0	100.0	54	T	5-methyluridine-5'-monophosphate	pm5U	U	54	53	54	T-loop	+1	type1	62
-15	tdbR00000118	Escherichia coli	Gly	GCC	tRNA-Gly-GCC-1-1	152.0	100.0	55	P	pseudouridine-5'-monophosphate	pY	U	55	54	55	T-loop	+1	type1	63
-21	tdbR00000221	Escherichia coli	Leu	CAG	tRNA-Leu-CAG-1-1	174.0	100.0	16	D	dihydrouridine	D	U	16	17	17	D-loop	0	type2	17
-21	tdbR00000221	Escherichia coli	Leu	CAG	tRNA-Leu-CAG-1-1	174.0	100.0	17	D	dihydrouridine	D	U	17	18	18	D-loop	0	type2	18
-21	tdbR00000221	Escherichia coli	Leu	CAG	tRNA-Leu-CAG-1-1	174.0	100.0	18	#	O2'-methylguanosine-5'-monophosphate	pGm	G	18	19	19	D-loop	0	type2	19
-21	tdbR00000221	Escherichia coli	Leu	CAG	tRNA-Leu-CAG-1-1	174.0	100.0	20	D	dihydrouridine	D	U	20	21	20a	D-loop	0	type2	21
-21	tdbR00000221	Escherichia coli	Leu	CAG	tRNA-Leu-CAG-1-1	174.0	100.0	38	K	1N-methylguanosine-5'-monophosphate	pm1G	G	38	38	37	anticodon-loop	0	type2	39
-21	tdbR00000221	Escherichia coli	Leu	CAG	tRNA-Leu-CAG-1-1	174.0	100.0	39	P	pseudouridine-5'-monophosphate	pY	U	39	39	38	anticodon-loop	0	type2	40
-21	tdbR00000221	Escherichia coli	Leu	CAG	tRNA-Leu-CAG-1-1	174.0	100.0	41	P	pseudouridine-5'-monophosphate	pY	U	41	41	40	anticodon-stem	0	type2	42
-21	tdbR00000221	Escherichia coli	Leu	CAG	tRNA-Leu-CAG-1-1	174.0	100.0	65	T	5-methyluridine-5'-monophosphate	pm5U	U	65	65	54	T-loop	0	type2	66
-21	tdbR00000221	Escherichia coli	Leu	CAG	tRNA-Leu-CAG-1-1	174.0	100.0	66	P	pseudouridine-5'-monophosphate	pY	U	66	66	55	T-loop	0	type2	67
-22	tdbR00000222	Escherichia coli	Leu	GAG	tRNA-Leu-GAG-1-1	174.0	100.0	16	D	dihydrouridine	D	U	16	17	17	D-loop	0	type2	17
-22	tdbR00000222	Escherichia coli	Leu	GAG	tRNA-Leu-GAG-1-1	174.0	100.0	17	D	dihydrouridine	D	U	17	18	18	D-loop	0	type2	18
-22	tdbR00000222	Escherichia coli	Leu	GAG	tRNA-Leu-GAG-1-1	174.0	100.0	18	#	O2'-methylguanosine-5'-monophosphate	pGm	G	18	19	19	D-loop	0	type2	19
-22	tdbR00000222	Escherichia coli	Leu	GAG	tRNA-Leu-GAG-1-1	174.0	100.0	20	D	dihydrouridine	D	U	20	21	20a	D-loop	0	type2	21
-22	tdbR00000222	Escherichia coli	Leu	GAG	tRNA-Leu-GAG-1-1	174.0	100.0	38	K	1N-methylguanosine-5'-monophosphate	pm1G	G	38	38	37	anticodon-loop	0	type2	39
-22	tdbR00000222	Escherichia coli	Leu	GAG	tRNA-Leu-GAG-1-1	174.0	100.0	39	P	pseudouridine-5'-monophosphate	pY	U	39	39	38	anticodon-loop	0	type2	40
-22	tdbR00000222	Escherichia coli	Leu	GAG	tRNA-Leu-GAG-1-1	174.0	100.0	65	T	5-methyluridine-5'-monophosphate	pm5U	U	65	65	54	T-loop	0	type2	66
-22	tdbR00000222	Escherichia coli	Leu	GAG	tRNA-Leu-GAG-1-1	174.0	100.0	66	P	pseudouridine-5'-monophosphate	pY	U	66	66	55	T-loop	0	type2	67
-28	tdbR00000067	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-28	tdbR00000067	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop	0	type1	24
-28	tdbR00000067	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	20	D	dihydrouridine	D	U	20	20	20	D-loop	0	type1	28
-28	tdbR00000067	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	32	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	0	type1	44
-28	tdbR00000067	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	37	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	0	type1	49
-28	tdbR00000067	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	39	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	0	type1	51
-28	tdbR00000067	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	46	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	0	type1	59
-28	tdbR00000067	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	47	X	3-(3-amino-3-carboxypropyl)uridine-5'-monophosphate	pacp3U	U	47	47	47	variable-arm	0	type1	60
-28	tdbR00000067	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	54	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-28	tdbR00000067	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	55	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	0	type1	71
-29	tdbD00008358	Escherichia coli	Pro	CGG	tRNA-Pro-CGG-1-1	154.0	100.0	21	D	dihydrouridine	D	U	21	21	20	D-loop	-1	type1	21
-29	tdbD00008358	Escherichia coli	Pro	CGG	tRNA-Pro-CGG-1-1	154.0	100.0	38	K	1N-methylguanosine-5'-monophosphate	pm1G	G	38	38	37	anticodon-loop	-1	type1	39
-29	tdbD00008358	Escherichia coli	Pro	CGG	tRNA-Pro-CGG-1-1	154.0	100.0	47	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	47	47	46	variable-region	-1	type1	49
-29	tdbD00008358	Escherichia coli	Pro	CGG	tRNA-Pro-CGG-1-1	154.0	100.0	55	T	5-methyluridine-5'-monophosphate	pm5U	U	55	55	54	T-loop	-1	type1	57
-29	tdbD00008358	Escherichia coli	Pro	CGG	tRNA-Pro-CGG-1-1	154.0	100.0	56	P	pseudouridine-5'-monophosphate	pY	U	56	56	55	T-loop	-1	type1	58
-35	tdbR00000390	Escherichia coli	Ser	CGA	tRNA-Ser-CGA-1-1	180.0	100.0	17	#	O2'-methylguanosine-5'-monophosphate	pGm	G	17	17	18	D-loop	-1	type2	18
-35	tdbR00000390	Escherichia coli	Ser	CGA	tRNA-Ser-CGA-1-1	180.0	100.0	20	D	dihydrouridine	D	U	20	20	20a	D-loop	-1	type2	21
-35	tdbR00000390	Escherichia coli	Ser	CGA	tRNA-Ser-CGA-1-1	180.0	100.0	38	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	38	38	37	anticodon-loop	-1	type2	42
-35	tdbR00000390	Escherichia coli	Ser	CGA	tRNA-Ser-CGA-1-1	180.0	100.0	68	T	5-methyluridine-5'-monophosphate	pm5U	U	68	68	54	T-loop	-1	type2	75
-35	tdbR00000390	Escherichia coli	Ser	CGA	tRNA-Ser-CGA-1-1	180.0	100.0	69	P	pseudouridine-5'-monophosphate	pY	U	69	69	55	T-loop	-1	type2	76
-37	tdbR00000393	Escherichia coli	Ser	GGA	tRNA-Ser-GGA-1-1	173.0	98.9	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	-1	type2	8
-37	tdbR00000393	Escherichia coli	Ser	GGA	tRNA-Ser-GGA-1-1	173.0	98.9	17	#	O2'-methylguanosine-5'-monophosphate	pGm	G	17	17	18	D-loop	-1	type2	18
-37	tdbR00000393	Escherichia coli	Ser	GGA	tRNA-Ser-GGA-1-1	173.0	98.9	19	D	dihydrouridine	D	U	19	19	20	D-loop	-1	type2	20
-37	tdbR00000393	Escherichia coli	Ser	GGA	tRNA-Ser-GGA-1-1	173.0	98.9	20	D	dihydrouridine	D	U	20	20	20a	D-loop	-1	type2	21
-37	tdbR00000393	Escherichia coli	Ser	GGA	tRNA-Ser-GGA-1-1	173.0	98.9	41	P	pseudouridine-5'-monophosphate	pY	U	41	41	40	anticodon-stem	-1	type2	45
-37	tdbR00000393	Escherichia coli	Ser	GGA	tRNA-Ser-GGA-1-1	173.0	98.9	66	T	5-methyluridine-5'-monophosphate	pm5U	U	66	68	54	T-loop	-1	type2	75
-37	tdbR00000393	Escherichia coli	Ser	GGA	tRNA-Ser-GGA-1-1	173.0	98.9	67	P	pseudouridine-5'-monophosphate	pY	U	67	69	55	T-loop	-1	type2	76
-42	tdbR00000484	Escherichia coli	Trp	CCA	tRNA-Trp-CCA-1-1	152.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-42	tdbR00000484	Escherichia coli	Trp	CCA	tRNA-Trp-CCA-1-1	152.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop	0	type1	24
-42	tdbR00000484	Escherichia coli	Trp	CCA	tRNA-Trp-CCA-1-1	152.0	100.0	17	D	dihydrouridine	D	U	17	17	17	D-loop	0	type1	25
-42	tdbR00000484	Escherichia coli	Trp	CCA	tRNA-Trp-CCA-1-1	152.0	100.0	20	D	dihydrouridine	D	U	20	20	20	D-loop	0	type1	28
-42	tdbR00000484	Escherichia coli	Trp	CCA	tRNA-Trp-CCA-1-1	152.0	100.0	32	B	O2'-methylcytidine-5'-monophosphate	pCm	C	32	32	32	anticodon-loop	0	type1	44
-42	tdbR00000484	Escherichia coli	Trp	CCA	tRNA-Trp-CCA-1-1	152.0	100.0	37	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	0	type1	49
-42	tdbR00000484	Escherichia coli	Trp	CCA	tRNA-Trp-CCA-1-1	152.0	100.0	46	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	0	type1	59
-42	tdbR00000484	Escherichia coli	Trp	CCA	tRNA-Trp-CCA-1-1	152.0	100.0	54	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-42	tdbR00000484	Escherichia coli	Trp	CCA	tRNA-Trp-CCA-1-1	152.0	100.0	55	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	0	type1	71
-46	tdbR00000454	Escherichia coli	Val	GAC	tRNA-Val-GAC-1-1	154.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-46	tdbR00000454	Escherichia coli	Val	GAC	tRNA-Val-GAC-1-1	154.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop	0	type1	24
-46	tdbR00000454	Escherichia coli	Val	GAC	tRNA-Val-GAC-1-1	154.0	100.0	17	D	dihydrouridine	D	U	17	17	17	D-loop	0	type1	25
-46	tdbR00000454	Escherichia coli	Val	GAC	tRNA-Val-GAC-1-1	154.0	100.0	20	D	dihydrouridine	D	U	20	20	20	D-loop	0	type1	28
-46	tdbR00000454	Escherichia coli	Val	GAC	tRNA-Val-GAC-1-1	154.0	100.0	21	D	dihydrouridine	D	U	21	-1		unknown	0	type1	29
-46	tdbR00000454	Escherichia coli	Val	GAC	tRNA-Val-GAC-1-1	154.0	100.0	47	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	47	46	46	variable-region	0	type1	59
-46	tdbR00000454	Escherichia coli	Val	GAC	tRNA-Val-GAC-1-1	154.0	100.0	48	X	3-(3-amino-3-carboxypropyl)uridine-5'-monophosphate	pacp3U	U	48	47	47	variable-arm	0	type1	60
-46	tdbR00000454	Escherichia coli	Val	GAC	tRNA-Val-GAC-1-1	154.0	100.0	55	T	5-methyluridine-5'-monophosphate	pm5U	U	55	54	54	T-loop	0	type1	70
-46	tdbR00000454	Escherichia coli	Val	GAC	tRNA-Val-GAC-1-1	154.0	100.0	56	P	pseudouridine-5'-monophosphate	pY	U	56	55	55	T-loop	0	type1	71
-47	tdbR00000455	Escherichia coli	Val	GAC	tRNA-Val-GAC-2-1	154.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-47	tdbR00000455	Escherichia coli	Val	GAC	tRNA-Val-GAC-2-1	154.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop	0	type1	24
-47	tdbR00000455	Escherichia coli	Val	GAC	tRNA-Val-GAC-2-1	154.0	100.0	17	D	dihydrouridine	D	U	17	17	17	D-loop	0	type1	25
-47	tdbR00000455	Escherichia coli	Val	GAC	tRNA-Val-GAC-2-1	154.0	100.0	20	D	dihydrouridine	D	U	20	20	20	D-loop	0	type1	28
-47	tdbR00000455	Escherichia coli	Val	GAC	tRNA-Val-GAC-2-1	154.0	100.0	21	D	dihydrouridine	D	U	21	-1		unknown	0	type1	29
-47	tdbR00000455	Escherichia coli	Val	GAC	tRNA-Val-GAC-2-1	154.0	100.0	47	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	47	46	46	variable-region	0	type1	59
-47	tdbR00000455	Escherichia coli	Val	GAC	tRNA-Val-GAC-2-1	154.0	100.0	48	X	3-(3-amino-3-carboxypropyl)uridine-5'-monophosphate	pacp3U	U	48	47	47	variable-arm	0	type1	60
-47	tdbR00000455	Escherichia coli	Val	GAC	tRNA-Val-GAC-2-1	154.0	100.0	55	T	5-methyluridine-5'-monophosphate	pm5U	U	55	54	54	T-loop	0	type1	70
-47	tdbR00000455	Escherichia coli	Val	GAC	tRNA-Val-GAC-2-1	154.0	100.0	56	P	pseudouridine-5'-monophosphate	pY	U	56	55	55	T-loop	0	type1	71
-1144	6Y3G_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	144.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-1144	6Y3G_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	144.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop	0	type1	24
-1144	6Y3G_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	144.0	100.0	20	D	dihydrouridine	D	U	20	20	20	D-loop	0	type1	28
-1144	6Y3G_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	144.0	100.0	32	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	0	type1	44
-1144	6Y3G_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	144.0	100.0	39	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	0	type1	51
-1144	6Y3G_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	144.0	100.0	53	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-1144	6Y3G_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	144.0	100.0	54	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	0	type1	71
-1145	6Y4B_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-1145	6Y4B_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop	0	type1	24
-1145	6Y4B_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	20	D	dihydrouridine	D	U	20	20	20	D-loop	0	type1	28
-1145	6Y4B_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	32	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	0	type1	44
-1145	6Y4B_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	39	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	0	type1	51
-1145	6Y4B_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	54	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-1145	6Y4B_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	55	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	0	type1	71
-1262	1B23_A	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	144.0	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	+1	type1	11
-1262	1B23_A	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	144.0	100.0	18	D	dihydrouridine	D	U	19	20	21	D-loop	+1	type1	26
-1262	1B23_A	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	144.0	100.0	19	D	dihydrouridine	D	U	20	-1		unknown	+1	type1	29
-1262	1B23_A	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	144.0	100.0	30	P	pseudouridine-5'-monophosphate	pY	U	31	31	32	anticodon-loop	+1	type1	40
-1262	1B23_A	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	144.0	100.0	35	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	36	36	37	anticodon-loop	+1	type1	45
-1262	1B23_A	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	144.0	100.0	37	P	pseudouridine-5'-monophosphate	pY	U	38	38	39	anticodon-stem	+1	type1	47
-1262	1B23_A	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	144.0	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	52	52	54	T-loop	+1	type1	62
-1262	1B23_A	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	144.0	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	53	53	55	T-loop	+1	type1	63
-1326	4WSD_AC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-1326	4WSD_AC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	31	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	0	type1	44
-1326	4WSD_AC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	45	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	0	type1	59
-1326	4WSD_AC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	53	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-1326	4WSD_AC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	54	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	0	type1	71
-1385	5WIT_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-1385	5WIT_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	0	type1	44
-1385	5WIT_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	0	type1	49
-1385	5WIT_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	0	type1	51
-1385	5WIT_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	0	type1	59
-1385	5WIT_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-1385	5WIT_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	0	type1	71
-1386	5WIT_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-1386	5WIT_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	0	type1	44
-1386	5WIT_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	0	type1	49
-1386	5WIT_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	0	type1	51
-1386	5WIT_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	0	type1	59
-1386	5WIT_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-1386	5WIT_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	0	type1	71
-1416	6QNR_CC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	145.0	98.7	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-1416	6QNR_CC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	145.0	98.7	15	D	dihydrouridine	D	U	16	16	16	D-loop	0	type1	24
-1416	6QNR_CC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	145.0	98.7	31	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	0	type1	44
-1416	6QNR_CC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	145.0	98.7	36	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	0	type1	49
-1416	6QNR_CC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	145.0	98.7	38	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	0	type1	51
-1416	6QNR_CC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	145.0	98.7	45	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	0	type1	59
-1416	6QNR_CC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	145.0	98.7	46	Ѯ	unknown modification	xX	X	47	47	47	variable-arm	0	type1	60
-1416	6QNR_CC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	145.0	98.7	53	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-1416	6QNR_CC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	145.0	98.7	54	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	0	type1	71
-1419	6XHV_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-1419	6XHV_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	0	type1	44
-1419	6XHV_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	0	type1	49
-1419	6XHV_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	0	type1	51
-1419	6XHV_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	0	type1	59
-1419	6XHV_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-1419	6XHV_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	0	type1	71
-1420	6XHV_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-1420	6XHV_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	0	type1	44
-1420	6XHV_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	0	type1	49
-1420	6XHV_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	0	type1	51
-1420	6XHV_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	0	type1	59
-1420	6XHV_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-1420	6XHV_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	0	type1	71
-1421	6XHW_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-1421	6XHW_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	0	type1	44
-1421	6XHW_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	0	type1	49
-1421	6XHW_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	0	type1	51
-1421	6XHW_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	0	type1	59
-1421	6XHW_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-1421	6XHW_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	0	type1	71
-1422	6XHW_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-1422	6XHW_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	0	type1	44
-1422	6XHW_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	0	type1	49
-1422	6XHW_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	0	type1	51
-1422	6XHW_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	0	type1	59
-1422	6XHW_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-1422	6XHW_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	0	type1	71
-1425	6XHY_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-1425	6XHY_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	0	type1	44
-1425	6XHY_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	0	type1	49
-1425	6XHY_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	0	type1	51
-1425	6XHY_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	0	type1	59
-1425	6XHY_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-1425	6XHY_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	0	type1	71
-1426	6XHY_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-1426	6XHY_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	0	type1	44
-1426	6XHY_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	0	type1	49
-1426	6XHY_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	0	type1	51
-1426	6XHY_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	0	type1	59
-1426	6XHY_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-1426	6XHY_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	0	type1	71
-1431	7AZO_ZB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	31	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	0	type1	44
-1431	7AZO_ZB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	36	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	0	type1	49
-1431	7AZO_ZB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	38	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	0	type1	51
-1431	7AZO_ZB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	53	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-1432	7AZS_ZB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	31	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	0	type1	44
-1432	7AZS_ZB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	36	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	0	type1	49
-1432	7AZS_ZB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	38	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	0	type1	51
-1432	7AZS_ZB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	53	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-1443	7U2H_DB	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	140.0	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	+1	type1	11
-1443	7U2H_DB	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	140.0	100.0	50	T	5-methyluridine-5'-monophosphate	pm5U	U	52	53	54	T-loop	+1	type1	62
-1443	7U2H_DB	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	140.0	100.0	51	P	pseudouridine-5'-monophosphate	pY	U	53	54	55	T-loop	+1	type1	63
-1444	7U2H_HD	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	144.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	+1	type1	11
-1444	7U2H_HD	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	144.0	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	52	53	54	T-loop	+1	type1	62
-1444	7U2H_HD	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	144.0	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	53	54	55	T-loop	+1	type1	63
-1445	7U2I_DB	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	140.0	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	+1	type1	11
-1445	7U2I_DB	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	140.0	100.0	50	T	5-methyluridine-5'-monophosphate	pm5U	U	52	53	54	T-loop	+1	type1	62
-1445	7U2I_DB	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	140.0	100.0	51	P	pseudouridine-5'-monophosphate	pY	U	53	54	55	T-loop	+1	type1	63
-1446	7U2I_HD	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	144.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	+1	type1	11
-1446	7U2I_HD	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	144.0	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	52	53	54	T-loop	+1	type1	62
-1446	7U2I_HD	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	144.0	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	53	54	55	T-loop	+1	type1	63
-1447	7U2J_EB	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	140.0	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	+1	type1	11
-1447	7U2J_EB	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	140.0	100.0	50	T	5-methyluridine-5'-monophosphate	pm5U	U	52	53	54	T-loop	+1	type1	62
-1447	7U2J_EB	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	140.0	100.0	51	P	pseudouridine-5'-monophosphate	pY	U	53	54	55	T-loop	+1	type1	63
-1448	7U2J_JD	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	144.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	+1	type1	11
-1448	7U2J_JD	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	144.0	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	52	53	54	T-loop	+1	type1	62
-1448	7U2J_JD	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	144.0	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	53	54	55	T-loop	+1	type1	63
-1453	8CVJ_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-1453	8CVJ_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	0	type1	44
-1453	8CVJ_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	0	type1	49
-1453	8CVJ_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	0	type1	51
-1453	8CVJ_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	0	type1	59
-1453	8CVJ_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-1453	8CVJ_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	0	type1	71
-1454	8CVJ_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-1454	8CVJ_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	0	type1	44
-1454	8CVJ_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	0	type1	49
-1454	8CVJ_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	0	type1	51
-1454	8CVJ_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	0	type1	59
-1454	8CVJ_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-1454	8CVJ_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	0	type1	71
-1455	8CVK_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-1455	8CVK_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	0	type1	44
-1455	8CVK_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	0	type1	49
-1455	8CVK_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	0	type1	51
-1455	8CVK_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	0	type1	59
-1455	8CVK_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-1455	8CVK_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	0	type1	71
-1456	8CVK_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-1456	8CVK_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	0	type1	44
-1456	8CVK_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	0	type1	49
-1456	8CVK_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	0	type1	51
-1456	8CVK_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	0	type1	59
-1456	8CVK_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-1456	8CVK_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	0	type1	71
-1457	8CVL_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-1457	8CVL_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	0	type1	44
-1457	8CVL_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	0	type1	49
-1457	8CVL_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	0	type1	51
-1457	8CVL_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	0	type1	59
-1457	8CVL_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-1457	8CVL_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	0	type1	71
-1458	8CVL_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	0	type1	9
-1458	8CVL_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	0	type1	44
-1458	8CVL_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	0	type1	49
-1458	8CVL_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	0	type1	51
-1458	8CVL_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	0	type1	59
-1458	8CVL_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	0	type1	70
-1458	8CVL_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	0	type1	71
+modomics_id	modomics_name	species	trna_type	anticodon	gtRNAdb_trna_id	alignment_score	alignment_identity	modification_position_modomics	modification_char	modification_name	modification_short_name	unmodified_char	position_gtRNAdb	sprinzl_index	sprinzl_label	region	global_index
+2	tdbR00000008	Escherichia coli	Ala	GGC	tRNA-Ala-GGC-1-1	152.0	100.0	17	D	dihydrouridine	D	U	17	17	17	D-loop	29
+2	tdbR00000008	Escherichia coli	Ala	GGC	tRNA-Ala-GGC-1-1	152.0	100.0	46	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	81
+2	tdbR00000008	Escherichia coli	Ala	GGC	tRNA-Ala-GGC-1-1	152.0	100.0	54	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+2	tdbR00000008	Escherichia coli	Ala	GGC	tRNA-Ala-GGC-1-1	152.0	100.0	55	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	90
+4	tdbR00000359	Escherichia coli	Arg	CCG	tRNA-Arg-CCG-1-1	154.0	100.0	17	D	dihydrouridine	D	U	17	17	17	D-loop	29
+4	tdbR00000359	Escherichia coli	Arg	CCG	tRNA-Arg-CCG-1-1	154.0	100.0	21	D	dihydrouridine	D	U	21	21	20a	D-loop	35
+4	tdbR00000359	Escherichia coli	Arg	CCG	tRNA-Arg-CCG-1-1	154.0	100.0	33	ʤ	2-thiocytidine-5'-monophosphate	ps2C	C	33	33	32	anticodon-loop	50
+4	tdbR00000359	Escherichia coli	Arg	CCG	tRNA-Arg-CCG-1-1	154.0	100.0	38	K	1N-methylguanosine-5'-monophosphate	pm1G	G	38	38	37	anticodon-loop	55
+4	tdbR00000359	Escherichia coli	Arg	CCG	tRNA-Arg-CCG-1-1	154.0	100.0	47	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	47	47	46	variable-region	81
+4	tdbR00000359	Escherichia coli	Arg	CCG	tRNA-Arg-CCG-1-1	154.0	100.0	55	T	5-methyluridine-5'-monophosphate	pm5U	U	55	55	54	T-loop	89
+4	tdbR00000359	Escherichia coli	Arg	CCG	tRNA-Arg-CCG-1-1	154.0	100.0	56	P	pseudouridine-5'-monophosphate	pY	U	56	56	55	T-loop	90
+9	tdbR00000020	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	148.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+9	tdbR00000020	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	148.0	100.0	19	D	dihydrouridine	D	U	19	20	21	D-loop	37
+9	tdbR00000020	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	148.0	100.0	20	D	dihydrouridine	D	U	20	-1		unknown	
+9	tdbR00000020	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	148.0	100.0	31	P	pseudouridine-5'-monophosphate	pY	U	31	31	32	anticodon-loop	50
+9	tdbR00000020	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	148.0	100.0	36	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	36	36	37	anticodon-loop	55
+9	tdbR00000020	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	148.0	100.0	38	P	pseudouridine-5'-monophosphate	pY	U	38	38	39	anticodon-stem	57
+9	tdbR00000020	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	148.0	100.0	52	T	5-methyluridine-5'-monophosphate	pm5U	U	52	52	54	T-loop	89
+9	tdbR00000020	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	148.0	100.0	53	P	pseudouridine-5'-monophosphate	pY	U	53	53	55	T-loop	90
+13	tdbR00000117	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	148.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+13	tdbR00000117	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	148.0	100.0	19	D	dihydrouridine	D	U	19	19	20	D-loop	33
+13	tdbR00000117	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	148.0	100.0	52	T	5-methyluridine-5'-monophosphate	pm5U	U	52	53	54	T-loop	89
+13	tdbR00000117	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	148.0	100.0	53	P	pseudouridine-5'-monophosphate	pY	U	53	54	55	T-loop	90
+15	tdbR00000118	Escherichia coli	Gly	GCC	tRNA-Gly-GCC-1-1	152.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+15	tdbR00000118	Escherichia coli	Gly	GCC	tRNA-Gly-GCC-1-1	152.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop	28
+15	tdbR00000118	Escherichia coli	Gly	GCC	tRNA-Gly-GCC-1-1	152.0	100.0	17	D	dihydrouridine	D	U	17	-1		unknown	
+15	tdbR00000118	Escherichia coli	Gly	GCC	tRNA-Gly-GCC-1-1	152.0	100.0	20	D	dihydrouridine	D	U	20	19	20	D-loop	33
+15	tdbR00000118	Escherichia coli	Gly	GCC	tRNA-Gly-GCC-1-1	152.0	100.0	46	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	45	46	variable-region	81
+15	tdbR00000118	Escherichia coli	Gly	GCC	tRNA-Gly-GCC-1-1	152.0	100.0	54	T	5-methyluridine-5'-monophosphate	pm5U	U	54	53	54	T-loop	89
+15	tdbR00000118	Escherichia coli	Gly	GCC	tRNA-Gly-GCC-1-1	152.0	100.0	55	P	pseudouridine-5'-monophosphate	pY	U	55	54	55	T-loop	90
+21	tdbR00000221	Escherichia coli	Leu	CAG	tRNA-Leu-CAG-1-1	174.0	100.0	16	D	dihydrouridine	D	U	16	17	17	D-loop	29
+21	tdbR00000221	Escherichia coli	Leu	CAG	tRNA-Leu-CAG-1-1	174.0	100.0	17	D	dihydrouridine	D	U	17	18	18	D-loop	31
+21	tdbR00000221	Escherichia coli	Leu	CAG	tRNA-Leu-CAG-1-1	174.0	100.0	18	#	O2'-methylguanosine-5'-monophosphate	pGm	G	18	19	19	D-loop	32
+21	tdbR00000221	Escherichia coli	Leu	CAG	tRNA-Leu-CAG-1-1	174.0	100.0	20	D	dihydrouridine	D	U	20	21	20a	D-loop	35
+21	tdbR00000221	Escherichia coli	Leu	CAG	tRNA-Leu-CAG-1-1	174.0	100.0	38	K	1N-methylguanosine-5'-monophosphate	pm1G	G	38	38	37	anticodon-loop	55
+21	tdbR00000221	Escherichia coli	Leu	CAG	tRNA-Leu-CAG-1-1	174.0	100.0	39	P	pseudouridine-5'-monophosphate	pY	U	39	39	38	anticodon-loop	56
+21	tdbR00000221	Escherichia coli	Leu	CAG	tRNA-Leu-CAG-1-1	174.0	100.0	41	P	pseudouridine-5'-monophosphate	pY	U	41	41	40	anticodon-stem	58
+21	tdbR00000221	Escherichia coli	Leu	CAG	tRNA-Leu-CAG-1-1	174.0	100.0	65	T	5-methyluridine-5'-monophosphate	pm5U	U	65	65	54	T-loop	89
+21	tdbR00000221	Escherichia coli	Leu	CAG	tRNA-Leu-CAG-1-1	174.0	100.0	66	P	pseudouridine-5'-monophosphate	pY	U	66	66	55	T-loop	90
+22	tdbR00000222	Escherichia coli	Leu	GAG	tRNA-Leu-GAG-1-1	174.0	100.0	16	D	dihydrouridine	D	U	16	17	17	D-loop	29
+22	tdbR00000222	Escherichia coli	Leu	GAG	tRNA-Leu-GAG-1-1	174.0	100.0	17	D	dihydrouridine	D	U	17	18	18	D-loop	31
+22	tdbR00000222	Escherichia coli	Leu	GAG	tRNA-Leu-GAG-1-1	174.0	100.0	18	#	O2'-methylguanosine-5'-monophosphate	pGm	G	18	19	19	D-loop	32
+22	tdbR00000222	Escherichia coli	Leu	GAG	tRNA-Leu-GAG-1-1	174.0	100.0	20	D	dihydrouridine	D	U	20	21	20a	D-loop	35
+22	tdbR00000222	Escherichia coli	Leu	GAG	tRNA-Leu-GAG-1-1	174.0	100.0	38	K	1N-methylguanosine-5'-monophosphate	pm1G	G	38	38	37	anticodon-loop	55
+22	tdbR00000222	Escherichia coli	Leu	GAG	tRNA-Leu-GAG-1-1	174.0	100.0	39	P	pseudouridine-5'-monophosphate	pY	U	39	39	38	anticodon-loop	56
+22	tdbR00000222	Escherichia coli	Leu	GAG	tRNA-Leu-GAG-1-1	174.0	100.0	65	T	5-methyluridine-5'-monophosphate	pm5U	U	65	65	54	T-loop	89
+22	tdbR00000222	Escherichia coli	Leu	GAG	tRNA-Leu-GAG-1-1	174.0	100.0	66	P	pseudouridine-5'-monophosphate	pY	U	66	66	55	T-loop	90
+28	tdbR00000067	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+28	tdbR00000067	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop	28
+28	tdbR00000067	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	20	D	dihydrouridine	D	U	20	20	20	D-loop	33
+28	tdbR00000067	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	32	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	50
+28	tdbR00000067	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	37	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	55
+28	tdbR00000067	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	39	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	57
+28	tdbR00000067	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	46	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	81
+28	tdbR00000067	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	47	X	3-(3-amino-3-carboxypropyl)uridine-5'-monophosphate	pacp3U	U	47	47	47	variable-arm	82
+28	tdbR00000067	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	54	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+28	tdbR00000067	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	55	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	90
+29	tdbD00008358	Escherichia coli	Pro	CGG	tRNA-Pro-CGG-1-1	154.0	100.0	21	D	dihydrouridine	D	U	21	21	20	D-loop	33
+29	tdbD00008358	Escherichia coli	Pro	CGG	tRNA-Pro-CGG-1-1	154.0	100.0	38	K	1N-methylguanosine-5'-monophosphate	pm1G	G	38	38	37	anticodon-loop	55
+29	tdbD00008358	Escherichia coli	Pro	CGG	tRNA-Pro-CGG-1-1	154.0	100.0	47	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	47	47	46	variable-region	81
+29	tdbD00008358	Escherichia coli	Pro	CGG	tRNA-Pro-CGG-1-1	154.0	100.0	55	T	5-methyluridine-5'-monophosphate	pm5U	U	55	55	54	T-loop	89
+29	tdbD00008358	Escherichia coli	Pro	CGG	tRNA-Pro-CGG-1-1	154.0	100.0	56	P	pseudouridine-5'-monophosphate	pY	U	56	56	55	T-loop	90
+35	tdbR00000390	Escherichia coli	Ser	CGA	tRNA-Ser-CGA-1-1	180.0	100.0	17	#	O2'-methylguanosine-5'-monophosphate	pGm	G	17	17	18	D-loop	31
+35	tdbR00000390	Escherichia coli	Ser	CGA	tRNA-Ser-CGA-1-1	180.0	100.0	20	D	dihydrouridine	D	U	20	20	20a	D-loop	35
+35	tdbR00000390	Escherichia coli	Ser	CGA	tRNA-Ser-CGA-1-1	180.0	100.0	38	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	38	38	37	anticodon-loop	55
+35	tdbR00000390	Escherichia coli	Ser	CGA	tRNA-Ser-CGA-1-1	180.0	100.0	68	T	5-methyluridine-5'-monophosphate	pm5U	U	68	68	54	T-loop	89
+35	tdbR00000390	Escherichia coli	Ser	CGA	tRNA-Ser-CGA-1-1	180.0	100.0	69	P	pseudouridine-5'-monophosphate	pY	U	69	69	55	T-loop	90
+37	tdbR00000393	Escherichia coli	Ser	GGA	tRNA-Ser-GGA-1-1	173.0	98.9	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+37	tdbR00000393	Escherichia coli	Ser	GGA	tRNA-Ser-GGA-1-1	173.0	98.9	17	#	O2'-methylguanosine-5'-monophosphate	pGm	G	17	17	18	D-loop	31
+37	tdbR00000393	Escherichia coli	Ser	GGA	tRNA-Ser-GGA-1-1	173.0	98.9	19	D	dihydrouridine	D	U	19	19	20	D-loop	33
+37	tdbR00000393	Escherichia coli	Ser	GGA	tRNA-Ser-GGA-1-1	173.0	98.9	20	D	dihydrouridine	D	U	20	20	20a	D-loop	35
+37	tdbR00000393	Escherichia coli	Ser	GGA	tRNA-Ser-GGA-1-1	173.0	98.9	41	P	pseudouridine-5'-monophosphate	pY	U	41	41	40	anticodon-stem	58
+37	tdbR00000393	Escherichia coli	Ser	GGA	tRNA-Ser-GGA-1-1	173.0	98.9	66	T	5-methyluridine-5'-monophosphate	pm5U	U	66	68	54	T-loop	89
+37	tdbR00000393	Escherichia coli	Ser	GGA	tRNA-Ser-GGA-1-1	173.0	98.9	67	P	pseudouridine-5'-monophosphate	pY	U	67	69	55	T-loop	90
+42	tdbR00000484	Escherichia coli	Trp	CCA	tRNA-Trp-CCA-1-1	152.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+42	tdbR00000484	Escherichia coli	Trp	CCA	tRNA-Trp-CCA-1-1	152.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop	28
+42	tdbR00000484	Escherichia coli	Trp	CCA	tRNA-Trp-CCA-1-1	152.0	100.0	17	D	dihydrouridine	D	U	17	17	17	D-loop	29
+42	tdbR00000484	Escherichia coli	Trp	CCA	tRNA-Trp-CCA-1-1	152.0	100.0	20	D	dihydrouridine	D	U	20	20	20	D-loop	33
+42	tdbR00000484	Escherichia coli	Trp	CCA	tRNA-Trp-CCA-1-1	152.0	100.0	32	B	O2'-methylcytidine-5'-monophosphate	pCm	C	32	32	32	anticodon-loop	50
+42	tdbR00000484	Escherichia coli	Trp	CCA	tRNA-Trp-CCA-1-1	152.0	100.0	37	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	55
+42	tdbR00000484	Escherichia coli	Trp	CCA	tRNA-Trp-CCA-1-1	152.0	100.0	46	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	81
+42	tdbR00000484	Escherichia coli	Trp	CCA	tRNA-Trp-CCA-1-1	152.0	100.0	54	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+42	tdbR00000484	Escherichia coli	Trp	CCA	tRNA-Trp-CCA-1-1	152.0	100.0	55	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	90
+46	tdbR00000454	Escherichia coli	Val	GAC	tRNA-Val-GAC-1-1	154.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+46	tdbR00000454	Escherichia coli	Val	GAC	tRNA-Val-GAC-1-1	154.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop	28
+46	tdbR00000454	Escherichia coli	Val	GAC	tRNA-Val-GAC-1-1	154.0	100.0	17	D	dihydrouridine	D	U	17	17	17	D-loop	29
+46	tdbR00000454	Escherichia coli	Val	GAC	tRNA-Val-GAC-1-1	154.0	100.0	20	D	dihydrouridine	D	U	20	20	20	D-loop	33
+46	tdbR00000454	Escherichia coli	Val	GAC	tRNA-Val-GAC-1-1	154.0	100.0	21	D	dihydrouridine	D	U	21	-1		unknown	
+46	tdbR00000454	Escherichia coli	Val	GAC	tRNA-Val-GAC-1-1	154.0	100.0	47	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	47	46	46	variable-region	81
+46	tdbR00000454	Escherichia coli	Val	GAC	tRNA-Val-GAC-1-1	154.0	100.0	48	X	3-(3-amino-3-carboxypropyl)uridine-5'-monophosphate	pacp3U	U	48	47	47	variable-arm	82
+46	tdbR00000454	Escherichia coli	Val	GAC	tRNA-Val-GAC-1-1	154.0	100.0	55	T	5-methyluridine-5'-monophosphate	pm5U	U	55	54	54	T-loop	89
+46	tdbR00000454	Escherichia coli	Val	GAC	tRNA-Val-GAC-1-1	154.0	100.0	56	P	pseudouridine-5'-monophosphate	pY	U	56	55	55	T-loop	90
+47	tdbR00000455	Escherichia coli	Val	GAC	tRNA-Val-GAC-2-1	154.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+47	tdbR00000455	Escherichia coli	Val	GAC	tRNA-Val-GAC-2-1	154.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop	28
+47	tdbR00000455	Escherichia coli	Val	GAC	tRNA-Val-GAC-2-1	154.0	100.0	17	D	dihydrouridine	D	U	17	17	17	D-loop	29
+47	tdbR00000455	Escherichia coli	Val	GAC	tRNA-Val-GAC-2-1	154.0	100.0	20	D	dihydrouridine	D	U	20	20	20	D-loop	33
+47	tdbR00000455	Escherichia coli	Val	GAC	tRNA-Val-GAC-2-1	154.0	100.0	21	D	dihydrouridine	D	U	21	-1		unknown	
+47	tdbR00000455	Escherichia coli	Val	GAC	tRNA-Val-GAC-2-1	154.0	100.0	47	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	47	46	46	variable-region	81
+47	tdbR00000455	Escherichia coli	Val	GAC	tRNA-Val-GAC-2-1	154.0	100.0	48	X	3-(3-amino-3-carboxypropyl)uridine-5'-monophosphate	pacp3U	U	48	47	47	variable-arm	82
+47	tdbR00000455	Escherichia coli	Val	GAC	tRNA-Val-GAC-2-1	154.0	100.0	55	T	5-methyluridine-5'-monophosphate	pm5U	U	55	54	54	T-loop	89
+47	tdbR00000455	Escherichia coli	Val	GAC	tRNA-Val-GAC-2-1	154.0	100.0	56	P	pseudouridine-5'-monophosphate	pY	U	56	55	55	T-loop	90
+1144	6Y3G_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	144.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1144	6Y3G_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	144.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop	28
+1144	6Y3G_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	144.0	100.0	20	D	dihydrouridine	D	U	20	20	20	D-loop	33
+1144	6Y3G_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	144.0	100.0	32	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	50
+1144	6Y3G_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	144.0	100.0	39	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	57
+1144	6Y3G_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	144.0	100.0	53	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+1144	6Y3G_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	144.0	100.0	54	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	90
+1145	6Y4B_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1145	6Y4B_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	16	D	dihydrouridine	D	U	16	16	16	D-loop	28
+1145	6Y4B_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	20	D	dihydrouridine	D	U	20	20	20	D-loop	33
+1145	6Y4B_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	32	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	50
+1145	6Y4B_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	39	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	57
+1145	6Y4B_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	54	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+1145	6Y4B_F	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	152.0	100.0	55	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	90
+1262	1B23_A	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	144.0	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1262	1B23_A	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	144.0	100.0	18	D	dihydrouridine	D	U	19	20	21	D-loop	37
+1262	1B23_A	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	144.0	100.0	19	D	dihydrouridine	D	U	20	-1		unknown	
+1262	1B23_A	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	144.0	100.0	30	P	pseudouridine-5'-monophosphate	pY	U	31	31	32	anticodon-loop	50
+1262	1B23_A	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	144.0	100.0	35	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	36	36	37	anticodon-loop	55
+1262	1B23_A	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	144.0	100.0	37	P	pseudouridine-5'-monophosphate	pY	U	38	38	39	anticodon-stem	57
+1262	1B23_A	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	144.0	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	52	52	54	T-loop	89
+1262	1B23_A	Escherichia coli	Cys	GCA	tRNA-Cys-GCA-1-1	144.0	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	53	53	55	T-loop	90
+1326	4WSD_AC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1326	4WSD_AC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	31	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	50
+1326	4WSD_AC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	45	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	81
+1326	4WSD_AC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	53	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+1326	4WSD_AC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	54	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	90
+1385	5WIT_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1385	5WIT_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	50
+1385	5WIT_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	55
+1385	5WIT_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	57
+1385	5WIT_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	81
+1385	5WIT_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+1385	5WIT_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	90
+1386	5WIT_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1386	5WIT_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	50
+1386	5WIT_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	55
+1386	5WIT_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	57
+1386	5WIT_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	81
+1386	5WIT_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+1386	5WIT_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	90
+1416	6QNR_CC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	145.0	98.7	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1416	6QNR_CC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	145.0	98.7	15	D	dihydrouridine	D	U	16	16	16	D-loop	28
+1416	6QNR_CC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	145.0	98.7	31	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	50
+1416	6QNR_CC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	145.0	98.7	36	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	55
+1416	6QNR_CC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	145.0	98.7	38	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	57
+1416	6QNR_CC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	145.0	98.7	45	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	81
+1416	6QNR_CC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	145.0	98.7	46	Ѯ	unknown modification	xX	X	47	47	47	variable-arm	82
+1416	6QNR_CC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	145.0	98.7	53	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+1416	6QNR_CC	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	145.0	98.7	54	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	90
+1419	6XHV_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1419	6XHV_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	50
+1419	6XHV_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	55
+1419	6XHV_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	57
+1419	6XHV_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	81
+1419	6XHV_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+1419	6XHV_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	90
+1420	6XHV_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1420	6XHV_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	50
+1420	6XHV_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	55
+1420	6XHV_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	57
+1420	6XHV_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	81
+1420	6XHV_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+1420	6XHV_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	90
+1421	6XHW_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1421	6XHW_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	50
+1421	6XHW_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	55
+1421	6XHW_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	57
+1421	6XHW_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	81
+1421	6XHW_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+1421	6XHW_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	90
+1422	6XHW_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1422	6XHW_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	50
+1422	6XHW_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	55
+1422	6XHW_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	57
+1422	6XHW_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	81
+1422	6XHW_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+1422	6XHW_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	90
+1425	6XHY_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1425	6XHY_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	50
+1425	6XHY_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	55
+1425	6XHY_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	57
+1425	6XHY_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	81
+1425	6XHY_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+1425	6XHY_DB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	90
+1426	6XHY_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1426	6XHY_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	50
+1426	6XHY_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	55
+1426	6XHY_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	57
+1426	6XHY_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	81
+1426	6XHY_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+1426	6XHY_HD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	90
+1431	7AZO_ZB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	31	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	50
+1431	7AZO_ZB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	36	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	55
+1431	7AZO_ZB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	38	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	57
+1431	7AZO_ZB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	53	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+1432	7AZS_ZB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	31	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	50
+1432	7AZS_ZB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	36	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	55
+1432	7AZS_ZB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	38	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	57
+1432	7AZS_ZB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	148.0	100.0	53	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+1443	7U2H_DB	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	140.0	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1443	7U2H_DB	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	140.0	100.0	50	T	5-methyluridine-5'-monophosphate	pm5U	U	52	53	54	T-loop	89
+1443	7U2H_DB	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	140.0	100.0	51	P	pseudouridine-5'-monophosphate	pY	U	53	54	55	T-loop	90
+1444	7U2H_HD	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	144.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1444	7U2H_HD	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	144.0	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	52	53	54	T-loop	89
+1444	7U2H_HD	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	144.0	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	53	54	55	T-loop	90
+1445	7U2I_DB	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	140.0	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1445	7U2I_DB	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	140.0	100.0	50	T	5-methyluridine-5'-monophosphate	pm5U	U	52	53	54	T-loop	89
+1445	7U2I_DB	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	140.0	100.0	51	P	pseudouridine-5'-monophosphate	pY	U	53	54	55	T-loop	90
+1446	7U2I_HD	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	144.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1446	7U2I_HD	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	144.0	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	52	53	54	T-loop	89
+1446	7U2I_HD	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	144.0	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	53	54	55	T-loop	90
+1447	7U2J_EB	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	140.0	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1447	7U2J_EB	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	140.0	100.0	50	T	5-methyluridine-5'-monophosphate	pm5U	U	52	53	54	T-loop	89
+1447	7U2J_EB	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	140.0	100.0	51	P	pseudouridine-5'-monophosphate	pY	U	53	54	55	T-loop	90
+1448	7U2J_JD	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	144.0	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1448	7U2J_JD	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	144.0	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	52	53	54	T-loop	89
+1448	7U2J_JD	Escherichia coli	Gly	CCC	tRNA-Gly-CCC-1-1	144.0	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	53	54	55	T-loop	90
+1453	8CVJ_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1453	8CVJ_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	50
+1453	8CVJ_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	55
+1453	8CVJ_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	57
+1453	8CVJ_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	81
+1453	8CVJ_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+1453	8CVJ_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	90
+1454	8CVJ_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1454	8CVJ_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	50
+1454	8CVJ_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	55
+1454	8CVJ_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	57
+1454	8CVJ_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	81
+1454	8CVJ_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+1454	8CVJ_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	90
+1455	8CVK_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1455	8CVK_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	50
+1455	8CVK_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	55
+1455	8CVK_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	57
+1455	8CVK_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	81
+1455	8CVK_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+1455	8CVK_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	90
+1456	8CVK_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1456	8CVK_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	50
+1456	8CVK_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	55
+1456	8CVK_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	57
+1456	8CVK_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	81
+1456	8CVK_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+1456	8CVK_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	90
+1457	8CVL_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	7	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1457	8CVL_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	50
+1457	8CVL_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	55
+1457	8CVL_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	57
+1457	8CVL_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	81
+1457	8CVL_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+1457	8CVL_EB	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	90
+1458	8CVL_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	8	4	4-thiouridine-5'-monophosphate	ps4U	U	8	8	8	unknown	13
+1458	8CVL_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	29	P	pseudouridine-5'-monophosphate	pY	U	32	32	32	anticodon-loop	50
+1458	8CVL_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	34	*	2-methylthio-N6-isopentenyladenosine	ms2i6A	A	37	37	37	anticodon-loop	55
+1458	8CVL_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	36	P	pseudouridine-5'-monophosphate	pY	U	39	39	39	anticodon-stem	57
+1458	8CVL_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	43	7	7N-methyl-8-hydroguanosine-5'-monophosphate	pm7G	G	46	46	46	variable-region	81
+1458	8CVL_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	51	T	5-methyluridine-5'-monophosphate	pm5U	U	54	54	54	T-loop	89
+1458	8CVL_JD	Escherichia coli	Phe	GAA	tRNA-Phe-GAA-1-1	141.5	100.0	52	P	pseudouridine-5'-monophosphate	pY	U	55	55	55	T-loop	90

@@ -1,44 +1,44 @@
-modomics_id	modomics_name	species	trna_type	anticodon	gtRNAdb_trna_id	alignment_score	alignment_identity	modification_position_modomics	modification_char	modification_name	modification_short_name	unmodified_char	position_gtRNAdb	sprinzl_index	sprinzl_label	region	offset	structural_type	global_index
-441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	4	B	O2'-methylcytidine-5'-monophosphate	pCm	C	4	4	4	acceptor-stem	+1	type1	5
-441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	6	L	N2-methylguanosine	m2G	G	6	6	6	acceptor-stem	+1	type1	11
-441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	13	P	pseudouridine-5'-monophosphate	pY	U	13	13		D-stem	+1	type1	37
-441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	19	D	dihydrouridine	D	U	19	19	20	D-loop	+1	type1	34
-441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	31	J	O2'-methyluridine 5'-monophosphate	pUm	U	31	31	32	anticodon-loop	+1	type1	50
-441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	38	Z	2'-O-methylpseudouridine-5'-monophosphate	pYm	U	38	38	39	anticodon-stem	+1	type1	57
-441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	47	?	5-methylcytidine-5'-monophosphate	pm5C	C	47	47	49	T-stem	+1	type1	70
-441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	48	?	5-methylcytidine-5'-monophosphate	pm5C	C	48	48	50	T-stem	+1	type1	72
-441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	52	T	5-methyluridine-5'-monophosphate	pm5U	U	52	52	54	T-loop	+1	type1	78
-441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	53	P	pseudouridine-5'-monophosphate	pY	U	53	53	55	T-loop	+1	type1	79
-441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	56	Ѣ	N(1)-methyladenosine 5'-monophosphate	pm1A	A	56	56	58	T-loop	+1	type1	83
-994	None	Homo sapiens	Leu	CAG	nuc-tRNA-Leu-CAG-1-1	160.0	98.8	47	Щ	3-Methylcytidine- 5'-monophosphate	pm3C	C	47	47	e12	variable-arm	-1	type2	56
-995	None	Homo sapiens	Leu	CAG	nuc-tRNA-Leu-CAG-2-1	160.0	98.8	47	Щ	3-Methylcytidine- 5'-monophosphate	pm3C	C	47	47	e12	variable-arm	-1	type2	56
-997	None	Homo sapiens	Leu	CAA	nuc-tRNA-Leu-CAA-1-1	160.0	98.8	34	?	5-methylcytidine-5'-monophosphate	pm5C	C	34	34	33	anticodon-loop	-1	type2	36
-1000	None	Homo sapiens	Ser	AGA	nuc-tRNA-Ser-AGA-1-1	158.0	98.8	32	Щ	3-Methylcytidine- 5'-monophosphate	pm3C	C	32	32	32	anticodon-loop	0	type2	39
-1000	None	Homo sapiens	Ser	AGA	nuc-tRNA-Ser-AGA-1-1	158.0	98.8	47	Щ	3-Methylcytidine- 5'-monophosphate	pm3C	C	47	47	e13	variable-arm	0	type2	60
-1001	None	Homo sapiens	Ser	CGA	nuc-tRNA-Ser-CGA-1-1	158.0	98.8	32	Щ	3-Methylcytidine- 5'-monophosphate	pm3C	C	32	32	32	anticodon-loop	0	type2	39
-1001	None	Homo sapiens	Ser	CGA	nuc-tRNA-Ser-CGA-1-1	158.0	98.8	47	Щ	3-Methylcytidine- 5'-monophosphate	pm3C	C	47	47	e13	variable-arm	0	type2	60
-1008	None	Homo sapiens	Ser	AGA	nuc-tRNA-Ser-AGA-1-1	158.0	98.8	32	Щ	3-Methylcytidine- 5'-monophosphate	pm3C	C	32	32	32	anticodon-loop	0	type2	39
-1008	None	Homo sapiens	Ser	AGA	nuc-tRNA-Ser-AGA-1-1	158.0	98.8	47	Щ	3-Methylcytidine- 5'-monophosphate	pm3C	C	47	47	e13	variable-arm	0	type2	60
-1009	None	Homo sapiens	Ser	CGA	nuc-tRNA-Ser-CGA-1-1	158.0	98.8	32	Щ	3-Methylcytidine- 5'-monophosphate	pm3C	C	32	32	32	anticodon-loop	0	type2	39
-1009	None	Homo sapiens	Ser	CGA	nuc-tRNA-Ser-CGA-1-1	158.0	98.8	47	Щ	3-Methylcytidine- 5'-monophosphate	pm3C	C	47	47	e13	variable-arm	0	type2	60
-1208	LC530713.1	Homo sapiens	Cys	GCA	mito-tRNA-Cys-GCA-1-1	138.0	100.0	9	K	1N-methylguanosine-5'-monophosphate	pm1G	G	9	9	9	unknown			
-1208	LC530713.1	Homo sapiens	Cys	GCA	mito-tRNA-Cys-GCA-1-1	138.0	100.0	22	P	pseudouridine-5'-monophosphate	pY	U	22	22	27	anticodon-stem			
-1208	LC530713.1	Homo sapiens	Cys	GCA	mito-tRNA-Cys-GCA-1-1	138.0	100.0	23	P	pseudouridine-5'-monophosphate	pY	U	23	23	28	anticodon-stem			
-1208	LC530713.1	Homo sapiens	Cys	GCA	mito-tRNA-Cys-GCA-1-1	138.0	100.0	27	P	pseudouridine-5'-monophosphate	pY	U	27	27	32	anticodon-loop			
-1208	LC530713.1	Homo sapiens	Cys	GCA	mito-tRNA-Cys-GCA-1-1	138.0	100.0	32	Ч	N6-isopentenyladenosine	i6A	A	32	32	37	anticodon-loop			
-1208	LC530713.1	Homo sapiens	Cys	GCA	mito-tRNA-Cys-GCA-1-1	138.0	100.0	34	P	pseudouridine-5'-monophosphate	pY	U	34	34	39	anticodon-stem			
-1208	LC530713.1	Homo sapiens	Cys	GCA	mito-tRNA-Cys-GCA-1-1	138.0	100.0	52	Ѣ	N(1)-methyladenosine 5'-monophosphate	pm1A	A	52	53	59	T-loop			
-2137	tdbR00000643	Homo sapiens	Cys	GCA	nuc-tRNA-Cys-GCA-1-1	150.0	100.0	6	Ѵ	unknown modified cytidine	xC	C	6	6	6	acceptor-stem	+1	type1	11
-2137	tdbR00000643	Homo sapiens	Cys	GCA	nuc-tRNA-Cys-GCA-1-1	150.0	100.0	16	N	unknown modified uridine	xU	U	16	16	16	D-loop	+1	type1	30
-2138	tdbR00000644	Homo sapiens	Cys	GCA	nuc-tRNA-Cys-GCA-16-1	150.0	100.0	16	ʆ	unknown modified guanosine	xG	G	16	16	16	D-loop	+1	type1	30
-2138	tdbR00000644	Homo sapiens	Cys	GCA	nuc-tRNA-Cys-GCA-16-1	150.0	100.0	43	H	unknown modified adenosine	xA	A	43	43	44	variable-region	+1	type1	64
-2139	tdbR00000646	Homo sapiens	Cys	GCA	nuc-tRNA-Cys-GCA-6-1	150.0	100.0	6	N	unknown modified uridine	xU	U	6	6	6	acceptor-stem	+1	type1	11
-2139	tdbR00000646	Homo sapiens	Cys	GCA	nuc-tRNA-Cys-GCA-6-1	150.0	100.0	56	H	unknown modified adenosine	xA	A	56	55	57	T-loop	+1	type1	82
-2140	tdbR00000650	Homo sapiens	Cys	GCA	nuc-tRNA-Cys-GCA-10-1	150.0	100.0	42	ʆ	unknown modified guanosine	xG	G	42	42	43	anticodon-stem	+1	type1	63
-2141	tdbR00000652	Homo sapiens	Cys	GCA	nuc-tRNA-Cys-GCA-8-1	150.0	100.0	6	N	unknown modified uridine	xU	U	6	6	6	acceptor-stem	+1	type1	11
-2141	tdbR00000652	Homo sapiens	Cys	GCA	nuc-tRNA-Cys-GCA-8-1	150.0	100.0	57	H	unknown modified adenosine	xA	A	57	57	58	T-loop	+1	type1	83
-2142	tdbR00000660	Homo sapiens	Cys	GCA	nuc-tRNA-Cys-GCA-4-1	150.0	100.0	57	H	unknown modified adenosine	xA	A	57	57	58	T-loop	+1	type1	83
-2148	tdbR00000820	Homo sapiens	Trp	CCA	nuc-tRNA-Trp-CCA-3-1	150.0	100.0	70	N	unknown modified uridine	xU	U	70	70	71	acceptor-stem	+1	type1	102
-2149	tdbR00000822	Homo sapiens	Trp	CCA	nuc-tRNA-Trp-CCA-4-1	150.0	100.0	70	N	unknown modified uridine	xU	U	70	-1		unknown	0	type1	153
-2150	tdbR00000824	Homo sapiens	Trp	CCA	nuc-tRNA-Trp-CCA-2-1	150.0	100.0	57	H	unknown modified adenosine	xA	A	57	57	58	T-loop	+1	type1	83
-2150	tdbR00000824	Homo sapiens	Trp	CCA	nuc-tRNA-Trp-CCA-2-1	150.0	100.0	70	N	unknown modified uridine	xU	U	70	70	71	acceptor-stem	+1	type1	102
+modomics_id	modomics_name	species	trna_type	anticodon	gtRNAdb_trna_id	alignment_score	alignment_identity	modification_position_modomics	modification_char	modification_name	modification_short_name	unmodified_char	position_gtRNAdb	sprinzl_index	sprinzl_label	region	global_index
+441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	4	B	O2'-methylcytidine-5'-monophosphate	pCm	C	4	4	4	acceptor-stem	5
+441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	6	L	N2-methylguanosine	m2G	G	6	6	6	acceptor-stem	9
+441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	13	P	pseudouridine-5'-monophosphate	pY	U	13	13		D-stem	
+441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	19	D	dihydrouridine	D	U	19	19	20	D-loop	26
+441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	31	J	O2'-methyluridine 5'-monophosphate	pUm	U	31	31	32	anticodon-loop	43
+441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	38	Z	2'-O-methylpseudouridine-5'-monophosphate	pYm	U	38	38	39	anticodon-stem	50
+441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	47	?	5-methylcytidine-5'-monophosphate	pm5C	C	47	47	49	T-stem	78
+441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	48	?	5-methylcytidine-5'-monophosphate	pm5C	C	48	48	50	T-stem	79
+441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	52	T	5-methyluridine-5'-monophosphate	pm5U	U	52	52	54	T-loop	91
+441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	53	P	pseudouridine-5'-monophosphate	pY	U	53	53	55	T-loop	92
+441	tdbR00000135	Homo sapiens	Gly	CCC	nuc-tRNA-Gly-CCC-2-1	148.0	100.0	56	Ѣ	N(1)-methyladenosine 5'-monophosphate	pm1A	A	56	56	58	T-loop	95
+994	None	Homo sapiens	Leu	CAG	nuc-tRNA-Leu-CAG-1-1	160.0	98.8	47	Щ	3-Methylcytidine- 5'-monophosphate	pm3C	C	47	47	e12	variable-arm	61
+995	None	Homo sapiens	Leu	CAG	nuc-tRNA-Leu-CAG-2-1	160.0	98.8	47	Щ	3-Methylcytidine- 5'-monophosphate	pm3C	C	47	47	e12	variable-arm	61
+997	None	Homo sapiens	Leu	CAA	nuc-tRNA-Leu-CAA-1-1	160.0	98.8	34	?	5-methylcytidine-5'-monophosphate	pm5C	C	34	34	33	anticodon-loop	44
+1000	None	Homo sapiens	Ser	AGA	nuc-tRNA-Ser-AGA-1-1	158.0	98.8	32	Щ	3-Methylcytidine- 5'-monophosphate	pm3C	C	32	32	32	anticodon-loop	43
+1000	None	Homo sapiens	Ser	AGA	nuc-tRNA-Ser-AGA-1-1	158.0	98.8	47	Щ	3-Methylcytidine- 5'-monophosphate	pm3C	C	47	47	e13	variable-arm	62
+1001	None	Homo sapiens	Ser	CGA	nuc-tRNA-Ser-CGA-1-1	158.0	98.8	32	Щ	3-Methylcytidine- 5'-monophosphate	pm3C	C	32	32	32	anticodon-loop	43
+1001	None	Homo sapiens	Ser	CGA	nuc-tRNA-Ser-CGA-1-1	158.0	98.8	47	Щ	3-Methylcytidine- 5'-monophosphate	pm3C	C	47	47	e13	variable-arm	62
+1008	None	Homo sapiens	Ser	AGA	nuc-tRNA-Ser-AGA-1-1	158.0	98.8	32	Щ	3-Methylcytidine- 5'-monophosphate	pm3C	C	32	32	32	anticodon-loop	43
+1008	None	Homo sapiens	Ser	AGA	nuc-tRNA-Ser-AGA-1-1	158.0	98.8	47	Щ	3-Methylcytidine- 5'-monophosphate	pm3C	C	47	47	e13	variable-arm	62
+1009	None	Homo sapiens	Ser	CGA	nuc-tRNA-Ser-CGA-1-1	158.0	98.8	32	Щ	3-Methylcytidine- 5'-monophosphate	pm3C	C	32	32	32	anticodon-loop	43
+1009	None	Homo sapiens	Ser	CGA	nuc-tRNA-Ser-CGA-1-1	158.0	98.8	47	Щ	3-Methylcytidine- 5'-monophosphate	pm3C	C	47	47	e13	variable-arm	62
+1208	LC530713.1	Homo sapiens	Cys	GCA	mito-tRNA-Cys-GCA-1-1	138.0	100.0	9	K	1N-methylguanosine-5'-monophosphate	pm1G	G	9	9	9	unknown	11
+1208	LC530713.1	Homo sapiens	Cys	GCA	mito-tRNA-Cys-GCA-1-1	138.0	100.0	22	P	pseudouridine-5'-monophosphate	pY	U	22	22	27	anticodon-stem	39
+1208	LC530713.1	Homo sapiens	Cys	GCA	mito-tRNA-Cys-GCA-1-1	138.0	100.0	23	P	pseudouridine-5'-monophosphate	pY	U	23	23	28	anticodon-stem	40
+1208	LC530713.1	Homo sapiens	Cys	GCA	mito-tRNA-Cys-GCA-1-1	138.0	100.0	27	P	pseudouridine-5'-monophosphate	pY	U	27	27	32	anticodon-loop	46
+1208	LC530713.1	Homo sapiens	Cys	GCA	mito-tRNA-Cys-GCA-1-1	138.0	100.0	32	Ч	N6-isopentenyladenosine	i6A	A	32	32	37	anticodon-loop	51
+1208	LC530713.1	Homo sapiens	Cys	GCA	mito-tRNA-Cys-GCA-1-1	138.0	100.0	34	P	pseudouridine-5'-monophosphate	pY	U	34	34	39	anticodon-stem	55
+1208	LC530713.1	Homo sapiens	Cys	GCA	mito-tRNA-Cys-GCA-1-1	138.0	100.0	52	Ѣ	N(1)-methyladenosine 5'-monophosphate	pm1A	A	52	53	59	T-loop	83
+2137	tdbR00000643	Homo sapiens	Cys	GCA	nuc-tRNA-Cys-GCA-1-1	150.0	100.0	6	Ѵ	unknown modified cytidine	xC	C	6	6	6	acceptor-stem	9
+2137	tdbR00000643	Homo sapiens	Cys	GCA	nuc-tRNA-Cys-GCA-1-1	150.0	100.0	16	N	unknown modified uridine	xU	U	16	16	16	D-loop	21
+2138	tdbR00000644	Homo sapiens	Cys	GCA	nuc-tRNA-Cys-GCA-16-1	150.0	100.0	16	ʆ	unknown modified guanosine	xG	G	16	16	16	D-loop	21
+2138	tdbR00000644	Homo sapiens	Cys	GCA	nuc-tRNA-Cys-GCA-16-1	150.0	100.0	43	H	unknown modified adenosine	xA	A	43	43	44	variable-region	57
+2139	tdbR00000646	Homo sapiens	Cys	GCA	nuc-tRNA-Cys-GCA-6-1	150.0	100.0	6	N	unknown modified uridine	xU	U	6	6	6	acceptor-stem	9
+2139	tdbR00000646	Homo sapiens	Cys	GCA	nuc-tRNA-Cys-GCA-6-1	150.0	100.0	56	H	unknown modified adenosine	xA	A	56	55	57	T-loop	94
+2140	tdbR00000650	Homo sapiens	Cys	GCA	nuc-tRNA-Cys-GCA-10-1	150.0	100.0	42	ʆ	unknown modified guanosine	xG	G	42	42	43	anticodon-stem	56
+2141	tdbR00000652	Homo sapiens	Cys	GCA	nuc-tRNA-Cys-GCA-8-1	150.0	100.0	6	N	unknown modified uridine	xU	U	6	6	6	acceptor-stem	9
+2141	tdbR00000652	Homo sapiens	Cys	GCA	nuc-tRNA-Cys-GCA-8-1	150.0	100.0	57	H	unknown modified adenosine	xA	A	57	57	58	T-loop	95
+2142	tdbR00000660	Homo sapiens	Cys	GCA	nuc-tRNA-Cys-GCA-4-1	150.0	100.0	57	H	unknown modified adenosine	xA	A	57	57	58	T-loop	95
+2148	tdbR00000820	Homo sapiens	Trp	CCA	nuc-tRNA-Trp-CCA-3-1	150.0	100.0	70	N	unknown modified uridine	xU	U	70	70	71	acceptor-stem	117
+2149	tdbR00000822	Homo sapiens	Trp	CCA	nuc-tRNA-Trp-CCA-4-1	150.0	100.0	70	N	unknown modified uridine	xU	U	70	-1		unknown	
+2150	tdbR00000824	Homo sapiens	Trp	CCA	nuc-tRNA-Trp-CCA-2-1	150.0	100.0	57	H	unknown modified adenosine	xA	A	57	57	58	T-loop	95
+2150	tdbR00000824	Homo sapiens	Trp	CCA	nuc-tRNA-Trp-CCA-2-1	150.0	100.0	70	N	unknown modified uridine	xU	U	70	70	71	acceptor-stem	117
